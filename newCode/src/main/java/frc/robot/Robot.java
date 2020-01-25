@@ -10,6 +10,7 @@ package frc.robot;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.CAN;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -28,9 +29,12 @@ public class Robot extends TimedRobot {
   CANSparkMax fr = new CANSparkMax(13, MotorType.kBrushless);
   CANSparkMax fl = new CANSparkMax(11, MotorType.kBrushless);
   CANSparkMax bl = new CANSparkMax(10, MotorType.kBrushless);
- 
-  DifferentialDrive driveControl;
+  CANSparkMax centerIntakeFront=new CANSparkMax(17, MotorType.kBrushless);
+  CANSparkMax centerIntakeBack=new CANSparkMax(16, MotorType.kBrushless);
+  CANSparkMax verticalLoader=new CANSparkMax(18, MotorType.kBrushless);
+  
 
+  DifferentialDrive driveControl;
   Joystick leftJoystick = new Joystick(0);
   Joystick rightJoystick = new Joystick(1);
   /**
@@ -39,6 +43,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    
+    centerIntakeFront.clearFaults();
+
     driveControl = new DifferentialDrive(fl, fr);
   }
 
@@ -56,9 +63,11 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    driveControl.arcadeDrive(rightJoystick.getX(), leftJoystick.getZ());
+    //program deadband
+    driveControl.arcadeDrive(rightJoystick.getY(), leftJoystick.getX());
     br.set(fr.get());
     bl.set(fl.get());
+    centerIntakeFront.set(-1);
   }
 
   @Override
