@@ -7,7 +7,13 @@
 
 package frc.robot;
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -17,12 +23,23 @@ import edu.wpi.first.wpilibj.TimedRobot;
  * project.
  */
 public class Robot extends TimedRobot {
+  
+  CANSparkMax br = new CANSparkMax(12, MotorType.kBrushless);
+  CANSparkMax fr = new CANSparkMax(13, MotorType.kBrushless);
+  CANSparkMax fl = new CANSparkMax(11, MotorType.kBrushless);
+  CANSparkMax bl = new CANSparkMax(10, MotorType.kBrushless);
+ 
+  DifferentialDrive driveControl;
+
+  Joystick leftJoystick = new Joystick(0);
+  Joystick rightJoystick = new Joystick(1);
   /**
    * This function is run when the robot is first started up and should be used
    * for any initialization code.
    */
   @Override
   public void robotInit() {
+    driveControl = new DifferentialDrive(fl, fr);
   }
 
   @Override
@@ -39,6 +56,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
+    driveControl.arcadeDrive(rightJoystick.getX(), leftJoystick.getZ());
+    br.set(fr.get());
+    bl.set(fl.get());
   }
 
   @Override
