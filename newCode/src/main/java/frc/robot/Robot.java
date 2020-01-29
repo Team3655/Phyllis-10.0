@@ -56,9 +56,19 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    driveControl.arcadeDrive(rightJoystick.getX(), leftJoystick.getZ());
+    double driveX=rightJoystick.getX();
+    double driveZ=leftJoystick.getZ();
+    if (driveX<.1 && driveX>-.1){
+      driveX=0;
+    }
+      if (driveZ<.1 && driveZ>-.1){
+        driveZ=0;
+    }
+
+    driveControl.arcadeDrive(driveX, driveZ);
     br.set(fr.get());
     bl.set(fl.get());
+    
   }
 
   @Override
