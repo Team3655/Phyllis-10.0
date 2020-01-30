@@ -15,6 +15,9 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import frc.robot.buttons.JLSBAdapter;
+import frc.robot.buttons.TSBAdapter;
+import frc.robot.event.EventHandler;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -25,25 +28,37 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
  */
 public class Robot extends TimedRobot {
   
+  private static Robot instance;
+
   CANSparkMax br = new CANSparkMax(12, MotorType.kBrushless);
   CANSparkMax fr = new CANSparkMax(13, MotorType.kBrushless);
   CANSparkMax fl = new CANSparkMax(11, MotorType.kBrushless);
   CANSparkMax bl = new CANSparkMax(10, MotorType.kBrushless);
-  CANSparkMax centerIntakeFront=new CANSparkMax(17, MotorType.kBrushless);
-  CANSparkMax centerIntakeBack=new CANSparkMax(16, MotorType.kBrushless);
-  CANSparkMax verticalLoader=new CANSparkMax(18, MotorType.kBrushless);
-  
+  public CANSparkMax centerIntakeFront=new CANSparkMax(17, MotorType.kBrushless);
+  public CANSparkMax centerIntakeBack=new CANSparkMax(16, MotorType.kBrushless);
+  public CANSparkMax verticalLoader=new CANSparkMax(18, MotorType.kBrushless);
+  public CANSparkMax outerIntakeBack = new CANSparkMax(14,MotorType.kBrushless);
+  public CANSparkMax outerIntakeFront = new CANSparkMax(15,MotorType.kBrushless);
+  public CANSparkMax meteringWheel = new CANSparkMax(19,MotorType.kBrushless);
+  public CANSparkMax = new CANSparkMax(20,MotorType.kBrushless);
 
   DifferentialDrive driveControl;
   Joystick leftJoystick = new Joystick(0);
   Joystick rightJoystick = new Joystick(1);
+  Joystick tractorJoystick = new Joystick(2);
+  JLSBAdapter leftJoystickAdapter = new JLSBAdapter(leftJoystick, this);
+  JLSBAdapter rightJoystickAdapter = new JLSBAdapter(rightJoystick, this)
+  TSBAdapter tractorAdapter = new TSBAdapter(tractorJoystick, this);
+
+  public static EventHandler eHandler=new EventHandler();
+  
   /**
    * This function is run when the robot is first started up and should be used
    * for any initialization code.
    */
   @Override
   public void robotInit() {
-    
+    instance=this;
     centerIntakeFront.clearFaults();
 
     driveControl = new DifferentialDrive(fl, fr);
@@ -63,6 +78,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
+    tractorAdapter.update();
+    leftJoystickAdapter.update();
+    rightJoystickAdapter.update();
     double driveX=rightJoystick.getY();
     double driveZ=leftJoystick.getX();
     if (driveX<.1 && driveX>-.1){
@@ -85,4 +103,7 @@ public class Robot extends TimedRobot {
   public void testPeriodic() {
   }
 
+  public static Robot getInstance(){
+    return instance;
+  }
 }
