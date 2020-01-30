@@ -40,7 +40,13 @@ public class Robot extends TimedRobot {
   public CANSparkMax outerIntakeBack = new CANSparkMax(14,MotorType.kBrushless);
   public CANSparkMax outerIntakeFront = new CANSparkMax(15,MotorType.kBrushless);
   public CANSparkMax meteringWheel = new CANSparkMax(19,MotorType.kBrushless);
-  public CANSparkMax = new CANSparkMax(20,MotorType.kBrushless);
+  public CANSparkMax leftShooterWheel = new CANSparkMax(20,MotorType.kBrushless);
+  public CANSparkMax rightShooterWheel = new CANSparkMax(21,MotorType.kBrushless);
+  public CANSparkMax turret = new CANSparkMax(22,MotorType.kBrushless);
+  public CANSparkMax shooterElevator = new CANSparkMax(23,MotorType.kBrushless);
+  public CANSparkMax climb1 = new CANSparkMax(24,MotorType.kBrushless);
+  public CANSparkMax climb2 = new CANSparkMax(25,MotorType.kBrushless);
+
 
   DifferentialDrive driveControl;
   Joystick leftJoystick = new Joystick(0);
