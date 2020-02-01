@@ -16,13 +16,18 @@ public class JRSBAdapter extends ButtonHandler{
     
     public void buttonPressed(int no){
         switch (no){
-            
-            
+            case 1:
+            robot.leftShooterWheel.set(-.5);
+            robot.rightShooterWheel.set(-.5);
+            break;
         }  
     }
     public void buttonReleased(int no){
         switch (no){
-            
+            case 1:
+            robot.leftShooterWheel.set(0);
+            robot.rightShooterWheel.set(0);
+            break;
         }
     }
     public void buttonDown(int no){}

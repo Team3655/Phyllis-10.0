@@ -39,11 +39,91 @@ public class TSBAdapter extends ButtonHandler{
     public void buttonPressed(int no){
         if (mode==Mode.RobotResponse&&robot.isEnabled()){
             switch (no){
+                case 1:
+                robot.turret.set(.5);
+                break;
+                case 2:
+                robot.turret.set(-.5);
+                break; 
+                case 3:
+                robot.meteringWheel.set(.5);
+                break;
                 case 4:
+                robot.verticalLoader.set(.5);
+                break;
+                case 5:
+                robot.climb1.set(.5);
+                break;
+                case 6:
+                
+                break;
+                case 7:
 
                 break;
+                case 8:
+                robot.outerIntakeFront.set(.5);
+                robot.outerIntakeBack.set(-.5);
+                break;
                 case 9:
-                    robot.centerIntakeFront().set(.5);
+                robot.centerIntakeFront.set(-.5);
+                robot.centerIntakeBack.set(.5);
+                break; 
+                case 10:
+                robot.climb2.set(.5);
+                break;
+                case 11:
+
+                break;
+                case 12:
+
+                break;
+                case 13:
+
+                break;
+                case 14:
+
+                break;
+                case 15:
+
+                break;
+                case 16:
+
+                break;
+                case 17:
+
+                break;
+                case 18:
+
+                break; 
+                case 19:
+
+                break;
+                case 20:
+
+                break;
+                case 21:
+
+                break;
+                case 22:
+
+                break;
+                case 23:
+
+                break;
+                case 24:
+
+                break;
+                case 25:
+
+                break;
+                case 26:
+
+                break;
+                case 27:
+
+                break;
+                case 28:
+                
                 break;
 
             }
@@ -209,6 +289,93 @@ public class TSBAdapter extends ButtonHandler{
     public void buttonReleased(int no){
         if (mode==Mode.RobotResponse){
             switch (no){
+                case 1:
+                robot.turret.set(0);
+                break;
+                case 2:
+                robot.turret.set(0);
+                break; 
+                case 3:
+                robot.meteringWheel.set(0);
+                break;
+                case 4:
+                robot.verticalLoader.set(0);
+                break;
+                case 5:
+                robot.climb1.set(0);
+                break;
+                case 6:
+                
+                break;
+                case 7:
+
+                break;
+                case 8:
+                robot.outerIntakeFront.set(0);
+                robot.outerIntakeBack.set(0);
+                break;
+                case 9:
+                robot.centerIntakeFront.set(0);
+                robot.centerIntakeBack.set(0);
+                break; 
+                case 10:
+                robot.climb2.set(0);
+                break;
+                case 11:
+
+                break;
+                case 12:
+    
+                break;
+                case 13:
+
+                break;
+                case 14:
+
+                break;
+                case 15:
+
+                break;
+                case 16:
+
+                break;
+                case 17:
+
+                break;
+                case 18:
+
+                break; 
+                case 19:
+
+                break;
+                case 20:
+
+                break;
+                case 21:
+
+                break;
+                case 22:
+
+                break;
+                case 23:
+
+                break;
+                case 24:
+
+                break;
+                case 25:
+
+                break;
+                case 26:
+
+                break;
+                case 27:
+
+                break;
+                case 28:
+                
+                break;
+
                 
             }
         }
