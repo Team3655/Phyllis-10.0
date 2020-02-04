@@ -10,6 +10,8 @@ package frc.robot;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.CAN;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Talon;
@@ -29,6 +31,8 @@ import frc.robot.event.EventHandler;
 public class Robot extends TimedRobot {
   
   private static Robot instance;
+  Limelight limelight=new Limelight();
+
 
   CANSparkMax br = new CANSparkMax(12, MotorType.kBrushless);
   CANSparkMax fr = new CANSparkMax(13, MotorType.kBrushless);
@@ -46,6 +50,8 @@ public class Robot extends TimedRobot {
   public CANSparkMax shooterElevator = new CANSparkMax(23,MotorType.kBrushless);
   public CANSparkMax climb1 = new CANSparkMax(24,MotorType.kBrushless);
   public CANSparkMax climb2 = new CANSparkMax(25,MotorType.kBrushless);
+
+  
 
 
   DifferentialDrive driveControl;
