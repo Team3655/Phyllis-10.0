@@ -29,7 +29,8 @@ public class EventHandler extends Thread{
                     queuedEvents.remove(e);
                 }
             }
-            for (EventSequence e:activeSequences){                    e.triggerNext();
+            for (EventSequence e:activeSequences){  
+                e.triggerNext();
                 if (e.sequenceComplete){
                     activeSequences.remove(e);
                 }

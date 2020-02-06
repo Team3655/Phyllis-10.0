@@ -59,7 +59,7 @@ public class Robot extends TimedRobot {
   Joystick rightJoystick = new Joystick(1);
   Joystick tractorJoystick = new Joystick(2);
   JLSBAdapter leftJoystickAdapter = new JLSBAdapter(leftJoystick, this);
-  JLSBAdapter rightJoystickAdapter = new JLSBAdapter(rightJoystick, this)
+  JLSBAdapter rightJoystickAdapter = new JLSBAdapter(rightJoystick, this);
   TSBAdapter tractorAdapter = new TSBAdapter(tractorJoystick, this);
 
   public static EventHandler eHandler=new EventHandler();

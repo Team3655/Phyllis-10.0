@@ -9,6 +9,7 @@ public class Limelight {
     private NetworkTableEntry x = limelight.getEntry("tx");
     private NetworkTableEntry y = limelight.getEntry("ty");
     private NetworkTableEntry a = limelight.getEntry("ta");
+    private NetworkTableEntry v = limelight.getEntry("tv");
 
 
     public Limelight(){
@@ -24,4 +25,8 @@ public class Limelight {
     public double getArea(){
         return a.getDouble(0);
     }
+    public boolean hasTarget(){
+        return v.getDouble(0)==1;
+    }
+
 }
