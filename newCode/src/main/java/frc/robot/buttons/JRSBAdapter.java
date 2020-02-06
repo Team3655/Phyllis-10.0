@@ -20,6 +20,10 @@ public class JRSBAdapter extends ButtonHandler{
                 robot.leftShooterWheel.set(-.5);
                 robot.rightShooterWheel.set(-.5);
             break;
+            case 2:
+                robot.outerIntakeFront.set(-.5);
+                robot.outerIntakeBack.set(.5);
+            break;
         }  
     }
     public void buttonReleased(int no){
@@ -27,6 +31,10 @@ public class JRSBAdapter extends ButtonHandler{
             case 1:
                 robot.leftShooterWheel.set(0);
                 robot.rightShooterWheel.set(0);
+            break;
+            case 2:
+                robot.outerIntakeFront.set(0);
+                robot.outerIntakeBack.set(0);
             break;
         }
     }
