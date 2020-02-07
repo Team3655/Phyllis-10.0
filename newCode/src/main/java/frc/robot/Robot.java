@@ -51,101 +51,54 @@ public class Robot extends TimedRobot {
   private CANSparkMax climb1 = new CANSparkMax(24,MotorType.kBrushless);
   private CANSparkMax climb2 = new CANSparkMax(25,MotorType.kBrushless);
 
-  public void setCenterIntakeFront(double speed) {
-    centerIntakeFront.set(speed);
-  }
-
-  public double getCenterIntakeFront() {
-    return centerIntakeFront.get();
+  public CANSparkMax centerIntakeFront(){
+    return  centerIntakeFront; 
   }
   
-  public void setCenterIntakeBack(double speed) {
-    centerIntakeBack.set(speed);
+  public CANSparkMax centerIntakeBack(){
+    return  centerIntakeBack; 
   }
 
-  public double getCenterIntakeBack() {
-    return centerIntakeBack.get();
+  public CANSparkMax verticalLoader(){
+    return verticalLoader; 
   }
 
-  public void setVerticalLoader(double speed) {
-    verticalLoader.set(speed);
+  public CANSparkMax  outerIntakeBack(){
+    return outerIntakeBack; 
   }
 
-  public double getVerticalLoader() {
-    return verticalLoader.get();
+  public CANSparkMax outerIntakeFront(){
+    return outerIntakeFront; 
   }
 
-  public void setOuterIntakeBack(double speed) {
-    outerIntakeBack.set(speed);
+  public CANSparkMax meteringWheel(){
+    return meteringWheel; 
   }
 
-  public double getOuterIntakeBack() {
-    return outerIntakeBack.get();
+  public CANSparkMax leftShooterWheel(){
+    return leftShooterWheel; 
   }
 
-  public void setOuterIntakeFront(double speed) {
-    outerIntakeFront.set(speed);
+  public CANSparkMax rightShooterWheel(){
+    return rightShooterWheel; 
   }
 
-  public double getOuterIntakeFront() {
-    return outerIntakeFront.get();
+  public CANSparkMax turret(){
+    return turret; 
   }
 
-  public void setMeteringWheel(double speed) {
-    meteringWheel.set(speed);
+  public CANSparkMax shooterElevator(){
+    return shooterElevator; 
   }
 
-  public double getMeteringWheel() {
-    return meteringWheel.get();
+  public CANSparkMax climb1(){
+    return climb1; 
   }
 
-  public void setLeftShooterWheel(double speed) {
-    leftShooterWheel.set(speed);
+  public CANSparkMax climb2(){
+    return  climb2; 
   }
-
-  public double getLeftShooterWheel() {
-    return leftShooterWheel.get();
-  }
-
-  public void setRightShooterWheel(double speed) {
-    rightShooterWheel.set(speed);
-  }
-
-  public double getRightShooterWheel() {
-    return rightShooterWheel.get();
-  }
-
-  public void setTurret(double speed) {
-    turret.set(speed);
-  }
-
-  public double getTurret() {
-    return turret.get();
-  }
-
-  public void setShooterElevator(double speed) {
-    shooterElevator.set(speed);
-  }
-
-  public double getShooterElevator() {
-    return shooterElevator.get();
-  }
-
-  public void setClimb1(double speed) {
-    climb1.set(speed);
-  }
-
-  public double getClimb1() {
-    return climb1.get();
-  }
-
-  public void setClimb2(double speed) {
-    climb2.set(speed);
-  }
-
-  public double getClimb2() {
-    return climb2.get();
-  }
+ 
 
   DifferentialDrive driveControl;
   Joystick leftJoystick = new Joystick(0);
