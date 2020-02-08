@@ -40,19 +40,19 @@ public class TSBAdapter extends ButtonHandler{
         if (mode==Mode.RobotResponse&&robot.isEnabled()){
             switch (no){
                 case 1:
-                robot.turret.set(.5);
+                robot.turret().set(.5);
                 break;
                 case 2:
-                robot.turret.set(-.5);
+                robot.turret().set(-.5);
                 break; 
                 case 3:
-                robot.meteringWheel.set(.5);
+                robot.meteringWheel().set(.5);
                 break;
                 case 4:
-                robot.verticalLoader.set(.5);
+                robot.verticalLoader().set(.5);
                 break;
                 case 5:
-                robot.climb1.set(.5);
+                robot.climb1().set(.5);
                 break;
                 case 6:
                 
@@ -61,15 +61,15 @@ public class TSBAdapter extends ButtonHandler{
 
                 break;
                 case 8:
-                robot.outerIntakeFront.set(.5);
-                robot.outerIntakeBack.set(-.5);
+                robot.outerIntakeFront().set(.5);
+                robot.outerIntakeBack().set(-.5);
                 break;
                 case 9:
-                robot.centerIntakeFront.set(-.5);
-                robot.centerIntakeBack.set(.5);
+                robot.centerIntakeFront().set(-.5);
+                robot.centerIntakeBack().set(.5);
                 break; 
                 case 10:
-                robot.climb2.set(.5);
+                robot.climb2().set(.5);
                 break;
                 case 11:
 
@@ -290,19 +290,19 @@ public class TSBAdapter extends ButtonHandler{
         if (mode==Mode.RobotResponse){
             switch (no){
                 case 1:
-                robot.turret.set(0);
+                robot.turret().set(0);
                 break;
                 case 2:
-                robot.turret.set(0);
+                robot.turret().set(0);
                 break; 
                 case 3:
-                robot.meteringWheel.set(0);
+                robot.meteringWheel().set(0);
                 break;
                 case 4:
-                robot.verticalLoader.set(0);
+                robot.verticalLoader().set(0);
                 break;
                 case 5:
-                robot.climb1.set(0);
+                robot.climb1().set(0);
                 break;
                 case 6:
                 
@@ -311,15 +311,15 @@ public class TSBAdapter extends ButtonHandler{
 
                 break;
                 case 8:
-                robot.outerIntakeFront.set(0);
-                robot.outerIntakeBack.set(0);
+                robot.outerIntakeFront().set(0);
+                robot.outerIntakeBack().set(0);
                 break;
                 case 9:
-                robot.centerIntakeFront.set(0);
-                robot.centerIntakeBack.set(0);
+                robot.centerIntakeFront().set(0);
+                robot.centerIntakeBack().set(0);
                 break; 
                 case 10:
-                robot.climb2.set(0);
+                robot.climb2().set(0);
                 break;
                 case 11:
 
