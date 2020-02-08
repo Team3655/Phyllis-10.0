@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import frc.robot.buttons.ButtonHandler;
 import frc.robot.buttons.JLSBAdapter;
 import frc.robot.buttons.TSBAdapter;
 import frc.robot.event.EventHandler;
@@ -108,6 +109,18 @@ public class Robot extends TimedRobot {
   JLSBAdapter rightJoystickAdapter = new JLSBAdapter(rightJoystick, this);
   TSBAdapter tractorAdapter = new TSBAdapter(tractorJoystick, this);
 
+  public DifferentialDrive driveControl(){
+    return driveControl;
+  }
+
+  public Joystick leftJoystick(){
+    return leftJoystick;
+  }
+
+  public Joystick rightJoystick(){
+    return rightJoystick;
+  }
+
   public static EventHandler eHandler=new EventHandler();
   
   /**
@@ -148,6 +161,7 @@ public class Robot extends TimedRobot {
         driveZ=0;
     }
 
+    
     driveControl.arcadeDrive(driveX, driveZ);
     br.set(fr.get());
     bl.set(fl.get());
