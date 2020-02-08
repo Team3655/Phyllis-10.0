@@ -21,6 +21,7 @@ import frc.robot.buttons.ButtonHandler;
 import frc.robot.buttons.JLSBAdapter;
 import frc.robot.buttons.TSBAdapter;
 import frc.robot.event.EventHandler;
+import frc.robot.event.customevents.LimelightEvent;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -32,7 +33,7 @@ import frc.robot.event.EventHandler;
 public class Robot extends TimedRobot {
   
   private static Robot instance;
-  Limelight limelight=new Limelight();
+  private Limelight limelight=new Limelight();
 
 
   private CANSparkMax br = new CANSparkMax(12, MotorType.kBrushless);
@@ -135,8 +136,13 @@ public class Robot extends TimedRobot {
     driveControl = new DifferentialDrive(fl, fr);
   }
 
+  public Limelight getLimelight(){
+    return limelight;
+  }
+
   @Override
   public void autonomousInit() {
+
   }
 
   @Override
@@ -145,6 +151,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    eHandler.triggerEvent(new LimelightEvent());
   }
 
   @Override
