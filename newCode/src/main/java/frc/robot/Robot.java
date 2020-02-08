@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.buttons.ButtonHandler;
 import frc.robot.buttons.JLSBAdapter;
+import frc.robot.buttons.JRSBAdapter;
 import frc.robot.buttons.TSBAdapter;
 import frc.robot.event.EventHandler;
 import frc.robot.event.customevents.LimelightEvent;
@@ -107,7 +108,7 @@ public class Robot extends TimedRobot {
   Joystick rightJoystick = new Joystick(1);
   Joystick tractorJoystick = new Joystick(2);
   JLSBAdapter leftJoystickAdapter = new JLSBAdapter(leftJoystick, this);
-  JLSBAdapter rightJoystickAdapter = new JLSBAdapter(rightJoystick, this);
+  JRSBAdapter rightJoystickAdapter = new JRSBAdapter(rightJoystick, this);
   TSBAdapter tractorAdapter = new TSBAdapter(tractorJoystick, this);
 
   public DifferentialDrive driveControl(){
@@ -168,11 +169,14 @@ public class Robot extends TimedRobot {
         driveZ=0;
     }
 
-    
+    if (rightJoystickAdapter.isArcade()){
     driveControl.arcadeDrive(driveX, driveZ);
     br.set(fr.get());
     bl.set(fl.get());
-  }
+    }else if(rightJoystickAdapter.isTank()){
+     //TODO big chungus
+    }
+}
 
   @Override
   public void testInit() {
