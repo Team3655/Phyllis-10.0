@@ -5,6 +5,8 @@ import frc.robot.event.Event;
 
 public class LimelightEvent extends Event {
     private final double P = .01;
+    private boolean enabled;
+    private boolean terminated;
 
     public LimelightEvent(){
         super();
@@ -12,14 +14,24 @@ public class LimelightEvent extends Event {
 
     @Override
     public void task(){
-        //error will equal the angle of x the limelight returns
-        //set motor speed as P times error
-        Robot.getInstance().centerIntakeBack().set(P*Robot.getInstance().getLimelight().getX());
-        //Robot.getInstance().turret().set(P*Robot.getInstance().getLimelight().getX());
+        if (enabled){
+            //error will equal the angle of x the limelight returns
+            //set motor speed as P times error
+            Robot.getInstance().turret().set(P*Robot.getInstance().getLimelight().getX());
+            //Robot.getInstance().turret().set(P*Robot.getInstance().getLimelight().getX());
+        }
     }
 
     @Override
     public boolean eventCompleteCondition(){
-        return Robot.getInstance().isEnabled();
+        return false;//Robot.getInstance().isEnabled();//should run until robot is turned off
+    }
+
+    public void enable(){
+        enabled=true;
+    }
+
+    public void disable(){
+        enabled=false;
     }
 }
