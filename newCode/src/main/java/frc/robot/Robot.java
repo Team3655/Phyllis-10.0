@@ -43,13 +43,13 @@ public class Robot extends TimedRobot {
   private CANSparkMax bl = new CANSparkMax(10, MotorType.kBrushless);
   private CANSparkMax centerIntakeFront=null;//new CANSparkMax(/*17*/50, MotorType.kBrushless);
   private CANSparkMax centerIntakeBack=new CANSparkMax(16, MotorType.kBrushless);
-  private CANSparkMax verticalLoader=new CANSparkMax(18, MotorType.kBrushless);
+  private CANSparkMax verticalLoader=null;//new CANSparkMax(18, MotorType.kBrushless);
   private CANSparkMax outerIntakeBack = new CANSparkMax(14,MotorType.kBrushless);
   private CANSparkMax outerIntakeFront = new CANSparkMax(15,MotorType.kBrushless);
   private CANSparkMax meteringWheel = new CANSparkMax(19,MotorType.kBrushless);
   private CANSparkMax leftShooterWheel = null;//new CANSparkMax(20,MotorType.kBrushless);
   private CANSparkMax rightShooterWheel =null;// new CANSparkMax(21,MotorType.kBrushless);
-  private CANSparkMax turret = new CANSparkMax(/*22*/17,MotorType.kBrushless);//17 for testing
+  private CANSparkMax turret = new CANSparkMax(/*22*/18,MotorType.kBrushless);//17 for testing
   private CANSparkMax shooterElevator =null;// new CANSparkMax(23,MotorType.kBrushless);
   private CANSparkMax climb1 =null;// new CANSparkMax(24,MotorType.kBrushless);
   private CANSparkMax climb2 =null;// new CANSparkMax(25,MotorType.kBrushless);
@@ -95,7 +95,7 @@ public class Robot extends TimedRobot {
   }
 
   public CANSparkMax climb1(){
-    return climb1; 
+    return climb1;
   }
 
   public CANSparkMax climb2(){
@@ -132,7 +132,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     instance=this;
-    centerIntakeFront.clearFaults();
+    //centerIntakeFront.clearFaults();
 
     driveControl = new DifferentialDrive(fl, fr);
   }
