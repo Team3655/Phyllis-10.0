@@ -160,21 +160,22 @@ public class Robot extends TimedRobot {
     tractorAdapter.update();
     leftJoystickAdapter.update();
     rightJoystickAdapter.update();
-    double driveX=rightJoystick.getY();
-    double driveZ=leftJoystick.getX();
-    if (driveX<.1 && driveX>-.1){
-      driveX=0;
+    double rightY=rightJoystick.getY();
+    double leftY=leftJoystick.getY();
+    double leftX=leftJoystick.getX();
+    if (rightY<.1 && rightY>-.1){
+      rightY=0;
     }
-      if (driveZ<.1 && driveZ>-.1){
-        driveZ=0;
+      if (leftX<.1 && leftX>-.1){
+        leftX=0;
     }
 
     if (rightJoystickAdapter.isArcade()){
-    driveControl.arcadeDrive(driveX, driveZ);
+    driveControl.arcadeDrive(rightY, leftX);
     br.set(fr.get());
     bl.set(fl.get());
     }else if(rightJoystickAdapter.isTank()){
-     //TODO big chungus
+      driveControl.tankDrive(leftY, rightY);
     }
 }
 
