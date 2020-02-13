@@ -41,18 +41,18 @@ public class Robot extends TimedRobot {
   private CANSparkMax fr = new CANSparkMax(13, MotorType.kBrushless);
   private CANSparkMax fl = new CANSparkMax(11, MotorType.kBrushless);
   private CANSparkMax bl = new CANSparkMax(10, MotorType.kBrushless);
-  private CANSparkMax centerIntakeFront=null;//new CANSparkMax(/*17*/50, MotorType.kBrushless);
+  private CANSparkMax centerIntakeFront=new CANSparkMax(/*17*/50, MotorType.kBrushless);
   private CANSparkMax centerIntakeBack=new CANSparkMax(16, MotorType.kBrushless);
-  private CANSparkMax verticalLoader=null;//new CANSparkMax(18, MotorType.kBrushless);
+  private CANSparkMax verticalLoader=new CANSparkMax(18, MotorType.kBrushless);
   private CANSparkMax outerIntakeBack = new CANSparkMax(14,MotorType.kBrushless);
   private CANSparkMax outerIntakeFront = new CANSparkMax(15,MotorType.kBrushless);
   private CANSparkMax meteringWheel = new CANSparkMax(19,MotorType.kBrushless);
-  private CANSparkMax leftShooterWheel = null;//new CANSparkMax(20,MotorType.kBrushless);
-  private CANSparkMax rightShooterWheel =null;// new CANSparkMax(21,MotorType.kBrushless);
+  private CANSparkMax leftShooterWheel = new CANSparkMax(20,MotorType.kBrushless);
+  private CANSparkMax rightShooterWheel =new CANSparkMax(21,MotorType.kBrushless);
   private CANSparkMax turret = new CANSparkMax(/*22*/18,MotorType.kBrushless);//17 for testing
-  private CANSparkMax shooterElevator =null;// new CANSparkMax(23,MotorType.kBrushless);
-  private CANSparkMax climb1 =null;// new CANSparkMax(24,MotorType.kBrushless);
-  private CANSparkMax climb2 =null;// new CANSparkMax(25,MotorType.kBrushless);
+  private CANSparkMax shooterElevator = new CANSparkMax(23,MotorType.kBrushless);
+  private CANSparkMax climb1 = new CANSparkMax(24,MotorType.kBrushless);
+  private CANSparkMax climb2 = new CANSparkMax(25,MotorType.kBrushless);
 
   public CANSparkMax centerIntakeFront(){
     return  centerIntakeFront; 
