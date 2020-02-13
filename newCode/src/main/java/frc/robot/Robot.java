@@ -41,7 +41,7 @@ public class Robot extends TimedRobot {
   private CANSparkMax fr = new CANSparkMax(13, MotorType.kBrushless);
   private CANSparkMax fl = new CANSparkMax(11, MotorType.kBrushless);
   private CANSparkMax bl = new CANSparkMax(10, MotorType.kBrushless);
-  private CANSparkMax centerIntakeFront=null;//new CANSparkMax(/*17*/50, MotorType.kBrushless);
+  private CANSparkMax centerIntakeFront=null;//8new CANSparkMax(/*17*/50, MotorType.kBrushless);
   private CANSparkMax centerIntakeBack=new CANSparkMax(16, MotorType.kBrushless);
   private CANSparkMax verticalLoader=null; //new CANSparkMax(18, MotorType.kBrushless);
   private CANSparkMax outerIntakeBack = null; //new CANSparkMax(14,MotorType.kBrushless);
