@@ -23,6 +23,7 @@ import frc.robot.buttons.JRSBAdapter;
 import frc.robot.buttons.TSBAdapter;
 import frc.robot.event.EventHandler;
 import frc.robot.event.customevents.LimelightEvent;
+import frc.robot.event.customevents.PrintEvent;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -195,5 +196,24 @@ public class Robot extends TimedRobot {
 
   public static Robot getInstance(){
     return instance;
+  }
+
+  public void printMotorTemps(){
+    eHandler.triggerEvent(new PrintEvent(fl.getMotorTemperature()));
+    eHandler.triggerEvent(new PrintEvent(bl.getMotorTemperature()));
+    eHandler.triggerEvent(new PrintEvent(fr.getMotorTemperature()));
+    eHandler.triggerEvent(new PrintEvent(br.getMotorTemperature()));
+    eHandler.triggerEvent(new PrintEvent(centerIntakeFront.getMotorTemperature()));
+    eHandler.triggerEvent(new PrintEvent(centerIntakeBack.getMotorTemperature()));
+    eHandler.triggerEvent(new PrintEvent(verticalLoader.getMotorTemperature()));
+    eHandler.triggerEvent(new PrintEvent(outerIntakeBack.getMotorTemperature()));
+    eHandler.triggerEvent(new PrintEvent(outerIntakeFront.getMotorTemperature()));
+    eHandler.triggerEvent(new PrintEvent(meteringWheel.getMotorTemperature()));
+    eHandler.triggerEvent(new PrintEvent(leftShooterWheel.getMotorTemperature()));
+    eHandler.triggerEvent(new PrintEvent(rightShooterWheel.getMotorTemperature()));
+    eHandler.triggerEvent(new PrintEvent(turret.getMotorTemperature()));
+    eHandler.triggerEvent(new PrintEvent(shooterElevator.getMotorTemperature()));
+    eHandler.triggerEvent(new PrintEvent(climb1.getMotorTemperature()));
+    eHandler.triggerEvent(new PrintEvent(climb2.getMotorTemperature()));
   }
 }
