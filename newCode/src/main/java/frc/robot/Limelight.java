@@ -4,6 +4,7 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import frc.robot.event.customevents.LimelightEvent;
+import frc.robot.event.customevents.PrintEvent;
 
 public class Limelight {
     private NetworkTable limelight=NetworkTableInstance.getDefault().getTable("limelight");
@@ -19,6 +20,7 @@ public class Limelight {
     }
 
     public double getX(){
+        Robot.getInstance().eHandler.triggerEvent(new PrintEvent(x.getDouble(0)));
         return x.getDouble(0);
     }
     public double getY(){
