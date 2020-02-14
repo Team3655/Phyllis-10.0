@@ -50,7 +50,7 @@ public class Robot extends TimedRobot {
   private CANSparkMax meteringWheel = attemptGetMotor(19);//null; //new CANSparkMax(19,MotorType.kBrushless);
   private CANSparkMax leftShooterWheel = attemptGetMotor(20);//null; //new CANSparkMax(20,MotorType.kBrushless);
   private CANSparkMax rightShooterWheel =attemptGetMotor(21);//null;//new CANSparkMax(21,MotorType.kBrushless);
-  private CANSparkMax turret = attemptGetMotor(18);//new CANSparkMax(/*22*/18,MotorType.kBrushless);//17 for testing
+  private CANSparkMax turret = attemptGetMotor(17);//new CANSparkMax(/*22*/18,MotorType.kBrushless);//17 for testing
   private CANSparkMax shooterElevator = attemptGetMotor(23);//null;//new CANSparkMax(23,MotorType.kBrushless);
   private CANSparkMax climb1 =attemptGetMotor(24);// null;//new CANSparkMax(24,MotorType.kBrushless);
   private CANSparkMax climb2 = attemptGetMotor(25);//null;//new CANSparkMax(25,MotorType.kBrushless);
