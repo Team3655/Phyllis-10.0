@@ -8,6 +8,7 @@
 package frc.robot;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.networktables.NetworkTable;
@@ -24,6 +25,9 @@ import frc.robot.buttons.TSBAdapter;
 import frc.robot.event.EventHandler;
 import frc.robot.event.customevents.LimelightEvent;
 import frc.robot.event.customevents.PrintEvent;
+import frc.robot.motors.JEPLG;
+import frc.robot.motors.Neo550;
+import frc.robot.motors.Pro775;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -36,31 +40,237 @@ public class Robot extends TimedRobot {
   
   private static Robot instance;
   private Limelight limelight=new Limelight();
-
-
+  public static enum DRIVE_MODE {twoStickArcade,oneStickArcade,tank};
+  DRIVE_MODE driveMode=DRIVE_MODE.twoStickArcade;
   private CANSparkMax br = attemptGetMotor(12);//new CANSparkMax(12, MotorType.kBrushless);
   private CANSparkMax fr = attemptGetMotor(13);//new CANSparkMax(13, MotorType.kBrushless);
   private CANSparkMax fl = attemptGetMotor(11);//new CANSparkMax(11, MotorType.kBrushless);
   private CANSparkMax bl = attemptGetMotor(10);//new CANSparkMax(10, MotorType.kBrushless);
-  private CANSparkMax centerIntakeFront=attemptGetMotor(50);//null;//8new CANSparkMax(/*17*/50, MotorType.kBrushless);
-  private CANSparkMax centerIntakeBack=attemptGetMotor(16);//new CANSparkMax(16, MotorType.kBrushless);
-  private CANSparkMax verticalLoader=attemptGetMotor(18);//null; //new CANSparkMax(18, MotorType.kBrushless);
-  private CANSparkMax outerIntakeBack = attemptGetMotor(14);//null; //new CANSparkMax(14,MotorType.kBrushless);
-  private CANSparkMax outerIntakeFront = attemptGetMotor(15); //null; // new CANSparkMax(15,MotorType.kBrushless);
-  private CANSparkMax meteringWheel = attemptGetMotor(19);//null; //new CANSparkMax(19,MotorType.kBrushless);
-  private CANSparkMax leftShooterWheel = attemptGetMotor(20);//null; //new CANSparkMax(20,MotorType.kBrushless);
-  private CANSparkMax rightShooterWheel =attemptGetMotor(21);//null;//new CANSparkMax(21,MotorType.kBrushless);
-  private CANSparkMax turret = attemptGetMotor(17);//new CANSparkMax(/*22*/18,MotorType.kBrushless);//17 for testing
-  private CANSparkMax shooterElevator = attemptGetMotor(23);//null;//new CANSparkMax(23,MotorType.kBrushless);
-  private CANSparkMax climb1 =attemptGetMotor(24);// null;//new CANSparkMax(24,MotorType.kBrushless);
-  private CANSparkMax climb2 = attemptGetMotor(25);//null;//new CANSparkMax(25,MotorType.kBrushless);
+  
+  private CANSparkMax bottomConveyor=new Neo550(17);//attemptGetMotor(17);//null;//8new CANSparkMax(/*17*/50, MotorType.kBrushless);
+  //550
 
-  public CANSparkMax centerIntakeFront(){
-    return  centerIntakeFront; 
+  private CANSparkMax climbArm=new Neo550(16);//attemptGetMotor(16);//new CANSparkMax(16, MotorType.kBrushless);
+  //550
+
+  private CANSparkMax verticalLoader=new Neo550(18);//null; //new CANSparkMax(18, MotorType.kBrushless);
+  //550
+
+  private CANSparkMax outerIntakeBack = new Pro775(14);//null; //new CANSparkMax(14,MotorType.kBrushless);
+  //775 pro
+  
+  private CANSparkMax outerIntakeFront = new Pro775(15); //null; // new CANSparkMax(15,MotorType.kBrushless);
+  //775 pro
+
+  private CANSparkMax meteringWheel = new Neo550(19);//null; //new CANSparkMax(19,MotorType.kBrushless);
+  //550 neo
+
+  private CANSparkMax leftShooterWheel = attemptGetMotor(20);//null; //new CANSparkMax(20,MotorType.kBrushless);
+  //neo
+
+  private CANSparkMax rightShooterWheel =attemptGetMotor(21);//null;//new CANSparkMax(21,MotorType.kBrushless);
+  //neo
+
+  private CANSparkMax turret = new Neo550(22);//new CANSparkMax(/*22*/18,MotorType.kBrushless);//17 for testing
+  //550
+
+  private CANSparkMax colorWheel = new JEPLG(23);//null;//new CANSparkMax(23,MotorType.kBrushless);
+  //JE PLG andymark
+
+  //shooter elevator going to be two servos
+
+  private CANSparkMax climb1 =attemptGetMotor(24);// null;//new CANSparkMax(24,MotorType.kBrushless);
+  //neo
+
+  private CANSparkMax climb2 = attemptGetMotor(25);//null;//new CANSparkMax(25,MotorType.kBrushless);
+  //neo
+
+  DifferentialDrive driveControl;
+  Joystick leftJoystick = new Joystick(0);
+  Joystick rightJoystick = new Joystick(1);
+  Joystick tractorJoystick = new Joystick(2);
+  JLSBAdapter leftJoystickAdapter = new JLSBAdapter(leftJoystick, this);
+  JRSBAdapter rightJoystickAdapter = new JRSBAdapter(rightJoystick, this);
+  TSBAdapter tractorAdapter = new TSBAdapter(tractorJoystick, this);
+
+  
+
+  public static EventHandler eHandler=new EventHandler();
+  
+  /**
+   * This function is run when the robot is first started up and should be used
+   * for any initialization code.
+   */
+  @Override
+  public void robotInit() {
+    instance=this;
+    //centerIntakeFront.clearFaults();
+    eHandler.start();
+    driveControl = new DifferentialDrive(fl, fr);
+    br.follow(fr);
+    bl.follow(fl);
+    br.setIdleMode(IdleMode.kCoast);
+    fr.setIdleMode(IdleMode.kCoast);
+    bl.setIdleMode(IdleMode.kCoast);
+    fl.setIdleMode(IdleMode.kCoast);
+    /*bl.setInverted(false);
+    fl.setInverted(true);
+    br.setInverted(true);
+    fr.setInverted(true);*/
+  }
+
+  public Limelight getLimelight(){
+    return limelight;
+  }
+
+  @Override
+  public void autonomousInit() {
+    limelight.enable();
+  }
+
+  @Override
+  public void autonomousPeriodic() {
+  }
+
+  @Override
+  public void teleopInit() {
+    //limelight.enable();
+  }
+
+  @Override
+  public void teleopPeriodic() {
+    //printMotorTemps();//224 not normal temp, 45 and below is normal
+    //checkMotorTemps();//disables motors above 260 deg F internal
+    tractorAdapter.update();
+    leftJoystickAdapter.update();
+    rightJoystickAdapter.update();
+    double rightY=rightJoystick.getY();
+    double rightX=rightJoystick.getX();
+    double leftY=leftJoystick.getY();
+    double leftX=leftJoystick.getX();
+    if (rightY<.1 && rightY>-.1){
+      rightY=0;
+    }
+    if (rightX<.1 && rightX>-.1){
+      rightX=0;
+    }
+      if (leftY<.1 && leftY>-.1){
+      leftY=0;
+    }
+      if (leftX<.1 && leftX>-.1){
+      leftX=0;
+    }
+    switch (driveMode){
+      case twoStickArcade:
+        driveControl.arcadeDrive(rightY, leftX);
+      break;
+      case oneStickArcade:
+        driveControl.arcadeDrive(rightY, rightX);
+      break;
+      case tank:
+        driveControl.tankDrive(leftY, rightY);
+      break;
+    }
+    
+}
+
+  @Override
+  public void testInit() {
+  }
+
+  @Override
+  public void testPeriodic() {
+  }
+
+  @Override
+  public void disabledInit(){
+    limelight.disable();
+  }
+
+  public void setDriveMode(DRIVE_MODE d){
+    driveMode=d;
+  }
+
+  public DRIVE_MODE getDriveMode(){
+    return driveMode;
+  }
+
+  public static Robot getInstance(){
+    return instance;
+  }
+
+  public void printMotorTemps(){
+    eHandler.triggerEvent(new PrintEvent(fl.getMotorTemperature()));
+    eHandler.triggerEvent(new PrintEvent(bl.getMotorTemperature()));
+    eHandler.triggerEvent(new PrintEvent(fr.getMotorTemperature()));
+    eHandler.triggerEvent(new PrintEvent(br.getMotorTemperature()));
+    eHandler.triggerEvent(new PrintEvent(bottomConveyor.getMotorTemperature()));
+    eHandler.triggerEvent(new PrintEvent(climbArm.getMotorTemperature()));
+    eHandler.triggerEvent(new PrintEvent(verticalLoader.getMotorTemperature()));
+    eHandler.triggerEvent(new PrintEvent(outerIntakeBack.getMotorTemperature()));
+    eHandler.triggerEvent(new PrintEvent(outerIntakeFront.getMotorTemperature()));
+    eHandler.triggerEvent(new PrintEvent(meteringWheel.getMotorTemperature()));
+    eHandler.triggerEvent(new PrintEvent(leftShooterWheel.getMotorTemperature()));
+    eHandler.triggerEvent(new PrintEvent(rightShooterWheel.getMotorTemperature()));
+    eHandler.triggerEvent(new PrintEvent(turret.getMotorTemperature()));
+    eHandler.triggerEvent(new PrintEvent(colorWheel.getMotorTemperature()));
+    eHandler.triggerEvent(new PrintEvent(climb1.getMotorTemperature()));
+    eHandler.triggerEvent(new PrintEvent(climb2.getMotorTemperature()));
+  }
+
+  public void checkMotorTemps(){
+    if (fr.getMotorTemperature()>260){
+      fr.disable();
+    }
+    if (fl.getMotorTemperature()>260){
+      fl.disable();
+    }
+    if (br.getMotorTemperature()>260){
+      br.disable();
+    }
+    if (bl.getMotorTemperature()>260){
+      bl.disable();
+    }
+    if (bottomConveyor.getMotorTemperature()>260){
+      bottomConveyor.disable();
+    }
+    if (climbArm.getMotorTemperature()>260){
+      climbArm.disable();
+    }
+    if (verticalLoader.getMotorTemperature()>260){
+      verticalLoader.disable();
+    }
+    if (outerIntakeBack.getMotorTemperature()>260){
+      outerIntakeBack.disable();
+    }
+    if (outerIntakeFront.getMotorTemperature()>260){
+      outerIntakeFront.disable();
+    }
+    if (meteringWheel.getMotorTemperature()>260){
+      meteringWheel.disable();
+    }
+    if (leftShooterWheel.getMotorTemperature()>260){
+      leftShooterWheel.disable();
+    }
+    if (rightShooterWheel.getMotorTemperature()>260){
+      rightShooterWheel.disable();
+    }
+    if (turret.getMotorTemperature()>260){
+      turret.disable();
+    }
+    if (colorWheel.getMotorTemperature()>260){
+      colorWheel.disable();
+    }
+    if (climb1.getMotorTemperature()>260){
+      climb1.disable();
+    }
+    if (climb2.getMotorTemperature()>260){
+      climb2.disable();
+    }
   }
   
-  public CANSparkMax centerIntakeBack(){
-    return  centerIntakeBack; 
+  public CANSparkMax climbArm(){
+    return  climbArm; 
   }
 
   public CANSparkMax verticalLoader(){
@@ -91,8 +301,8 @@ public class Robot extends TimedRobot {
     return turret; 
   }
 
-  public CANSparkMax shooterElevator(){
-    return shooterElevator; 
+  public CANSparkMax colorWheel(){
+    return colorWheel; 
   }
 
   public CANSparkMax climb1(){
@@ -102,19 +312,17 @@ public class Robot extends TimedRobot {
   public CANSparkMax climb2(){
     return  climb2; 
   }
+
+  public CANSparkMax botomConveyor(){
+    return bottomConveyor;
+  }
  
 
-  DifferentialDrive driveControl;
-  Joystick leftJoystick = new Joystick(0);
-  Joystick rightJoystick = new Joystick(1);
-  Joystick tractorJoystick = new Joystick(2);
-  JLSBAdapter leftJoystickAdapter = new JLSBAdapter(leftJoystick, this);
-  JRSBAdapter rightJoystickAdapter = new JRSBAdapter(rightJoystick, this);
-  TSBAdapter tractorAdapter = new TSBAdapter(tractorJoystick, this);
-
-  public DifferentialDrive driveControl(){
+  
+  //shouldn't need to access this from anywhere else
+  /*public DifferentialDrive driveControl(){
     return driveControl;
-  }
+  }*/
 
   public Joystick leftJoystick(){
     return leftJoystick;
@@ -122,99 +330,6 @@ public class Robot extends TimedRobot {
 
   public Joystick rightJoystick(){
     return rightJoystick;
-  }
-
-  public static EventHandler eHandler=new EventHandler();
-  
-  /**
-   * This function is run when the robot is first started up and should be used
-   * for any initialization code.
-   */
-  @Override
-  public void robotInit() {
-    instance=this;
-    //centerIntakeFront.clearFaults();
-    eHandler.start();
-    driveControl = new DifferentialDrive(fl, fr);
-  }
-
-  public Limelight getLimelight(){
-    return limelight;
-  }
-
-  @Override
-  public void autonomousInit() {
-    limelight.enable();
-  }
-
-  @Override
-  public void autonomousPeriodic() {
-  }
-
-  @Override
-  public void teleopInit() {
-    limelight.enable();
-  }
-
-  @Override
-  public void teleopPeriodic() {
-    tractorAdapter.update();
-    leftJoystickAdapter.update();
-    rightJoystickAdapter.update();
-    double rightY=rightJoystick.getY();
-    double leftY=leftJoystick.getY();
-    double leftX=leftJoystick.getX();
-    if (rightY<.1 && rightY>-.1){
-      rightY=0;
-    }
-      if (leftX<.1 && leftX>-.1){
-        leftX=0;
-    }
-
-    if (rightJoystickAdapter.isArcade()){
-    driveControl.arcadeDrive(rightY, leftX);
-    
-    }else if(rightJoystickAdapter.isTank()){
-      driveControl.tankDrive(leftY, rightY);
-    }
-    br.set(fr.get());
-    bl.set(fl.get());
-}
-
-  @Override
-  public void testInit() {
-  }
-
-  @Override
-  public void testPeriodic() {
-  }
-
-  @Override
-  public void disabledInit(){
-    limelight.disable();
-  }
-
-  public static Robot getInstance(){
-    return instance;
-  }
-
-  public void printMotorTemps(){
-    eHandler.triggerEvent(new PrintEvent(fl.getMotorTemperature()));
-    eHandler.triggerEvent(new PrintEvent(bl.getMotorTemperature()));
-    eHandler.triggerEvent(new PrintEvent(fr.getMotorTemperature()));
-    eHandler.triggerEvent(new PrintEvent(br.getMotorTemperature()));
-    eHandler.triggerEvent(new PrintEvent(centerIntakeFront.getMotorTemperature()));
-    eHandler.triggerEvent(new PrintEvent(centerIntakeBack.getMotorTemperature()));
-    eHandler.triggerEvent(new PrintEvent(verticalLoader.getMotorTemperature()));
-    eHandler.triggerEvent(new PrintEvent(outerIntakeBack.getMotorTemperature()));
-    eHandler.triggerEvent(new PrintEvent(outerIntakeFront.getMotorTemperature()));
-    eHandler.triggerEvent(new PrintEvent(meteringWheel.getMotorTemperature()));
-    eHandler.triggerEvent(new PrintEvent(leftShooterWheel.getMotorTemperature()));
-    eHandler.triggerEvent(new PrintEvent(rightShooterWheel.getMotorTemperature()));
-    eHandler.triggerEvent(new PrintEvent(turret.getMotorTemperature()));
-    eHandler.triggerEvent(new PrintEvent(shooterElevator.getMotorTemperature()));
-    eHandler.triggerEvent(new PrintEvent(climb1.getMotorTemperature()));
-    eHandler.triggerEvent(new PrintEvent(climb2.getMotorTemperature()));
   }
 
   private CANSparkMax attemptGetMotor(int i){

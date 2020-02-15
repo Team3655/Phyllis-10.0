@@ -39,46 +39,54 @@ public class TSBAdapter extends ButtonHandler{
     public void buttonPressed(int no){
         if (mode==Mode.RobotResponse&&robot.isEnabled()){
             switch (no){
-                case 1:
-                robot.turret().set(.5);
+                case 1://intake
+                    robot.outerIntakeFront().set(.6);
+                    robot.outerIntakeBack().set(-.6);
+                    robot.botomConveyor().set(-.6);
+                    robot.verticalLoader().set(-.6);
                 break;
                 case 2:
-                robot.turret().set(-.5);
+                    robot.verticalLoader().set(.6);
+                    robot.meteringWheel().set(.5);
                 break; 
                 case 3:
-                robot.meteringWheel().set(.5);
+                    robot.leftShooterWheel().set(.5);
+                    robot.rightShooterWheel().set(.5);
                 break;
+                //climb 1&2 up (winch up)
                 case 4:
-                robot.verticalLoader().set(.5);
+                    //climb 1&2 up
                 break;
                 case 5:
-                robot.climb1().set(.5);
+                    robot.climb1().set(.5);
                 break;
                 case 6:
-                
+                    
                 break;
                 case 7:
 
                 break;
                 case 8:
-                robot.outerIntakeFront().set(.5);
-                robot.outerIntakeBack().set(-.5);
+                    robot.botomConveyor().set(.2);
                 break;
+                //climb 1&2 up (winch down)
                 case 9:
-                robot.centerIntakeFront().set(-.5);
-                robot.centerIntakeBack().set(.5);
-                break; 
+                    //climb 1&2 down
+                break;
                 case 10:
                 robot.climb2().set(.5);
-                break;
+                break;//passthrough forward
                 case 11:
-
-                break;
+                    robot.outerIntakeFront().set(.6);
+                    robot.outerIntakeBack().set(.6);                    
+                break;//passthrough backward
                 case 12:
-
+                    robot.outerIntakeFront().set(-.6);
+                    robot.outerIntakeBack().set(.6);
                 break;
                 case 13:
-
+                    robot.outerIntakeFront().set(-.6);
+                    robot.outerIntakeBack().set(-.6);
                 break;
                 case 14:
 
@@ -290,46 +298,53 @@ public class TSBAdapter extends ButtonHandler{
         if (mode==Mode.RobotResponse){
             switch (no){
                 case 1:
-                robot.turret().set(0);
+                    robot.outerIntakeFront().set(0);
+                    robot.outerIntakeBack().set(0);
+                    robot.botomConveyor().set(0);
+                    robot.verticalLoader().set(0);
                 break;
                 case 2:
-                    robot.verticalLoader().set(-.2);
+                    robot.verticalLoader().set(0);
                     robot.meteringWheel().set(0);
                 break; 
                 case 3:
-                robot.meteringWheel().set(0);
+                robot.leftShooterWheel().set(0);
+                robot.rightShooterWheel().set(0);
                 break;
+                //climb 1&2 (winch) stop
                 case 4:
-                robot.verticalLoader().set(0);
+                    //climb 1&2 stop
                 break;
                 case 5:
                 robot.climb1().set(0);
                 break;
                 case 6:
-                
+                    robot.botomConveyor().set(0);
                 break;
                 case 7:
 
                 break;
                 case 8:
-                robot.outerIntakeFront().set(0);
-                robot.outerIntakeBack().set(0);
+                    
                 break;
+                //climb 1&2 (winch down) stop
                 case 9:
-                robot.centerIntakeFront().set(0);
-                robot.centerIntakeBack().set(0);
+                    //climb 1&2 stop
                 break; 
                 case 10:
                 robot.climb2().set(0);
                 break;
                 case 11:
-
+                    robot.outerIntakeFront().set(0);
+                    robot.outerIntakeBack().set(0);
                 break;
                 case 12:
-    
+                    robot.outerIntakeFront().set(0);
+                    robot.outerIntakeBack().set(0);
                 break;
                 case 13:
-
+                    robot.outerIntakeFront().set(0);
+                    robot.outerIntakeBack().set(0);
                 break;
                 case 14:
 
@@ -399,7 +414,8 @@ public class TSBAdapter extends ButtonHandler{
     @Override
     public void update() {
         super.update();
-        
+        //shooter elevation with wheel
+        //turret with joystick twist
     }
 
     public void setMode(Mode mode){

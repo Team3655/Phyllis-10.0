@@ -37,6 +37,19 @@ public class JRSBAdapter extends ButtonHandler{
                 robot.outerIntakeFront().set(-.5);
                 robot.outerIntakeBack().set(.5);
             break;
+            case 11:
+                switch (Robot.getInstance().getDriveMode()){
+                    case twoStickArcade:
+                        Robot.getInstance().setDriveMode(Robot.DRIVE_MODE.oneStickArcade);
+                    break;
+                    case oneStickArcade:
+                        Robot.getInstance().setDriveMode(Robot.DRIVE_MODE.tank);
+                    break;
+                    case tank:
+                        Robot.getInstance().setDriveMode(Robot.DRIVE_MODE.twoStickArcade);
+                    break;
+                }
+            break;
         }  
     }
     public void buttonReleased(int no){
@@ -48,16 +61,6 @@ public class JRSBAdapter extends ButtonHandler{
             case 2:
                 robot.outerIntakeFront().set(0);
                 robot.outerIntakeBack().set(0);
-            break;
-            case 11:
-                
-                if (isArcade){
-                    isTank=true;
-                    isArcade=false;
-                }else{
-                    isTank=false;
-                    isArcade=true;                    
-                }
             break;
         }
     }
