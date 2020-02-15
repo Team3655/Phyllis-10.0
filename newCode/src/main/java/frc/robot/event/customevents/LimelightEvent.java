@@ -16,12 +16,13 @@ public class LimelightEvent extends Event {
     public void task(){
         if (enabled){
             double power=P*Robot.getInstance().getLimelight().getX();
-            if (Math.abs(power)>.2){
+            if (Math.abs(power)>max){
                 power=max*Math.abs(power)/power;
             }
             //error will equal the angle of x the limelight returns
             //set motor speed as P times error
             Robot.getInstance().turret().set(power);
+            Robot.eHandler.triggerEvent(new PrintEvent("Doing limelight yams."+Robot.getInstance().turret().getEncoder().getPosition()));
             //Robot.getInstance().turret().set(P*Robot.getInstance().getLimelight().getX());
         }
     }

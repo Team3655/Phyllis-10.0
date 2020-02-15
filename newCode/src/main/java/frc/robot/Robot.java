@@ -134,7 +134,6 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     instance=this;
     //centerIntakeFront.clearFaults();
-    eHandler.enable();
     eHandler.start();
     driveControl = new DifferentialDrive(fl, fr);
   }
