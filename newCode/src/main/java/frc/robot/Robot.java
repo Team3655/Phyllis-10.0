@@ -42,8 +42,8 @@ public class Robot extends TimedRobot {
   private Limelight limelight=new Limelight();
   public static enum DRIVE_MODE {twoStickArcade,oneStickArcade,tank};
   DRIVE_MODE driveMode=DRIVE_MODE.twoStickArcade;
-  private CANSparkMax br = attemptGetMotor(12);//new CANSparkMax(12, MotorType.kBrushless);
-  private CANSparkMax fr = attemptGetMotor(13);//new CANSparkMax(13, MotorType.kBrushless);
+  private CANSparkMax br = attemptGetMotor(13);//new CANSparkMax(12, MotorType.kBrushless);
+  private CANSparkMax fr = attemptGetMotor(12);//new CANSparkMax(13, MotorType.kBrushless);
   private CANSparkMax fl = attemptGetMotor(11);//new CANSparkMax(11, MotorType.kBrushless);
   private CANSparkMax bl = attemptGetMotor(10);//new CANSparkMax(10, MotorType.kBrushless);
   
@@ -108,15 +108,15 @@ public class Robot extends TimedRobot {
     eHandler.start();
     driveControl = new DifferentialDrive(fl, fr);
     br.follow(fr);
-    bl.follow(fl);
+    //bl.follow(fl);
     br.setIdleMode(IdleMode.kCoast);
     fr.setIdleMode(IdleMode.kCoast);
     bl.setIdleMode(IdleMode.kCoast);
     fl.setIdleMode(IdleMode.kCoast);
-    /*bl.setInverted(false);
-    fl.setInverted(true);
-    br.setInverted(true);
-    fr.setInverted(true);*/
+    bl.setInverted(false);
+    fl.setInverted(false);
+    br.setInverted(false);
+    fr.setInverted(false);
   }
 
   public Limelight getLimelight(){
@@ -125,11 +125,13 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    limelight.enable();
+    //limelight.enable();
+    
   }
 
   @Override
   public void autonomousPeriodic() {
+    fl.set(.4);
   }
 
   @Override
@@ -144,9 +146,9 @@ public class Robot extends TimedRobot {
     tractorAdapter.update();
     leftJoystickAdapter.update();
     rightJoystickAdapter.update();
-    double rightY=rightJoystick.getY();
+    double rightY=rightJoystick.getY()*-1;
     double rightX=rightJoystick.getX();
-    double leftY=leftJoystick.getY();
+    double leftY=leftJoystick.getY()*-1;
     double leftX=leftJoystick.getX();
     if (rightY<.1 && rightY>-.1){
       rightY=0;
@@ -163,6 +165,7 @@ public class Robot extends TimedRobot {
     switch (driveMode){
       case twoStickArcade:
         driveControl.arcadeDrive(rightY, leftX);
+        //eHandler.triggerEvent(new PrintEvent("arcade driving"));
       break;
       case oneStickArcade:
         driveControl.arcadeDrive(rightY, rightX);
