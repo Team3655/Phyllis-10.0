@@ -15,6 +15,7 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.CAN;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -78,6 +79,7 @@ public class Robot extends TimedRobot {
   //JE PLG andymark
 
   //shooter elevator going to be two servos
+  //private Servo shooterElevation=new Servo(1);
 
   private CANSparkMax climb1 =attemptGetMotor(24);// null;//new CANSparkMax(24,MotorType.kBrushless);
   //neo
@@ -108,7 +110,7 @@ public class Robot extends TimedRobot {
     eHandler.start();
     driveControl = new DifferentialDrive(fl, fr);
     br.follow(fr);
-    //bl.follow(fl);
+    bl.follow(fl);
     br.setIdleMode(IdleMode.kCoast);
     fr.setIdleMode(IdleMode.kCoast);
     bl.setIdleMode(IdleMode.kCoast);
@@ -131,7 +133,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousPeriodic() {
-    fl.set(.4);
+    fl.set(.1);
   }
 
   @Override
