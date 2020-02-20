@@ -18,7 +18,7 @@ public class TSBAdapter extends ButtonHandler{
     private ControlMode elevatorControlMode;
     private ControlMode armControlMode;
     private Mode mode;
-    private String[] tuningValues={"eTop","eBot","eMid","eCar","eHat","aCar","aHat","aBal","aSit","aDec","lTop","lBot","aPIDOR","lPIDOR","ePIDORUp","ePIDORDow","eSpdRPM","eAclRPMS","eSpdUp","eSpdDow","lSpdRPM","lAclRPMS","lSpdUp","lSpdDow","eSpdJ","aSpd","aSpdJ","iSpd","eCurUp","eCurDow","eCurPID","eCurJoy","lCur","aCur","eErr","eP","eI","eD","eFF","port"};
+    private String[] tuningValues={};
     private int currentPropertyNo;
     private String currentTuningValue;
     private String inputCache;
@@ -141,7 +141,7 @@ public class TSBAdapter extends ButtonHandler{
                     inputCache=inputCache+no;
                 Robot.eHandler.triggerEvent(new PrintEvent("Input Cache: "+inputCache));
                 } else {
-                    if (no==1){
+                    /*if (no==1){
                         //robot.setTuningValue("eTop", robot.elevatorPos());
                         if (robot.isEnabled()){
                             mode=Mode.RobotResponse;
@@ -159,7 +159,7 @@ public class TSBAdapter extends ButtonHandler{
                             mode=Mode.RobotResponse;
                             Robot.eHandler.triggerEvent(new PrintEvent("Mode set to 'RobotResponse'"));
                         }
-                    }
+                    }*/
                 }
                 
             } else if (no<28) {
@@ -181,7 +181,7 @@ public class TSBAdapter extends ButtonHandler{
                             Robot.eHandler.triggerEvent(new PrintEvent("Input Cache: "+inputCache));
                         }
                     break;
-                    case 15:
+                    /*case 15:
                         if (getButtonDown(28)){
                             //robot.setTuningValue("aHat", robot.armPos());
                             if (robot.isEnabled()){
@@ -189,8 +189,8 @@ public class TSBAdapter extends ButtonHandler{
                                 Robot.eHandler.triggerEvent(new PrintEvent("Mode set to 'RobotResponse'"));
                             }
                         }
-                    break;
-                    case 13:
+                    break;*/
+                    /*case 13:
                         if (getButtonDown(28)){
                             //robot.setTuningValue("eHat", robot.elevatorPos());
                             if (robot.isEnabled()){
@@ -207,7 +207,7 @@ public class TSBAdapter extends ButtonHandler{
                             Robot.eHandler.triggerEvent(new PrintEvent("Mode set to 'RobotResponse'"));
                         }
                     }
-                    break;
+                    break;*/
                     case 17:
                         if (!inputCache.contains("-")){
                             inputCache="-"+inputCache;
@@ -231,7 +231,7 @@ public class TSBAdapter extends ButtonHandler{
                     //Button 21 set value to input
                     case 21:
                         try {
-                            //robot.setTuningValue(currentTuningValue, Double.parseDouble(inputCache));
+                            robot.setTuningValue(currentTuningValue, Double.parseDouble(inputCache));
                             Robot.eHandler.triggerEvent(new PrintEvent(currentTuningValue+" set to "+inputCache));
                             inputCache="";
                             //robot.elevatorPID(robot.getTuningValue("eP"), robot.getTuningValue("eI"), robot.getTuningValue("eD"),robot.getTuningValue("eFF"));
@@ -239,7 +239,7 @@ public class TSBAdapter extends ButtonHandler{
                             //robot.setProp(currentTuningValue, 0);
                             Robot.eHandler.triggerEvent(new PrintEvent("User did not enter a number"));
                             //System.err.println(currentTuningValue+" defaulted to 0");
-                            //inputCache="";
+                            inputCache="";
                         }
                     break;
                     case 22:
@@ -250,10 +250,10 @@ public class TSBAdapter extends ButtonHandler{
                     break;
                     case 24:
                         //setTuningValues
-                        Robot.eHandler.triggerEvent(new PrintEvent("TUNING VALUES SET TO TEST ROBOT"));
+                        //Robot.eHandler.triggerEvent(new PrintEvent("TUNING VALUES SET TO TEST ROBOT"));
                     break;
                     case 25:
-                        //Robot.eHandler.triggerEvent(new PrintEvent("Current value of "+currentTuningValue+": "+robot.getTuningValue(currentTuningValue)));
+                        Robot.eHandler.triggerEvent(new PrintEvent("Current value of "+currentTuningValue+": "+robot.getTuningValue(currentTuningValue)));
                     break;
                     //button 26 changes what property you are editing (++)
                     case 27:
@@ -397,17 +397,19 @@ public class TSBAdapter extends ButtonHandler{
         }
     }
     public void buttonDown(int no){
-        switch(no){
-            case 2:
-                robot.verticalLoader().set(0);
+        if (mode==Mode.RobotResponse){
+            switch(no){
+                case 2:
+                    robot.verticalLoader().set(0);
+                    robot.meteringWheel().set(0);
+                break;
+                //TODO mass eject button, set every loading motor to its opposite
+                case 12:
+                robot.verticalLoader().set(.2);
                 robot.meteringWheel().set(0);
-            break;
-            //TODO mass eject button, set every loading motor to its opposite
-            case 12:
-            robot.verticalLoader().set(.2);
-            robot.meteringWheel().set(0);
-            break;
+                break;
 
+            }
         }
     }
 

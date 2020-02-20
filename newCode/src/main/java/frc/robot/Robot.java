@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import java.util.Hashtable;
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -93,7 +95,7 @@ public class Robot extends TimedRobot {
   JRSBAdapter rightJoystickAdapter = new JRSBAdapter(rightJoystick, this);
   TSBAdapter tractorAdapter = new TSBAdapter(tractorJoystick, this);
 
-  
+  private Hashtable <String, Double> tuningValues;
 
   public static EventHandler eHandler=new EventHandler();
   
@@ -117,6 +119,9 @@ public class Robot extends TimedRobot {
     fl.setInverted(false);
     br.setInverted(false);
     fr.setInverted(false);
+
+    tuningValues=new Hashtable<>();
+    
   }
 
   public Limelight getLimelight(){
@@ -343,4 +348,16 @@ public class Robot extends TimedRobot {
     }
   }
 
+  public double getTuningValue(String key){
+    return tuningValues.get(key);
+  }
+
+  public void setTuningValue(String key,int value){
+    tuningValues.replace(key,(double)value);
+  }
+  public void setTuningValue(String key,double value){
+    tuningValues.replace(key,value);
+  }
+
 }
+
