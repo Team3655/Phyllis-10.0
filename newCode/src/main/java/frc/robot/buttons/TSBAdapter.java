@@ -416,8 +416,10 @@ public class TSBAdapter extends ButtonHandler{
     @Override
     public void update() {
         super.update();
-        //shooter elevation with wheel
-        //turret with joystick twist
+        //TODO shooter elevation with wheel
+        //turret with joystick twist check
+        robot.turret().set(getZ());
+        
     }
 
     public void setMode(Mode mode){

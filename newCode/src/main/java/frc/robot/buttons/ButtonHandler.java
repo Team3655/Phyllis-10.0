@@ -82,6 +82,10 @@ public abstract class ButtonHandler /*extends Thread*/{
     public final double getX(){
         return buttonInterface.getX();
     }
+
+    public final double getZ(){
+        return buttonInterface.getRawAxis(2);
+    }
     public Joystick getJoystick(){
         return (Joystick) buttonInterface;
     }

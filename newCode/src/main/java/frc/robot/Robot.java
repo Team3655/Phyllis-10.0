@@ -17,6 +17,7 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.CAN;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -80,6 +81,16 @@ public class Robot extends TimedRobot {
   //JE PLG andymark
 
   //shooter elevator going to be two servos
+  private Servo elevatorLeft = new Servo(0);
+  private Servo elevatorRight = new Servo(1);
+  
+  public Servo getElevatorRight(){
+    return elevatorRight;
+  }
+
+  public Servo getElevatorLeft(){
+    return elevatorLeft;
+  }
 
   private CANSparkMax climb1 =attemptGetMotor(24);// null;//new CANSparkMax(24,MotorType.kBrushless);
   //neo
@@ -119,9 +130,9 @@ public class Robot extends TimedRobot {
     fl.setInverted(false);
     br.setInverted(false);
     fr.setInverted(false);
+    getElevatorRight().set(getElevatorLeft().getSpeed());
 
     tuningValues=new Hashtable<>();
-    
   }
 
   public Limelight getLimelight(){
