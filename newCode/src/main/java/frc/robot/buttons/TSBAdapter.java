@@ -399,16 +399,16 @@ public class TSBAdapter extends ButtonHandler{
     public void buttonDown(int no){
         if (mode==Mode.RobotResponse){
             switch(no){
-                case 2:
+                /*case 2:
                     robot.verticalLoader().set(0);
                     robot.meteringWheel().set(0);
                 break;
                 //TODO mass eject button, set every loading motor to its opposite
-                case 12:
+                /*case 12:
                 robot.verticalLoader().set(.2);
                 robot.meteringWheel().set(0);
                 break;
-
+                */
             }
         }
     }
