@@ -104,7 +104,7 @@ public class Robot extends TimedRobot {
   Joystick tractorJoystick = new Joystick(2);
   JLSBAdapter leftJoystickAdapter = new JLSBAdapter(leftJoystick, this);
   JRSBAdapter rightJoystickAdapter = new JRSBAdapter(rightJoystick, this);
-  TSBAdapter tractorAdapter = new TSBAdapter(tractorJoystick, this);
+  TSBAdapter tractorAdapter;
 
   private Hashtable <String, Double> tuningValues;
 
@@ -133,6 +133,19 @@ public class Robot extends TimedRobot {
     getElevatorRight().set(getElevatorLeft().getSpeed());
 
     tuningValues=new Hashtable<>();
+
+    //add tuning values
+    tuningValues.put("climb", .5);
+    tuningValues.put("drive", 1d);
+    tuningValues.put("conveyor", .2);
+    tuningValues.put("verticalIntake",.6);
+    tuningValues.put("meteringWheel", .5);
+    tuningValues.put("turret", .05);
+    tuningValues.put("shooter", .5);
+    tuningValues.put("shooterElevation", .1);
+    tuningValues.put("turretDefaultMaxSpeed",.1);
+
+    tractorAdapter= new TSBAdapter(tractorJoystick, this);
   }
 
   public Limelight getLimelight(){
@@ -142,6 +155,12 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     //limelight.enable();
+    
+    try{
+      tractorAdapter.setMode(TSBAdapter.Mode.Tune);
+    } catch (Exception e){
+      
+    }
     
   }
 
@@ -153,6 +172,12 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     //limelight.enable();
+    
+    try{
+      tractorAdapter.setMode(TSBAdapter.Mode.RobotResponse);
+    } catch (Exception e){
+      
+    }
   }
 
   @Override
@@ -195,6 +220,11 @@ public class Robot extends TimedRobot {
 
   @Override
   public void testInit() {
+    try{
+      tractorAdapter.setMode(TSBAdapter.Mode.RobotResponse);
+    } catch (Exception e){
+      
+    }
   }
 
   @Override
@@ -204,6 +234,11 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledInit(){
     limelight.disable();
+    try{
+      tractorAdapter.setMode(TSBAdapter.Mode.Tune);
+    } catch (Exception e){
+
+    }
   }
 
   public void setDriveMode(DRIVE_MODE d){
@@ -368,6 +403,12 @@ public class Robot extends TimedRobot {
   }
   public void setTuningValue(String key,double value){
     tuningValues.replace(key,value);
+  }
+
+  public String[] getKeys(){
+    String[] keys=new String[tuningValues.keySet().size()];
+    tuningValues.keySet().toArray(keys);
+    return keys;
   }
 
 }

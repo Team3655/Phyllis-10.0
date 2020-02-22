@@ -4,6 +4,7 @@ package frc.robot.buttons;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
+import frc.robot.Limelight;
 import frc.robot.Robot;
 import frc.robot.event.Event;
 import frc.robot.event.EventSequence;
@@ -18,11 +19,12 @@ public class TSBAdapter extends ButtonHandler{
     private ControlMode elevatorControlMode;
     private ControlMode armControlMode;
     private Mode mode;
-    private String[] tuningValues={"turretSpeed","driveMultiplier"};
+    private String[] tuningValues=Robot.getInstance().getKeys();
     private int currentPropertyNo;
     private String currentTuningValue;
     private String inputCache;
     private Joystick armJoystick;
+    private boolean overrideShooter=false;
 
 
     public TSBAdapter(Joystick tractorPanel, Robot robot){
@@ -39,108 +41,159 @@ public class TSBAdapter extends ButtonHandler{
     public void buttonPressed(int no){
         if (mode==Mode.RobotResponse&&robot.isEnabled()){
             switch (no){
+                //Outer intake in
                 case 1://intake
+                    robot.outerIntakeFront().set(.6);
+                    robot.outerIntakeBack().set(-.6);
+                break;
+                //Conveyor in
+                case 2:
+                    robot.botomConveyor().set(robot.getTuningValue("conveyor"));
+                break;
+                //Load shooter in
+                case 3:
+                    robot.verticalLoader().set(robot.getTuningValue("verticalIntake"));
+                    robot.meteringWheel().set(robot.getTuningValue("meteringWheel"));
+                break;
+                //climb 1&2 up (winch up)
+                case 4:
+                    robot.climb1().set(robot.getTuningValue("climb"));
+                    robot.climb2().set(robot.getTuningValue("climb"));
+                break;
+                //null
+                //case 5:
+                    
+                //break;
+                //Outer intake out
+                case 6:
+                    robot.outerIntakeFront().set(-.6);
+                    robot.outerIntakeBack().set(.6);
+                break;
+                //Conveyor out
+                case 7:
+                    robot.botomConveyor().set(robot.getTuningValue("conveyor")*-1);
+                break;
+                //Load shooter out
+                case 8:
+                robot.leftShooterWheel().set(robot.getTuningValue("shooter")*-1);
+                robot.rightShooterWheel().set(robot.getTuningValue("shooter")*-1);
+                break;
+                //Climb 1&2 down
+                case 9:
+                    //climb 1&2 down
+                    robot.climb1().set(robot.getTuningValue("climb")*-1);
+                    robot.climb2().set(robot.getTuningValue("climb")*-1);
+                break;
+                //null
+                //case 10:
+                //break;
+                //passthrough backward
+                case 11:
+                    robot.outerIntakeFront().set(.6);
+                    robot.outerIntakeBack().set(.6);
+                                 
+                break;//passthrough forward
+                case 12:
+                    robot.outerIntakeFront().set(-.6);
+                    robot.outerIntakeBack().set(-.6);
+                break;
+                case 13://everything in
                     robot.outerIntakeFront().set(.6);
                     robot.outerIntakeBack().set(-.6);
                     robot.botomConveyor().set(-.6);
                     robot.verticalLoader().set(-.6);
-                break;
-                case 2:
-                    robot.verticalLoader().set(.6);
-                    robot.meteringWheel().set(.5);
-                break; 
-                case 3:
-                    robot.leftShooterWheel().set(.5);
-                    robot.rightShooterWheel().set(.5);
-                break;
-                //climb 1&2 up (winch up)
-                case 4:
-                    //climb 1&2 up
-                break;
-                case 5:
-                    robot.climb1().set(.5);
-                break;
-                case 6:
                     
                 break;
-                case 7:
-
-                break;
-                case 8:
-                    robot.botomConveyor().set(.2);
-                break;
-                //climb 1&2 up (winch down)
-                case 9:
-                    //climb 1&2 down
-                break;
-                case 10:
-                robot.climb2().set(.5);
-                break;//passthrough forward
-                case 11:
-                    robot.outerIntakeFront().set(.6);
-                    robot.outerIntakeBack().set(.6);                    
-                break;//passthrough backward
-                case 12:
+                //everything out
+                case 14:
                     robot.outerIntakeFront().set(-.6);
                     robot.outerIntakeBack().set(.6);
+                    robot.botomConveyor().set(robot.getTuningValue("conveyor"));
+                    robot.verticalLoader().set(robot.getTuningValue("verticalIntake"));
                 break;
-                case 13:
-                    robot.outerIntakeFront().set(-.6);
-                    robot.outerIntakeBack().set(-.6);
-                break;
-                case 14:
-
-                break;
+                //shoot
                 case 15:
-
+                    robot.leftShooterWheel().set(robot.getTuningValue("shoot"));
+                    robot.rightShooterWheel().set(robot.getTuningValue("shoot")*-1);
                 break;
-                case 16:
+                //null
+                //case 16:
 
-                break;
+                //break;
+                //Color wheel
                 case 17:
 
                 break;
+                //Color wheel
                 case 18:
 
                 break; 
+                //Color wheel
                 case 19:
 
                 break;
+                //color wheel
                 case 20:
 
                 break;
-                case 21:
+                //null
+                //case 21:
 
-                break;
+                //break;
+                //manual override shooting controls 
                 case 22:
-
+                    robot.getLimelight().setEnabled(!robot.getLimelight().isEnabled());
+                    robot.eHandler.triggerEvent(new PrintEvent("Manual controls boolean set to "+String.valueOf(robot.getLimelight().isEnabled())+"."));
                 break;
+                //everything off
                 case 23:
-
+                    robot.colorWheel().set(0);
+                    robot.botomConveyor().set(0);
+                    robot.verticalLoader().set(0);
+                    robot.meteringWheel().set(0);
+                    robot.outerIntakeBack().set(0);
+                    robot.outerIntakeFront().set(0);
+                    robot.getLimelight().disable();
+                    robot.turret().set(0);
                 break;
-                case 24:
+                //null
+                //case 24:
 
-                break;
+                //break;
+                //null
                 case 25:
 
                 break;
+                //lower shooter elevation
                 case 26:
-
+                    /*if (!robot.getLimelight().isEnabled()){
+                        robot.getElevatorLeft().set(.1);
+                        robot.getElevatorLeft().setPosition(robot.getElevatorLeft().getPosition()-1);
+                    } else {
+                        robot.eHandler.triggerEvent(new PrintEvent("Manual controls not enabled."));
+                    }*/
                 break;
+                //raise shooter elevation
                 case 27:
-
+                    /*if (!robot.getLimelight().isEnabled()){
+                        robot.getElevatorLeft().setPosition(robot.getElevatorLeft().getPosition()+1);
+                        robot.getElevatorLeft().setPosition(robot.getElevatorLeft().getPosition()+1);
+                    } else {
+                        robot.eHandler.triggerEvent(new PrintEvent("Manual controls not enabled."));
+                    }*/
                 break;
+                //change mode
                 case 28:
-                
+                    mode=Mode.Tune;
                 break;
 
             }
         } else if (mode==Mode.Tune) {
             if (no<10){
-                if (!this.getButtonDown(27)){
+                //if (!this.getButtonDown(27)){
                     inputCache=inputCache+no;
-                Robot.eHandler.triggerEvent(new PrintEvent("Input Cache: "+inputCache));
-                } else {
+                    Robot.eHandler.triggerEvent(new PrintEvent("Input Cache: "+inputCache));
+                //} else {
                     /*if (no==1){
                         //robot.setTuningValue("eTop", robot.elevatorPos());
                         if (robot.isEnabled()){
@@ -160,7 +213,7 @@ public class TSBAdapter extends ButtonHandler{
                             Robot.eHandler.triggerEvent(new PrintEvent("Mode set to 'RobotResponse'"));
                         }
                     }*/
-                }
+                //}
                 
             } else if (no<28) {
                 switch (no){
@@ -243,17 +296,28 @@ public class TSBAdapter extends ButtonHandler{
                         }
                     break;
                     case 22:
-                        //turn everything off
+                        //robot.printSensorPositions();
+                        robot.printMotorTemps();
                     break;
                     case 23:
-                        //robot.printSensorPositions();
+                        //turn everything off
+                        robot.colorWheel().set(0);
+                        robot.botomConveyor().set(0);
+                        robot.verticalLoader().set(0);
+                        robot.meteringWheel().set(0);
+                        robot.outerIntakeBack().set(0);
+                        robot.outerIntakeFront().set(0);
+                        robot.getLimelight().disable();
+                        robot.turret().set(0);
                     break;
                     case 24:
+                        //print current tuning value
+                        Robot.eHandler.triggerEvent(new PrintEvent("Current value of "+currentTuningValue+": "+robot.getTuningValue(currentTuningValue)));
                         //setTuningValues
                         //Robot.eHandler.triggerEvent(new PrintEvent("TUNING VALUES SET TO TEST ROBOT"));
                     break;
                     case 25:
-                        Robot.eHandler.triggerEvent(new PrintEvent("Current value of "+currentTuningValue+": "+robot.getTuningValue(currentTuningValue)));
+                        //Robot.eHandler.triggerEvent(new PrintEvent("Current value of "+currentTuningValue+": "+robot.getTuningValue(currentTuningValue)));
                     break;
                     //button 26 changes what property you are editing (++)
                     case 27:
@@ -275,7 +339,7 @@ public class TSBAdapter extends ButtonHandler{
                         }
                         currentTuningValue=tuningValues[currentPropertyNo];
                         //System.out.println("Now edititing "+currentTuningValue);
-                        if (!robot.eHandler.triggerEvent(new PrintEvent("Now editing"+currentTuningValue))){
+                        if (!Robot.eHandler.triggerEvent(new PrintEvent("Now editing"+currentTuningValue))){
                             System.err.println("Print failed to queue");
                         }
                     break;
@@ -297,99 +361,128 @@ public class TSBAdapter extends ButtonHandler{
     public void buttonReleased(int no){
         if (mode==Mode.RobotResponse){
             switch (no){
-                case 1:
+                //Outer intake in
+                case 1://intake
                     robot.outerIntakeFront().set(0);
                     robot.outerIntakeBack().set(0);
-                    robot.botomConveyor().set(0);
-                    robot.verticalLoader().set(0);
                 break;
+                //Conveyor in
                 case 2:
+                    robot.botomConveyor().set(0);
+                break;
+                //Load shooter in
+                case 3:
                     robot.verticalLoader().set(0);
                     robot.meteringWheel().set(0);
-                break; 
-                case 3:
+                break;
+                //climb 1&2 up (winch up)
+                case 4:
+                    robot.climb1().set(0);
+                    robot.climb2().set(0);
+                break;
+                //null
+                //case 5:
+                    
+                //break;
+                //Outer intake out
+                case 6:
+                    robot.outerIntakeFront().set(0);
+                    robot.outerIntakeBack().set(0);
+                break;
+                //Conveyor out
+                case 7:
+                    robot.botomConveyor().set(0);
+                break;
+                //Load shooter out
+                case 8:
                 robot.leftShooterWheel().set(0);
                 robot.rightShooterWheel().set(0);
                 break;
-                //climb 1&2 (winch) stop
-                case 4:
-                    //climb 1&2 stop
-                break;
-                case 5:
-                robot.climb1().set(0);
-                break;
-                case 6:
-                    robot.botomConveyor().set(0);
-                break;
-                case 7:
-
-                break;
-                case 8:
-                    
-                break;
-                //climb 1&2 (winch down) stop
+                //Climb 1&2 down
                 case 9:
-                    //climb 1&2 stop
-                break; 
-                case 10:
-                robot.climb2().set(0);
+                    //climb 1&2 down
+                    robot.climb1().set(0);
+                    robot.climb2().set(0);
                 break;
+                //null
+                //case 10:
+                //break;
+                //passthrough backward
                 case 11:
                     robot.outerIntakeFront().set(0);
                     robot.outerIntakeBack().set(0);
-                break;
+                                 
+                break;//passthrough forward
                 case 12:
                     robot.outerIntakeFront().set(0);
                     robot.outerIntakeBack().set(0);
                 break;
-                case 13:
+                case 13://everything in
                     robot.outerIntakeFront().set(0);
                     robot.outerIntakeBack().set(0);
+                    robot.botomConveyor().set(0);
+                    robot.verticalLoader().set(0);
+                    
                 break;
+                //everything out
                 case 14:
-
+                    robot.outerIntakeFront().set(0);
+                    robot.outerIntakeBack().set(0);
+                    robot.botomConveyor().set(0);
+                    robot.verticalLoader().set(0);
                 break;
+                //shoot
                 case 15:
-
+                    robot.leftShooterWheel().set(0);
+                    robot.rightShooterWheel().set(0);
                 break;
-                case 16:
+                //null
+                //case 16:
 
-                break;
+                //break;
+                //Color wheel
                 case 17:
 
                 break;
+                //Color wheel
                 case 18:
 
                 break; 
+                //Color wheel
                 case 19:
 
                 break;
+                //color wheel
                 case 20:
 
                 break;
-                case 21:
+                //null
+                //case 21:
 
-                break;
+                //break;
+                //manual override shooting controls 
                 case 22:
-
+                    ///////nothing when released
                 break;
-                case 23:
+                //null
+                //case 23:
 
-                break;
-                case 24:
+                //break;
+                //null
+                //case 24:
 
-                break;
-                case 25:
+                //break;
+                //null
+                //case 25:
 
-                break;
+                //break;
+                //lower shooter elevation
                 case 26:
-
+                    ///////////////////////////////////////need to do stuff here
                 break;
+                //raise shooter elevation
                 case 27:
-
-                break;
-                case 28:
-                
+                    //////////nothing on release
                 break;
 
                 

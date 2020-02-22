@@ -39,4 +39,12 @@ public class LimelightEvent extends Event {
     public void disable(){
         enabled=false;
     }
+
+    public void setEnabled(boolean enabled){
+        this.enabled=enabled;
+    }
+
+    public boolean isEnabled(){
+        return enabled;
+    }
 }

@@ -41,6 +41,14 @@ public class Limelight {
         loop.disable();
     }
 
+    public void setEnabled(boolean enabled){
+        loop.setEnabled(enabled);
+    }
+
+    public boolean isEnabled(){
+        return loop.isEnabled();
+    }
+
     /**Terminates limelight event loop
      * 
      */
