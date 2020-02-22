@@ -57,6 +57,7 @@ public abstract class ButtonHandler /*extends Thread*/{
         }
         
     }
+    
     public final boolean getButtonDown(int no){
         return buttonInterface.getRawButton(no);
     }

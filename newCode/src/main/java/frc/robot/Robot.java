@@ -121,7 +121,7 @@ public class Robot extends TimedRobot {
     eHandler.start();
     driveControl = new DifferentialDrive(fl, fr);
     br.follow(fr);
-    //bl.follow(fl);
+    bl.follow(fl);
     br.setIdleMode(IdleMode.kCoast);
     fr.setIdleMode(IdleMode.kCoast);
     bl.setIdleMode(IdleMode.kCoast);

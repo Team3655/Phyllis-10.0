@@ -18,7 +18,7 @@ public class TSBAdapter extends ButtonHandler{
     private ControlMode elevatorControlMode;
     private ControlMode armControlMode;
     private Mode mode;
-    private String[] tuningValues={"hello"};
+    private String[] tuningValues={"turretSpeed","driveMultiplier"};
     private int currentPropertyNo;
     private String currentTuningValue;
     private String inputCache;
