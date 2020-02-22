@@ -52,8 +52,8 @@ public class TSBAdapter extends ButtonHandler{
                 break;
                 //Load shooter in
                 case 3:
-                    robot.verticalLoader().set(robot.getTuningValue("verticalIntake"));
-                    robot.meteringWheel().set(robot.getTuningValue("meteringWheel"));
+                    robot.verticalLoader().set(robot.getTuningValue("verticalIntake")*-1);
+                    robot.meteringWheel().set(robot.getTuningValue("meteringWheel")*-1);
                 break;
                 //climb 1&2 up (winch up)
                 case 4:
@@ -75,8 +75,8 @@ public class TSBAdapter extends ButtonHandler{
                 break;
                 //Load shooter out
                 case 8:
-                robot.leftShooterWheel().set(robot.getTuningValue("shooter")*-1);
-                robot.rightShooterWheel().set(robot.getTuningValue("shooter")*-1);
+                    robot.verticalLoader().set(robot.getTuningValue("verticalIntake"));
+                    robot.meteringWheel().set(robot.getTuningValue("meteringWheel"));
                 break;
                 //Climb 1&2 down
                 case 9:
@@ -113,8 +113,8 @@ public class TSBAdapter extends ButtonHandler{
                 break;
                 //shoot
                 case 15:
-                    robot.leftShooterWheel().set(robot.getTuningValue("shoot"));
-                    robot.rightShooterWheel().set(robot.getTuningValue("shoot")*-1);
+                    robot.leftShooterWheel().set(robot.getTuningValue("shoot")*-1);
+                    robot.rightShooterWheel().set(robot.getTuningValue("shoot"));
                 break;
                 //null
                 //case 16:
@@ -322,7 +322,7 @@ public class TSBAdapter extends ButtonHandler{
                     //button 26 changes what property you are editing (++)
                     case 27:
                         currentPropertyNo++;
-                        if (currentPropertyNo>39){
+                        if (currentPropertyNo>=tuningValues.length){
                             currentPropertyNo=0;
                         }
                         currentTuningValue=tuningValues[currentPropertyNo];
@@ -335,7 +335,7 @@ public class TSBAdapter extends ButtonHandler{
                     case 26:
                         currentPropertyNo--;
                         if (currentPropertyNo<0){
-                            currentPropertyNo=39;
+                            currentPropertyNo=tuningValues.length-1;
                         }
                         currentTuningValue=tuningValues[currentPropertyNo];
                         //System.out.println("Now edititing "+currentTuningValue);
@@ -395,8 +395,8 @@ public class TSBAdapter extends ButtonHandler{
                 break;
                 //Load shooter out
                 case 8:
-                robot.leftShooterWheel().set(0);
-                robot.rightShooterWheel().set(0);
+                    robot.verticalLoader().set(0);
+                    robot.meteringWheel().set(0);
                 break;
                 //Climb 1&2 down
                 case 9:

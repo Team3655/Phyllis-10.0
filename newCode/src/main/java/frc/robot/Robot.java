@@ -31,6 +31,7 @@ import frc.robot.event.customevents.PrintEvent;
 import frc.robot.motors.JEPLG;
 import frc.robot.motors.Neo550;
 import frc.robot.motors.Pro775;
+import frc.robot.motors.Turret;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -74,7 +75,7 @@ public class Robot extends TimedRobot {
   private CANSparkMax rightShooterWheel =attemptGetMotor(21);//null;//new CANSparkMax(21,MotorType.kBrushless);
   //neo
 
-  private CANSparkMax turret = new Neo550(22);//new CANSparkMax(/*22*/18,MotorType.kBrushless);//17 for testing
+  private CANSparkMax turret = new Turret(22);//new CANSparkMax(/*22*/18,MotorType.kBrushless);//17 for testing
   //550
 
   private CANSparkMax colorWheel = new JEPLG(23);//null;//new CANSparkMax(23,MotorType.kBrushless);
@@ -106,7 +107,8 @@ public class Robot extends TimedRobot {
   JRSBAdapter rightJoystickAdapter = new JRSBAdapter(rightJoystick, this);
   TSBAdapter tractorAdapter;
 
-  private Hashtable <String, Double> tuningValues;
+  private Hashtable
+  <String, Double> tuningValues;
 
   public static EventHandler eHandler=new EventHandler();
   
@@ -139,9 +141,9 @@ public class Robot extends TimedRobot {
     tuningValues.put("drive", 1d);
     tuningValues.put("conveyor", .2);
     tuningValues.put("verticalIntake",.6);
-    tuningValues.put("meteringWheel", .5);
+    tuningValues.put("meteringWheel", .8);
     tuningValues.put("turret", .05);
-    tuningValues.put("shooter", .5);
+    tuningValues.put("shoot", 1d);
     tuningValues.put("shooterElevation", .1);
     tuningValues.put("turretDefaultMaxSpeed",.1);
 
@@ -239,6 +241,11 @@ public class Robot extends TimedRobot {
     } catch (Exception e){
 
     }
+  }
+
+  @Override
+  public void disabledPeriodic(){
+    tractorAdapter.update();
   }
 
   public void setDriveMode(DRIVE_MODE d){

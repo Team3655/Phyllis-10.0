@@ -36,7 +36,7 @@ public class EventHandler extends Thread{
                 }
             }
             try {
-                Thread.sleep(10);
+                Thread.sleep(1);
             } catch (InterruptedException e){
 
             }
