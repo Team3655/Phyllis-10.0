@@ -75,7 +75,7 @@ public class Robot extends TimedRobot {
   private CANSparkMax rightShooterWheel =attemptGetMotor(21);//null;//new CANSparkMax(21,MotorType.kBrushless);
   //neo
 
-  private CANSparkMax turret = new Turret(22);//new CANSparkMax(/*22*/18,MotorType.kBrushless);//17 for testing
+  private CANSparkMax turret;//new CANSparkMax(/*22*/18,MotorType.kBrushless);//17 for testing
   //550
 
   private CANSparkMax colorWheel = new JEPLG(23);//null;//new CANSparkMax(23,MotorType.kBrushless);
@@ -119,6 +119,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     instance=this;
+    
     //centerIntakeFront.clearFaults();
     eHandler.start();
     driveControl = new DifferentialDrive(fl, fr);
@@ -146,7 +147,8 @@ public class Robot extends TimedRobot {
     tuningValues.put("shoot", 1d);
     tuningValues.put("shooterElevation", .1);
     tuningValues.put("turretDefaultMaxSpeed",.1);
-
+    tuningValues.put("intake", .6);
+    turret=new Turret(22);
     tractorAdapter= new TSBAdapter(tractorJoystick, this);
   }
 

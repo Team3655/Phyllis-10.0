@@ -14,7 +14,7 @@ import frc.robot.event.customevents.PrintEvent;
  */
 public class TSBAdapter extends ButtonHandler{
     private Robot robot;
-    public enum Mode{RobotResponse,Tune,RobotRecord};
+    public enum Mode{RobotResponse,Tune,RobotRecord,Test};
     private enum ControlMode{Joystick,PID};
     private ControlMode elevatorControlMode;
     private ControlMode armControlMode;
@@ -347,14 +347,63 @@ public class TSBAdapter extends ButtonHandler{
              } else {
                 switch (no){
                 case 28:
-                    if (robot.isEnabled()){
+                    /*if (robot.isEnabled()){
                         mode=Mode.RobotResponse;
                         Robot.eHandler.triggerEvent(new PrintEvent("Mode set to 'RobotResponse'"));
                     } else {
                         Robot.eHandler.triggerEvent(new PrintEvent("RobotResponse mode not available while robot is disabled",true));
+                    }*/
+                    if (robot.isEnabled()){
+                        mode=Mode.Test;
+                        Robot.eHandler.triggerEvent(new PrintEvent("Mode set to 'Test'"));
+                    } else {
+                        Robot.eHandler.triggerEvent(new PrintEvent("Test mode not available while robot is disabled",true));
                     }
                 break;
                 }
+            }
+        }  else if (mode==Mode.Test){
+            switch (no){
+                case 1:
+                    robot.outerIntakeFront().set(robot.getTuningValue("intake"));
+                break;
+                case 2:
+                    robot.outerIntakeFront().set(robot.getTuningValue("intake")*-1);
+                break;
+                case 3:
+                    robot.botomConveyor().set(robot.getTuningValue("conveyor"));
+                break;
+                case 4:
+                    robot.verticalLoader().set(robot.getTuningValue("verticalIntake"));
+                break;
+                case 5:
+                    robot.meteringWheel().set(robot.getTuningValue("meteringWheel"));
+                break;
+                case 6:
+                    robot.outerIntakeBack().set(robot.getTuningValue("intake")*-1);
+                break;
+                case 7:
+                    robot.outerIntakeBack().set(robot.getTuningValue("intake"));
+                break;
+                case 8:
+                    robot.botomConveyor().set(robot.getTuningValue("conveyor")*-1);
+                break;
+                case 9:
+                    robot.verticalLoader().set(robot.getTuningValue("verticalIntake")*-1);
+                break;
+                case 10:
+                    robot.leftShooterWheel().set(robot.getTuningValue("shoot")*-1);
+                    robot.rightShooterWheel().set(robot.getTuningValue("shoot"));
+                break;
+                case 28:
+                    if (robot.isEnabled()){
+                        mode=Mode.RobotResponse;
+                        Robot.eHandler.triggerEvent(new PrintEvent("Mode set to 'RobotResponse'"));
+                    } else {
+                        mode=Mode.Tune;
+                        Robot.eHandler.triggerEvent(new PrintEvent("RobotResponse mode not available while robot is disabled -- neither is test. Mode set to 'Tune'",true));
+                    }
+                break;
             }
         }
     }
@@ -486,6 +535,40 @@ public class TSBAdapter extends ButtonHandler{
                 break;
 
                 
+            }
+        } else if (mode==Mode.Test){
+            switch (no){
+                case 1:
+                    robot.outerIntakeFront().set(0);
+                break;
+                case 2:
+                    robot.outerIntakeFront().set(0);
+                break;
+                case 3:
+                    robot.botomConveyor().set(0);
+                break;
+                case 4:
+                    robot.verticalLoader().set(0);
+                break;
+                case 5:
+                    robot.meteringWheel().set(0);
+                break;
+                case 6:
+                    robot.outerIntakeBack().set(0);
+                break;
+                case 7:
+                    robot.outerIntakeBack().set(0);
+                break;
+                case 8:
+                    robot.botomConveyor().set(0);
+                break;
+                case 9:
+                    robot.verticalLoader().set(0);
+                break;
+                case 10:
+                    robot.leftShooterWheel().set(0);
+                    robot.rightShooterWheel().set(0);
+                break;
             }
         }
     }
