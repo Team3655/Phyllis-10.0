@@ -7,6 +7,9 @@
 
 package frc.robot.event.core;
 
+import frc.robot.Robot;
+import frc.robot.event.Event;
+
 /*import frc.robot.NetHandler;
 import frc.robot.Robot;
 import frc.robot.event.Event;
@@ -23,13 +26,14 @@ import frc.robot.event.Event;
     }
 
     public boolean EventCompleteCondition(){
+        return false;
         return !Robot.getInstance().netH.isConnected();
     }
 
     public void task(){
         String incomingMessage=Robot.getInstance().netH.getMesssage();
         if (!(incomingMessage.equals(""))){
-            Robot.getInstance().netH.receiveMessage(incomingMessage);
+            //Robot.getInstance().netH.receiveMessage(incomingMessage);
         }
     }
 

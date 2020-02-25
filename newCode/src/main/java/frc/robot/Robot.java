@@ -140,14 +140,14 @@ public class Robot extends TimedRobot {
     //add tuning values
     tuningValues.put("climb", .5);
     tuningValues.put("drive", 1d);
-    tuningValues.put("conveyor", .2);
-    tuningValues.put("verticalIntake",.6);
-    tuningValues.put("meteringWheel", .8);
+    tuningValues.put("conveyor", .6);
+    tuningValues.put("verticalIntake",.7);
+    tuningValues.put("meteringWheel", 1d);
     tuningValues.put("turret", .05);
     tuningValues.put("shoot", 1d);
     tuningValues.put("shooterElevation", .1);
-    tuningValues.put("turretDefaultMaxSpeed",.1);
-    tuningValues.put("intake", .6);
+    tuningValues.put("turretDefaultMaxSpeed",.2);
+    tuningValues.put("intake", .8);
     turret=new Turret(22);
     tractorAdapter= new TSBAdapter(tractorJoystick, this);
   }

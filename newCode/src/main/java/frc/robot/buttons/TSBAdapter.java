@@ -24,7 +24,6 @@ public class TSBAdapter extends ButtonHandler{
     private String currentTuningValue;
     private String inputCache;
     private Joystick armJoystick;
-    private boolean overrideShooter=false;
 
 
     public TSBAdapter(Joystick tractorPanel, Robot robot){
@@ -48,7 +47,7 @@ public class TSBAdapter extends ButtonHandler{
                 break;
                 //Conveyor in
                 case 2:
-                    robot.botomConveyor().set(robot.getTuningValue("conveyor"));
+                    robot.botomConveyor().set(robot.getTuningValue("conveyor")*-1);
                 break;
                 //Load shooter in
                 case 3:
@@ -71,7 +70,7 @@ public class TSBAdapter extends ButtonHandler{
                 break;
                 //Conveyor out
                 case 7:
-                    robot.botomConveyor().set(robot.getTuningValue("conveyor")*-1);
+                    robot.botomConveyor().set(robot.getTuningValue("conveyor"));
                 break;
                 //Load shooter out
                 case 8:
@@ -143,7 +142,7 @@ public class TSBAdapter extends ButtonHandler{
                 //manual override shooting controls 
                 case 22:
                     robot.getLimelight().setEnabled(!robot.getLimelight().isEnabled());
-                    robot.eHandler.triggerEvent(new PrintEvent("Manual controls boolean set to "+String.valueOf(robot.getLimelight().isEnabled())+"."));
+                    robot.eHandler.triggerEvent(new PrintEvent("Manual controls boolean set to "+String.valueOf(!robot.getLimelight().isEnabled())+"."));
                 break;
                 //everything off
                 case 23:
@@ -594,8 +593,10 @@ public class TSBAdapter extends ButtonHandler{
         super.update();
         //TODO shooter elevation with wheel
         //turret with joystick twist check
-        robot.turret().set(getZ());
-        
+        if (!robot.getLimelight().isEnabled()&&mode==Mode.RobotResponse){
+            robot.turret().set(getZ()*Robot.getInstance().getTuningValue("turretDefaultMaxSpeed"));
+            //robot.eHandler.triggerEvent(new PrintEvent("Z"+getZ()));
+        }
     }
 
     public void setMode(Mode mode){

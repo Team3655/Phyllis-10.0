@@ -4,6 +4,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
 
 import frc.robot.Robot;
+import frc.robot.event.Event;
 
 public class Turret extends Neo550{
     double defaultMaxSpeed;
@@ -64,6 +65,13 @@ public class Turret extends Neo550{
     public double getTargetPos(){
         return target;
     }
+
+    /*private class setEvent extends Event {
+        double spd;
+        public setEvent(double spd){
+            this.spd=spd;
+        }
+    }*/
 
     
 }
