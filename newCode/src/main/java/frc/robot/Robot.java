@@ -331,7 +331,12 @@ public class Robot extends TimedRobot {
       climb2.disable();
     }
   }
-  
+  public CANSparkMax getDriveLeft(){
+    return fl;
+  }
+  public CANSparkMax getDriveRight(){
+    return fr;
+  }
   public CANSparkMax climbArm(){
     return  climbArm; 
   }

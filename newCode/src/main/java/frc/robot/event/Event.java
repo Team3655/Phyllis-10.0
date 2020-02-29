@@ -80,6 +80,8 @@ public class Event{
             if (!taskDone){
                 triggerTime=System.currentTimeMillis();
                 delay=loopDelay;
+            } else {
+                taskDone();
             }
         }
     }
