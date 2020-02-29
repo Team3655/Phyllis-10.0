@@ -29,14 +29,16 @@ public class JRSBAdapter extends ButtonHandler{
     
     public void buttonPressed(int no){
         switch (no){
-            case 1:
+            /*case 1:
                 robot.leftShooterWheel().set(-.5);
                 robot.rightShooterWheel().set(.5);
-            break;
-            case 2:
+                robot.meteringWheel().set(Robot.getInstance().getTuningValue("meteringWheel")*-1);
+                robot.verticalLoader().set(Robot.getInstance().getTuningValue("verticalIntake")*-1);
+            break;*/
+            /*case 2:
                 robot.outerIntakeFront().set(-.5);
                 robot.outerIntakeBack().set(.5);
-            break;
+            break;*/
             case 11:
                 switch (Robot.getInstance().getDriveMode()){
                     case twoStickArcade:
@@ -57,6 +59,8 @@ public class JRSBAdapter extends ButtonHandler{
             case 1:
                 robot.leftShooterWheel().set(0);
                 robot.rightShooterWheel().set(0);
+                robot.meteringWheel().set(0);
+                robot.verticalLoader().set(0);
             break;
             case 2:
                 robot.outerIntakeFront().set(0);

@@ -133,7 +133,11 @@ public class Robot extends TimedRobot {
     fl.setInverted(false);
     br.setInverted(false);
     fr.setInverted(false);
-    getElevatorRight().set(getElevatorLeft().getSpeed());
+
+    leftShooterWheel.setIdleMode(IdleMode.kCoast);
+    rightShooterWheel.setIdleMode(IdleMode.kCoast);
+
+    //getElevatorRight().set(getElevatorLeft().getSpeed());
 
     tuningValues=new Hashtable<>();
 
@@ -142,13 +146,13 @@ public class Robot extends TimedRobot {
     tuningValues.put("drive", 1d);
     tuningValues.put("conveyor", .6);
     tuningValues.put("verticalIntake",.7);
-    tuningValues.put("meteringWheel", 1d);
+    tuningValues.put("meteringWheel", -1d);
     tuningValues.put("turret", .2);
     tuningValues.put("shoot", 1d);
     tuningValues.put("shooterElevation", .1);
     tuningValues.put("turretDefaultMaxSpeed",.2);
-    tuningValues.put("turretMaxPos",54);
-    tuningValues.put("turretMinPos", -54);
+    tuningValues.put("turretMaxPos",43.76);
+    tuningValues.put("turretMinPos", -47.07);
     tuningValues.put("intake", .8);
     turret=new Turret(22);
     tractorAdapter= new TSBAdapter(tractorJoystick, this);
@@ -281,6 +285,10 @@ public class Robot extends TimedRobot {
     eHandler.triggerEvent(new PrintEvent(colorWheel.getMotorTemperature()));
     eHandler.triggerEvent(new PrintEvent(climb1.getMotorTemperature()));
     eHandler.triggerEvent(new PrintEvent(climb2.getMotorTemperature()));
+  }
+
+  public void printMotorPositions(){
+    eHandler.triggerEvent(new PrintEvent(turret.getEncoder().getPosition()));
   }
 
   public void checkMotorTemps(){

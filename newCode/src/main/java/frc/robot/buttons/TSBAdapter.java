@@ -42,8 +42,8 @@ public class TSBAdapter extends ButtonHandler{
             switch (no){
                 //Outer intake in
                 case 1://intake
-                    robot.outerIntakeFront().set(.6);
-                    robot.outerIntakeBack().set(-.6);
+                    robot.outerIntakeFront().set(-.6);
+                    robot.outerIntakeBack().set(.6);
                 break;
                 //Conveyor in
                 case 2:
@@ -65,8 +65,8 @@ public class TSBAdapter extends ButtonHandler{
                 //break;
                 //Outer intake out
                 case 6:
-                    robot.outerIntakeFront().set(-.6);
-                    robot.outerIntakeBack().set(.6);
+                    robot.outerIntakeFront().set(.6);
+                    robot.outerIntakeBack().set(-.6);
                 break;
                 //Conveyor out
                 case 7:
@@ -88,25 +88,25 @@ public class TSBAdapter extends ButtonHandler{
                 //break;
                 //passthrough backward
                 case 11:
-                    robot.outerIntakeFront().set(.6);
-                    robot.outerIntakeBack().set(.6);
+                    robot.outerIntakeFront().set(-.6);
+                    robot.outerIntakeBack().set(-.6);
                                  
                 break;//passthrough forward
                 case 12:
-                    robot.outerIntakeFront().set(-.6);
-                    robot.outerIntakeBack().set(-.6);
+                    robot.outerIntakeFront().set(.6);
+                    robot.outerIntakeBack().set(.6);
                 break;
                 case 13://everything in
-                    robot.outerIntakeFront().set(.6);
-                    robot.outerIntakeBack().set(-.6);
+                    robot.outerIntakeFront().set(-.6);
+                    robot.outerIntakeBack().set(.6);
                     robot.botomConveyor().set(-.6);
                     robot.verticalLoader().set(-.6);
                     
                 break;
                 //everything out
                 case 14:
-                    robot.outerIntakeFront().set(-.6);
-                    robot.outerIntakeBack().set(.6);
+                    robot.outerIntakeFront().set(.6);
+                    robot.outerIntakeBack().set(-.6);
                     robot.botomConveyor().set(robot.getTuningValue("conveyor"));
                     robot.verticalLoader().set(robot.getTuningValue("verticalIntake"));
                 break;
@@ -156,9 +156,9 @@ public class TSBAdapter extends ButtonHandler{
                     robot.turret().set(0);
                 break;
                 //null
-                //case 24:
-
-                //break;
+                case 24:
+                    robot.getInstance().printMotorPositions();
+                break;
                 //null
                 case 25:
 
@@ -594,7 +594,7 @@ public class TSBAdapter extends ButtonHandler{
         //TODO shooter elevation with wheel
         //turret with joystick twist check //want to be get z but z is wonky on this controller
         if (!robot.getLimelight().isEnabled()&&mode==Mode.RobotResponse){
-            robot.turret().set(getZ()*Robot.getInstance().getTuningValue("turretDefaultMaxSpeed"));
+            robot.turret().set(getX()*Robot.getInstance().getTuningValue("turretDefaultMaxSpeed"));
             //robot.eHandler.triggerEvent(new PrintEvent("Z"+getZ()));
         }
     }
