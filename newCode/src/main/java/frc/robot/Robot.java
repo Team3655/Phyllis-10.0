@@ -69,10 +69,10 @@ public class Robot extends TimedRobot {
   private CANSparkMax meteringWheel = new Neo550(19);//null; //new CANSparkMax(19,MotorType.kBrushless);
   //550 neo
 
-  private CANSparkMax leftShooterWheel = attemptGetMotor(20);//null; //new CANSparkMax(20,MotorType.kBrushless);
+  private CANSparkMax leftShooterWheel = attemptGetMotor(21);//null; //new CANSparkMax(20,MotorType.kBrushless);
   //neo
 
-  private CANSparkMax rightShooterWheel =attemptGetMotor(21);//null;//new CANSparkMax(21,MotorType.kBrushless);
+  private CANSparkMax rightShooterWheel =attemptGetMotor(20);//null;//new CANSparkMax(21,MotorType.kBrushless);
   //neo
 
   private CANSparkMax turret;//new CANSparkMax(/*22*/18,MotorType.kBrushless);//17 for testing
@@ -143,10 +143,12 @@ public class Robot extends TimedRobot {
     tuningValues.put("conveyor", .6);
     tuningValues.put("verticalIntake",.7);
     tuningValues.put("meteringWheel", 1d);
-    tuningValues.put("turret", .05);
+    tuningValues.put("turret", .2);
     tuningValues.put("shoot", 1d);
     tuningValues.put("shooterElevation", .1);
     tuningValues.put("turretDefaultMaxSpeed",.2);
+    tuningValues.put("turretMaxPos",54);
+    tuningValues.put("turretMinPos", -54);
     tuningValues.put("intake", .8);
     turret=new Turret(22);
     tractorAdapter= new TSBAdapter(tractorJoystick, this);

@@ -20,17 +20,24 @@ public class Turret extends Neo550{
         if (speed>0){
             setPos(1,speed);
         } else if (speed<0){
-            setPos(0,speed);
+            setPos(-1,speed);
         } else {
             super.set(0);
         }
+        //super.set(speed);//for testing
     }
 
     public void setPos(double pos){
         if (pos>1){
             pos-=Math.floor(pos);
+            pos*=Robot.getInstance().getTuningValue("turretMaxPos");
+        } else if (pos<1){
+            pos=-1+Math.ceil(pos);
+            pos*=Robot.getInstance().getTuningValue("turretMinPos");
+        } else if (pos>0){
+            pos*=Robot.getInstance().getTuningValue("turretMaxPos");
         } else if (pos<0){
-            pos=1-Math.ceil(pos);
+            pos*=Robot.getInstance().getTuningValue("turretMinPos");
         }
         getPIDController().setOutputRange(defaultMaxSpeed*-1, defaultMaxSpeed);
         getPIDController().setReference(pos, ControlType.kPosition);
@@ -41,8 +48,14 @@ public class Turret extends Neo550{
         maxSpeed=Math.abs(maxSpeed);
         if (pos>1){
             pos-=Math.floor(pos);
+            pos*=Robot.getInstance().getTuningValue("turretMaxPos");
+        } else if (pos<1){
+            pos=-1+Math.ceil(pos);
+            pos*=Robot.getInstance().getTuningValue("turretMinPos");
+        } else if (pos>0){
+            pos*=Robot.getInstance().getTuningValue("turretMaxPos");
         } else if (pos<0){
-            pos=1-Math.ceil(pos);
+            pos*=Robot.getInstance().getTuningValue("turretMinPos");
         }
         getPIDController().setOutputRange(maxSpeed*-1, maxSpeed);
         getPIDController().setReference(pos, ControlType.kPosition);
@@ -54,8 +67,14 @@ public class Turret extends Neo550{
         minSpeed=Math.abs(minSpeed)*-1;
         if (pos>1){
             pos-=Math.floor(pos);
+            pos*=Robot.getInstance().getTuningValue("turretMaxPos");
+        } else if (pos<1){
+            pos=-1+Math.ceil(pos);
+            pos*=Robot.getInstance().getTuningValue("turretMinPos");
+        } else if (pos>0){
+            pos*=Robot.getInstance().getTuningValue("turretMaxPos");
         } else if (pos<0){
-            pos=1-Math.ceil(pos);
+            pos*=Robot.getInstance().getTuningValue("turretMinPos");
         }
         getPIDController().setOutputRange(minSpeed, maxSpeed);
         getPIDController().setReference(pos, ControlType.kPosition);

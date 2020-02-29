@@ -592,7 +592,7 @@ public class TSBAdapter extends ButtonHandler{
     public void update() {
         super.update();
         //TODO shooter elevation with wheel
-        //turret with joystick twist check
+        //turret with joystick twist check //want to be get z but z is wonky on this controller
         if (!robot.getLimelight().isEnabled()&&mode==Mode.RobotResponse){
             robot.turret().set(getZ()*Robot.getInstance().getTuningValue("turretDefaultMaxSpeed"));
             //robot.eHandler.triggerEvent(new PrintEvent("Z"+getZ()));
