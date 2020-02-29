@@ -31,7 +31,7 @@ public class JRSBAdapter extends ButtonHandler{
         switch (no){
             case 1:
                 robot.leftShooterWheel().set(-.5);
-                robot.rightShooterWheel().set(-.5);
+                robot.rightShooterWheel().set(.5);
             break;
             case 2:
                 robot.outerIntakeFront().set(-.5);
