@@ -38,9 +38,9 @@ public class DriveEvent extends Event{
                 fr.getPIDController().setP(Robot.getInstance().getTuningValue("driveP"));
                 bl.getPIDController().setP(Robot.getInstance().getTuningValue("driveP"));
                 br.getPIDController().setP(Robot.getInstance().getTuningValue("driveP"));
-            
+                
                 //set positions
-
+                //bl.getPIDController().setReference(value, ctrl)
                 state++;
             break;
             case 1:
