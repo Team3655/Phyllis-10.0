@@ -158,25 +158,33 @@ public class TSBAdapter extends ButtonHandler{
                 //null
                 case 24:
                     robot.getInstance().printMotorPositions();
+                    
                 break;
                 //null
                 case 25:
 
                 break;
                 //lower shooter elevation
-                case 26:
+                case 26: {
                     /*if (!robot.getLimelight().isEnabled()){
                         robot.getElevatorLeft().set(.1);
                         robot.getElevatorLeft().setPosition(robot.getElevatorLeft().getPosition()-1);
                     } else {
                         robot.eHandler.triggerEvent(new PrintEvent("Manual controls not enabled."));
                     }*/
-                    
-                    robot.getElevatorLeft().setSpeed(robot.getTuningValue("elevator"));
-                    robot.getElevatorRight().setSpeed(robot.getTuningValue("elevator")*-1);
-                break;
+                    double newTarget=robot.getElevatorLeft().getPosition()+robot.getTuningValue("elevator");
+                    double max=robot.getTuningValue("elevatorMaxPos");
+                    double min=robot.getTuningValue("elevatorMinPos");
+                    if (newTarget>max){
+                        newTarget=max;
+                    } else if (newTarget<min){
+                        newTarget=min;
+                    }
+                    robot.getElevatorLeft().set(newTarget);
+                    robot.getElevatorRight().set(newTarget*-1);
+                } break;
                 //raise shooter elevation
-                case 27:
+                case 27: {
                     /*if (!robot.getLimelight().isEnabled()){
                         robot.getElevatorLeft().setPosition(robot.getElevatorLeft().getPosition()+1);
                         robot.getElevatorLeft().setPosition(robot.getElevatorLeft().getPosition()+1);
@@ -184,9 +192,17 @@ public class TSBAdapter extends ButtonHandler{
                         robot.eHandler.triggerEvent(new PrintEvent("Manual controls not enabled."));
                     }*/
 
-                    robot.getElevatorLeft().setSpeed(robot.getTuningValue("elevator")*-1);
-                    robot.getElevatorRight().setSpeed(robot.getTuningValue("elevator"));
-                break;
+                    double newTarget=robot.getElevatorLeft().getPosition()+robot.getTuningValue("elevator");
+                    double max=robot.getTuningValue("elevatorMaxPos");
+                    double min=robot.getTuningValue("elevatorMinPos");
+                    if (newTarget>max){
+                        newTarget=max;
+                    } else if (newTarget<min){
+                        newTarget=min;
+                    }
+                    robot.getElevatorLeft().set(newTarget*-1);
+                    robot.getElevatorRight().set(newTarget);
+                } break;
                 //change mode
                 case 28:
                     mode=Mode.Tune;

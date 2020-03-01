@@ -158,9 +158,9 @@ public class Robot extends TimedRobot {
     tuningValues.put("turretMaxPos",43.76);
     tuningValues.put("turretMinPos", -47.07);
     tuningValues.put("intake", .8);
-    tuningValues.put("elevator", .2);//servo max output
-    //tuningValues.put("evevator max pos",1d);
-    //tuningValues.put("elevator min pos", -1d);
+    tuningValues.put("elevator", .1);//servo increment per wheel move (between -1 and 1)
+    tuningValues.put("evevatorMaxPos",1d); //don't set this higher than 1 or less than min
+    tuningValues.put("elevatorMinPos", -1d);//don't set this less than 1 or more than max
     turret=new Turret(22);
 
     UsbCamera front=CameraServer.getInstance().startAutomaticCapture();
@@ -445,6 +445,7 @@ public class Robot extends TimedRobot {
   public void setTuningValue(String key,int value){
     tuningValues.replace(key,(double)value);
   }
+
   public void setTuningValue(String key,double value){
     tuningValues.replace(key,value);
   }
