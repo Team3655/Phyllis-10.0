@@ -76,7 +76,7 @@ public class Event{
     public final void trigger(){
         if (System.currentTimeMillis()>=triggerTime+delay){
             c.run();
-            taskDone=eventCompleteCondition();
+            taskDone=eventCompleteCondition()||taskDone;//if process was terminated then taskDone should remain true reguardless of eventCompleteCondition
             if (!taskDone){
                 triggerTime=System.currentTimeMillis();
                 delay=loopDelay;

@@ -1,6 +1,7 @@
 package frc.robot.event.customevents;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.ControlType;
 import com.revrobotics.SparkMax;
 
 import frc.robot.Robot;
@@ -40,22 +41,32 @@ public class DriveEvent extends Event{
                 br.getPIDController().setP(Robot.getInstance().getTuningValue("driveP"));
                 
                 //set positions
-                //bl.getPIDController().setReference(value, ctrl)
-                state++;
-            break;
-            case 1:
+                fl.getPIDController().setReference(-rotations, ControlType.kPosition);
+                fr.getPIDController().setReference(rotations, ControlType.kPosition);
+                bl.getPIDController().setReference(-rotations, ControlType.kPosition);
+                br.getPIDController().setReference(rotations, ControlType.kPosition);
+                state++; //this only needs to be done once per event;
             break;
         }
     }
 
     @Override
     public boolean eventCompleteCondition(){
-        return true; 
+        System.out.println(averagePos()+averagePos());
+        return averagePos()>rotations-.05&&averagePos()<rotations+.05;//if it has made it to the position 
+    }
+    @Override
+    public void endTask(){
+        fl.set(0);
+        fr.set(0);
+        bl.set(0);
+        br.set(0);
+        //turn off motors to prepare for next instructions;
     }
 
-    /*private double averagePos(){
-        return (Robot.getInstance())
-    }*/
+    private double averagePos(){
+        return (-fl.getEncoder().getPosition()-bl.getEncoder().getPosition()+fr.getEncoder().getPosition()+br.getEncoder().getPosition())/4;
+    }
 
     /**Sets the rotation per meter based on diameter and gear ratio
      * 

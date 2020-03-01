@@ -182,6 +182,8 @@ public class Robot extends TimedRobot {
     } catch (Exception e){
       
     }
+    //need to test
+    eHandler.triggerEvent(new DriveEvent(3.048));//distance from back wall to line is 3.048 m
     
   }
 
