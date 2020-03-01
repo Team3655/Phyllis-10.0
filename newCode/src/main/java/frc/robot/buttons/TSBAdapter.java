@@ -173,7 +173,7 @@ public class TSBAdapter extends ButtonHandler{
                     }*/
                     
                     robot.getElevatorLeft().setSpeed(robot.getTuningValue("elevator"));
-                    robot.getElevatorRight().setSpeed(robot.getTuningValue("elevator"));
+                    robot.getElevatorRight().setSpeed(robot.getTuningValue("elevator")*-1);
                 break;
                 //raise shooter elevation
                 case 27:
@@ -185,7 +185,7 @@ public class TSBAdapter extends ButtonHandler{
                     }*/
 
                     robot.getElevatorLeft().setSpeed(robot.getTuningValue("elevator")*-1);
-                    robot.getElevatorRight().setSpeed(robot.getTuningValue("elevator")*-1);
+                    robot.getElevatorRight().setSpeed(robot.getTuningValue("elevator"));
                 break;
                 //change mode
                 case 28:
