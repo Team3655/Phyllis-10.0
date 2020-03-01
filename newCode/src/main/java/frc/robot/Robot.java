@@ -163,7 +163,7 @@ public class Robot extends TimedRobot {
     UsbCamera front=CameraServer.getInstance().startAutomaticCapture();
     
     tractorAdapter= new TSBAdapter(tractorJoystick, this);
-    DriveEvent.configure(.2032, 11);
+    DriveEvent.configure(.2032, 10.71);
   }
 
   public Limelight getLimelight(){
