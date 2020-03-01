@@ -39,6 +39,22 @@ public class JRSBAdapter extends ButtonHandler{
                 robot.outerIntakeFront().set(-.5);
                 robot.outerIntakeBack().set(.5);
             break;*/
+            //Color wheel
+            case 3:
+
+            break;
+            //Color wheel
+            case 4:
+
+            break; 
+            //Color wheel
+            case 5:
+
+            break;
+            //color wheel
+            case 6:
+
+            break;
             case 11:
                 switch (Robot.getInstance().getDriveMode()){
                     case twoStickArcade:

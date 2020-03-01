@@ -1,0 +1,30 @@
+<map id="G" name="G">
+<area shape="rect" id="node1_0" href="./WifiRecord.html" title="com.st.st25sdk.ndef.WifiRecord" alt="" coords="16,209,93,233"/>
+<area shape="rect" id="node1" href="./WifiRecord.html" title="&lt;TABLE&gt;" alt="" coords="5,197,104,245"/>
+<area shape="rect" id="node2_1" href="./VCardRecord.html" title="com.st.st25sdk.ndef.VCardRecord" alt="" coords="139,209,231,233"/>
+<area shape="rect" id="node2" href="./VCardRecord.html" title="&lt;TABLE&gt;" alt="" coords="129,197,242,245"/>
+<area shape="rect" id="node3_2" href="./UriRecord.html" title="com.st.st25sdk.ndef.UriRecord" alt="" coords="277,209,350,233"/>
+<area shape="rect" id="node3" href="./UriRecord.html" title="&lt;TABLE&gt;" alt="" coords="266,197,361,245"/>
+<area shape="rect" id="node4_3" href="./TextRecord.html" title="com.st.st25sdk.ndef.TextRecord" alt="" coords="396,209,476,233"/>
+<area shape="rect" id="node4" href="./TextRecord.html" title="&lt;TABLE&gt;" alt="" coords="385,197,487,245"/>
+<area shape="rect" id="node5_4" href="./SmsRecord.html" title="com.st.st25sdk.ndef.SmsRecord" alt="" coords="522,209,606,233"/>
+<area shape="rect" id="node5" href="./SmsRecord.html" title="&lt;TABLE&gt;" alt="" coords="511,197,617,245"/>
+<area shape="rect" id="node6_5" href="./NDEFRecord.html" title="com.st.st25sdk.ndef.NDEFRecord" alt="" coords="720,113,811,137"/>
+<area shape="rect" id="node6" href="./NDEFRecord.html" title="&lt;TABLE&gt;" alt="" coords="709,101,821,149"/>
+<area shape="rect" id="node8_6" href="./MimeRecord.html" title="com.st.st25sdk.ndef.MimeRecord" alt="" coords="652,209,740,233"/>
+<area shape="rect" id="node8" href="./MimeRecord.html" title="&lt;TABLE&gt;" alt="" coords="641,197,751,245"/>
+<area shape="rect" id="node9_7" href="./ExternalRecord.html" title="com.st.st25sdk.ndef.ExternalRecord" alt="" coords="785,209,887,233"/>
+<area shape="rect" id="node9" href="./ExternalRecord.html" title="&lt;TABLE&gt;" alt="" coords="775,197,897,245"/>
+<area shape="rect" id="node10_8" href="./EmptyRecord.html" title="com.st.st25sdk.ndef.EmptyRecord" alt="" coords="933,209,1025,233"/>
+<area shape="rect" id="node10" href="./EmptyRecord.html" title="&lt;TABLE&gt;" alt="" coords="922,197,1035,245"/>
+<area shape="rect" id="node11_9" href="./EmailRecord.html" title="com.st.st25sdk.ndef.EmailRecord" alt="" coords="1070,209,1159,233"/>
+<area shape="rect" id="node11" href="./EmailRecord.html" title="&lt;TABLE&gt;" alt="" coords="1059,197,1170,245"/>
+<area shape="rect" id="node12_10" href="./BtRecord.html" title="com.st.st25sdk.ndef.BtRecord" alt="" coords="1205,209,1273,233"/>
+<area shape="rect" id="node12" href="./BtRecord.html" title="&lt;TABLE&gt;" alt="" coords="1194,197,1283,245"/>
+<area shape="rect" id="node13_11" href="./BtLeRecord.html" title="com.st.st25sdk.ndef.BtLeRecord" alt="" coords="1319,209,1401,233"/>
+<area shape="rect" id="node13" href="./BtLeRecord.html" title="&lt;TABLE&gt;" alt="" coords="1308,197,1412,245"/>
+<area shape="rect" id="node14_12" href="./AarRecord.html" title="com.st.st25sdk.ndef.AarRecord" alt="" coords="1447,209,1523,233"/>
+<area shape="rect" id="node14" href="./AarRecord.html" title="&lt;TABLE&gt;" alt="" coords="1437,197,1534,245"/>
+<area shape="rect" id="node7_13" href="./NDEFMsg.html" title="com.st.st25sdk.ndef.NDEFMsg" alt="" coords="729,17,802,41"/>
+<area shape="rect" id="node7" href="./NDEFMsg.html" title="&lt;TABLE&gt;" alt="" coords="718,5,813,53"/>
+</map>

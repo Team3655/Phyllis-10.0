@@ -13,6 +13,8 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.CAN;
@@ -26,6 +28,7 @@ import frc.robot.buttons.JLSBAdapter;
 import frc.robot.buttons.JRSBAdapter;
 import frc.robot.buttons.TSBAdapter;
 import frc.robot.event.EventHandler;
+import frc.robot.event.customevents.DriveEvent;
 import frc.robot.event.customevents.LimelightEvent;
 import frc.robot.event.customevents.PrintEvent;
 import frc.robot.motors.JEPLG;
@@ -144,9 +147,10 @@ public class Robot extends TimedRobot {
     //add tuning values
     tuningValues.put("climb", .5);
     tuningValues.put("drive", 1d);
-    tuningValues.put("conveyor", .6);
-    tuningValues.put("verticalIntake",.7);
-    tuningValues.put("meteringWheel", -1d);
+    tuningValues.put("driveP", 1d);
+    tuningValues.put("conveyor", .8);
+    tuningValues.put("verticalIntake",0d);//.9);
+    tuningValues.put("meteringWheel", 1d);
     tuningValues.put("turret", .2);
     tuningValues.put("shoot", 1d);
     tuningValues.put("shooterElevation", .1);
@@ -155,7 +159,11 @@ public class Robot extends TimedRobot {
     tuningValues.put("turretMinPos", -47.07);
     tuningValues.put("intake", .8);
     turret=new Turret(22);
+
+    UsbCamera front=CameraServer.getInstance().startAutomaticCapture();
+    
     tractorAdapter= new TSBAdapter(tractorJoystick, this);
+    DriveEvent.configure(.2032, 11);
   }
 
   public Limelight getLimelight(){
@@ -347,6 +355,15 @@ public class Robot extends TimedRobot {
   public CANSparkMax getDriveRight(){
     return fr;
   }
+
+  public CANSparkMax getDriveRearLeft(){
+    return bl;
+  }
+
+  public CANSparkMax getDriveRearRight(){
+    return br;
+  }
+
   public CANSparkMax climbArm(){
     return  climbArm; 
   }

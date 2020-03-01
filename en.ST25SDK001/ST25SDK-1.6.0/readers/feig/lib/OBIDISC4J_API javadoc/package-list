@@ -1,0 +1,6 @@
+de.feig.FEDM.Core
+de.feig.FEDM.Core.ExternalDevice
+de.feig.FEDM.Core.ReaderCommand
+de.feig.FEDM.Core.ReaderConfig
+de.feig.FEDM.Core.TagHandler
+de.feig.FEDM.Core.Utility
