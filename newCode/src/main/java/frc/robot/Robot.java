@@ -168,19 +168,19 @@ public class Robot extends TimedRobot {
     tuningValues.put("verticalIntake",.9);
     tuningValues.put("meteringWheel", 7000d);
     tuningValues.put("turret", .1);
-    tuningValues.put("shoot", 4000d);
+    tuningValues.put("shoot", 4500d);
     tuningValues.put("shooterElevation", .1);
     tuningValues.put("turretDefaultMaxSpeed",.2);
     tuningValues.put("turretMaxPos",43.76);
     tuningValues.put("turretMinPos", -47.07);
-    tuningValues.put("intake", .5);
+    tuningValues.put("intake", .7);
     tuningValues.put("elevator", .1d);//servo increment per wheel move (between -1 and 1)
     tuningValues.put("elevatorMaxPos",1d); //don't set this higher than 1 or less than min
     tuningValues.put("elevatorMinPos", 0d);//don't set this less than 1 or more than max
     turret=new Turret(22);
 
     UsbCamera front=CameraServer.getInstance().startAutomaticCapture();
-    //UsbCamera other=CameraServer.getInstance().startAutomaticCapture();
+    UsbCamera other=CameraServer.getInstance().startAutomaticCapture();
     tractorAdapter= new TSBAdapter(tractorJoystick, this);
     DriveEvent.configure(.2032, 10.71);
   }
