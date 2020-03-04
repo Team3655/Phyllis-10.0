@@ -1,6 +1,8 @@
 
 package frc.network.desktopapp;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -12,6 +14,7 @@ import frc.network.desktopapp.gameutil.text.Console;
 public class App {
     static ServerSocket s;
     static Socket test;
+    static Socket client;
 
     public static void main(String[] unicorns) {
         Console.s.setTheme(Console.theme.shell2);
@@ -20,7 +23,7 @@ public class App {
         Console.s.println("type ? for help");
         int port=3655;
         s=null;
-        Socket client=null;
+        client=null;
         while (true){
             try {
                 s = new ServerSocket(port);
@@ -75,6 +78,10 @@ public class App {
 
                         break;
                         case "test":
+                            String ip=cmd.get(1);
+                            if (ip.equals("")){
+                                ip="10.36.55.63";
+                            }
                             test=null;
                             Thread thread=new Thread(){
                                 @Override
@@ -89,7 +96,7 @@ public class App {
                             };
                             thread.start();
                             try {
-                                client=new Socket("10.0.0.11", port);
+                                client=new Socket(ip, port);
                                 Console.s.println("Client: Connection successful");
                                 Console.s.println("Connected to "+test.getInetAddress().getHostAddress());
                             } catch (UnknownHostException e){
@@ -98,6 +105,7 @@ public class App {
 
                             }
                         break;
+
                         default:
                             Console.s.println("Invalid command; type ? for help");
                         break;
@@ -107,5 +115,25 @@ public class App {
             }
         }
         System.exit(0);
+    }
+
+    private static void send(String s){
+        try {
+            new DataOutputStream(client.getOutputStream()).writeUTF(s);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            Console.s.println("Failed to send data");
+        }
+    }
+
+    private static String recieve(){
+        try {
+            return new DataInputStream(client.getInputStream()).readUTF();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return "ERROR 2";
+        }
     }
 }

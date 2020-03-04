@@ -79,6 +79,14 @@ public class EventHandler extends Thread{
         return queuedEvents.add(new Event(e,delay));
     }
 
+    /**Clear all events and sequences
+     * 
+     */
+    public void clear(){
+        queuedEvents.clear();
+        activeSequences.clear();
+    }
+
     /**Enables thread
      * 
      * @return wheather the operation was successful

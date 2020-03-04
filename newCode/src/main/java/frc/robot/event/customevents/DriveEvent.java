@@ -23,14 +23,15 @@ public class DriveEvent extends Event{
     }
 
     public DriveEvent(double length, long delay){
-        super(delay);
-        rotations=length/rotationsPerMeter;
+        super(delay,2400);
+        rotations=length*rotationsPerMeter;
+        System.out.println("Target: "+rotations);
     }
 
     @Override
     public void task(){
         switch(state){
-            case 0:
+            /*case 0:
                 fl.getPIDController().setOutputRange(Robot.getInstance().getTuningValue("drive")*-1, Robot.getInstance().getTuningValue("drive"));
                 fr.getPIDController().setOutputRange(Robot.getInstance().getTuningValue("drive")*-1, Robot.getInstance().getTuningValue("drive"));
                 bl.getPIDController().setOutputRange(Robot.getInstance().getTuningValue("drive")*-1, Robot.getInstance().getTuningValue("drive"));
@@ -39,21 +40,42 @@ public class DriveEvent extends Event{
                 fr.getPIDController().setP(Robot.getInstance().getTuningValue("driveP"));
                 bl.getPIDController().setP(Robot.getInstance().getTuningValue("driveP"));
                 br.getPIDController().setP(Robot.getInstance().getTuningValue("driveP"));
+                fl.getPIDController().setFF(Robot.getInstance().getTuningValue("driveFF"));
+                fr.getPIDController().setFF(Robot.getInstance().getTuningValue("driveFF"));
+                bl.getPIDController().setFF(Robot.getInstance().getTuningValue("driveFF"));
+                br.getPIDController().setFF(Robot.getInstance().getTuningValue("driveFF"));
                 
                 //set positions
                 fl.getPIDController().setReference(-rotations, ControlType.kPosition);
                 fr.getPIDController().setReference(rotations, ControlType.kPosition);
                 bl.getPIDController().setReference(-rotations, ControlType.kPosition);
                 br.getPIDController().setReference(rotations, ControlType.kPosition);
+                
+                fl.getEncoder().setPosition(0);
+                fr.getEncoder().setPosition(0);
+                bl.getEncoder().setPosition(0);
+                br.getEncoder().setPosition(0);
                 state++; //this only needs to be done once per event;
+            break;*/
+            
+            case 0:
+                fl.set(-.3);
+                fr.set(.3);
+                bl.set(-.3);
+                br.set(.3);
+                state++;
             break;
+            /*case 1:
+                state++;
+            break;*/
         }
     }
 
     @Override
     public boolean eventCompleteCondition(){
-        System.out.println(averagePos()+averagePos());
-        return averagePos()>rotations-.05&&averagePos()<rotations+.05;//if it has made it to the position 
+        return false;
+        //System.out.println("averagePos() "+averagePos());
+        //return averagePos()>rotations-.05&&averagePos()<rotations+.05;//if it has made it to the position 
     }
     @Override
     public void endTask(){

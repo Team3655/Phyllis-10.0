@@ -125,7 +125,8 @@ public class Robot extends TimedRobot {
     
     //centerIntakeFront.clearFaults();
     eHandler.start();
-    driveControl = new DifferentialDrive(fl, fr);
+    driveControl = new DifferentialDrive(fl, fr);// new DifferentialDrive(fl, fr);
+    driveControl.
     br.follow(fr);
     bl.follow(fl);
     br.setIdleMode(IdleMode.kCoast);
@@ -139,6 +140,20 @@ public class Robot extends TimedRobot {
 
     leftShooterWheel.setIdleMode(IdleMode.kCoast);
     rightShooterWheel.setIdleMode(IdleMode.kCoast);
+    leftShooterWheel().getPIDController().setD(0);
+    leftShooterWheel().getPIDController().setD(0);
+    leftShooterWheel().getPIDController().setP(.00014);//.00014);
+    leftShooterWheel().getPIDController().setI(0);
+    //leftShooterWheel().getPIDController().setIZone(.00034);
+    //leftShooterWheel().getPIDController().setSmartMotionMaxVelocity(6000,0);
+    //leftShooterWheel().getPIDController().setSmartMotionMinOutputVelocity(-6000, 0);
+    leftShooterWheel().getPIDController().setFF(.00017);
+    rightShooterWheel().getPIDController().setP(.00014);
+    rightShooterWheel.getPIDController().setFF(.00017);
+    meteringWheel.getPIDController().setP(.00001);
+    meteringWheel.getPIDController().setFF(.0001);
+    meteringWheel.getPIDController().setSmartMotionMaxVelocity(11000,0);
+    meteringWheel.getPIDController().setSmartMotionMinOutputVelocity(-11000, 0);
 
     //getElevatorRight().set(getElevatorLeft().getSpeed());
 
@@ -147,24 +162,25 @@ public class Robot extends TimedRobot {
     //add tuning values
     tuningValues.put("climb", .5);
     tuningValues.put("drive", 1d);
-    tuningValues.put("driveP", 1d);
-    tuningValues.put("conveyor", .8);
-    tuningValues.put("verticalIntake",0d);//.9);
-    tuningValues.put("meteringWheel", 1d);
-    tuningValues.put("turret", .2);
-    tuningValues.put("shoot", 1d);
+    tuningValues.put("driveP", 4d);
+    tuningValues.put("driveFF", .5);
+    tuningValues.put("conveyor", .9);
+    tuningValues.put("verticalIntake",.9);
+    tuningValues.put("meteringWheel", 5000d);
+    tuningValues.put("turret", .1);
+    tuningValues.put("shoot", 6000d);
     tuningValues.put("shooterElevation", .1);
     tuningValues.put("turretDefaultMaxSpeed",.2);
     tuningValues.put("turretMaxPos",43.76);
     tuningValues.put("turretMinPos", -47.07);
-    tuningValues.put("intake", .8);
-    tuningValues.put("elevator", .1);//servo increment per wheel move (between -1 and 1)
-    tuningValues.put("evevatorMaxPos",1d); //don't set this higher than 1 or less than min
-    tuningValues.put("elevatorMinPos", -1d);//don't set this less than 1 or more than max
+    tuningValues.put("intake", .5);
+    tuningValues.put("elevator", .1d);//servo increment per wheel move (between -1 and 1)
+    tuningValues.put("elevatorMaxPos",1d); //don't set this higher than 1 or less than min
+    tuningValues.put("elevatorMinPos", 0d);//don't set this less than 1 or more than max
     turret=new Turret(22);
 
     UsbCamera front=CameraServer.getInstance().startAutomaticCapture();
-    
+    //UsbCamera other=CameraServer.getInstance().startAutomaticCapture();
     tractorAdapter= new TSBAdapter(tractorJoystick, this);
     DriveEvent.configure(.2032, 10.71);
   }
@@ -183,13 +199,13 @@ public class Robot extends TimedRobot {
       
     }
     //need to test
-    eHandler.triggerEvent(new DriveEvent(3.048));//distance from back wall to line is 3.048 m
-    
+    eHandler.triggerEvent(new DriveEvent(3.048,10));//distance from back wall to line is 3.048
   }
 
   @Override
   public void autonomousPeriodic() {
-    fl.set(.4);
+    //fl.set(.4);
+
   }
 
   @Override
@@ -238,6 +254,7 @@ public class Robot extends TimedRobot {
         driveControl.tankDrive(leftY, rightY);
       break;
     }
+    System.out.println("E Pos"+elevatorLeft.getPosition());
     
 }
 

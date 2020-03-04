@@ -29,16 +29,16 @@ public class JRSBAdapter extends ButtonHandler{
     
     public void buttonPressed(int no){
         switch (no){
-            /*case 1:
-                robot.leftShooterWheel().set(-.5);
-                robot.rightShooterWheel().set(.5);
+            case 1:
+                robot.leftShooterWheel().set(-.7);
+                robot.rightShooterWheel().set(.7);
                 robot.meteringWheel().set(Robot.getInstance().getTuningValue("meteringWheel")*-1);
                 robot.verticalLoader().set(Robot.getInstance().getTuningValue("verticalIntake")*-1);
-            break;*/
-            /*case 2:
-                robot.outerIntakeFront().set(-.5);
-                robot.outerIntakeBack().set(.5);
-            break;*/
+            break;
+            case 2:
+                robot.outerIntakeFront().set(.7);
+                robot.outerIntakeBack().set(-.7);
+            break;
             //Color wheel
             case 3:
 

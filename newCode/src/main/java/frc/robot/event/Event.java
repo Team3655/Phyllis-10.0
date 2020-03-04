@@ -82,6 +82,7 @@ public class Event{
                 delay=loopDelay;
             } else {
                 taskDone();
+                endTask();
             }
         }
     }

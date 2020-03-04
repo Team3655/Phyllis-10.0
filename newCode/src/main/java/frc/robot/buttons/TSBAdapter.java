@@ -2,6 +2,8 @@ package frc.robot.buttons;
 
 
 
+import com.revrobotics.ControlType;
+
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.Limelight;
@@ -52,7 +54,8 @@ public class TSBAdapter extends ButtonHandler{
                 //Load shooter in
                 case 3:
                     robot.verticalLoader().set(robot.getTuningValue("verticalIntake")*-1);
-                    robot.meteringWheel().set(robot.getTuningValue("meteringWheel")*-1);
+                    robot.meteringWheel().getPIDController().setReference(robot.getTuningValue("meteringWheel")*-1,ControlType.kVelocity);
+                    //robot.meteringWheel().set(robot.getTuningValue("meteringWheel")*-1);
                 break;
                 //climb 1&2 up (winch up)
                 case 4:
@@ -75,7 +78,8 @@ public class TSBAdapter extends ButtonHandler{
                 //Load shooter out
                 case 8:
                     robot.verticalLoader().set(robot.getTuningValue("verticalIntake"));
-                    robot.meteringWheel().set(robot.getTuningValue("meteringWheel"));
+                    robot.meteringWheel().getPIDController().setReference(robot.getTuningValue("meteringWheel"),ControlType.kVelocity);
+                    //robot.meteringWheel().set(robot.getTuningValue("meteringWheel"));
                 break;
                 //Climb 1&2 down
                 case 9:
@@ -112,8 +116,10 @@ public class TSBAdapter extends ButtonHandler{
                 break;
                 //shoot
                 case 15:
-                    robot.leftShooterWheel().set(robot.getTuningValue("shoot")*-1);
-                    robot.rightShooterWheel().set(robot.getTuningValue("shoot"));
+                    //robot.leftShooterWheel().set(robot.getTuningValue("shoot")*-1);
+                    //robot.rightShooterWheel().set(robot.getTuningValue("shoot"));
+                    robot.leftShooterWheel().getPIDController().setReference(robot.getTuningValue("shoot")*-1, ControlType.kVelocity);
+                    robot.rightShooterWheel().getPIDController().setReference(robot.getTuningValue("shoot"), ControlType.kVelocity);
                 break;
                 //null
                 //case 16:
@@ -172,7 +178,7 @@ public class TSBAdapter extends ButtonHandler{
                     } else {
                         robot.eHandler.triggerEvent(new PrintEvent("Manual controls not enabled."));
                     }*/
-                    double newTarget=robot.getElevatorLeft().getPosition()+robot.getTuningValue("elevator");
+                    double newTarget=robot.getElevatorRight().get()+robot.getTuningValue("elevator");
                     double max=robot.getTuningValue("elevatorMaxPos");
                     double min=robot.getTuningValue("elevatorMinPos");
                     if (newTarget>max){
@@ -180,8 +186,9 @@ public class TSBAdapter extends ButtonHandler{
                     } else if (newTarget<min){
                         newTarget=min;
                     }
+                    //System.out.println(newTarget);
                     robot.getElevatorLeft().set(newTarget);
-                    robot.getElevatorRight().set(newTarget*-1);
+                    robot.getElevatorRight().set(newTarget);
                 } break;
                 //raise shooter elevation
                 case 27: {
@@ -192,7 +199,7 @@ public class TSBAdapter extends ButtonHandler{
                         robot.eHandler.triggerEvent(new PrintEvent("Manual controls not enabled."));
                     }*/
 
-                    double newTarget=robot.getElevatorLeft().getPosition()+robot.getTuningValue("elevator");
+                    double newTarget=robot.getElevatorLeft().get()-robot.getTuningValue("elevator");
                     double max=robot.getTuningValue("elevatorMaxPos");
                     double min=robot.getTuningValue("elevatorMinPos");
                     if (newTarget>max){
@@ -200,7 +207,7 @@ public class TSBAdapter extends ButtonHandler{
                     } else if (newTarget<min){
                         newTarget=min;
                     }
-                    robot.getElevatorLeft().set(newTarget*-1);
+                    robot.getElevatorLeft().set(newTarget);
                     robot.getElevatorRight().set(newTarget);
                 } break;
                 //change mode
@@ -295,11 +302,10 @@ public class TSBAdapter extends ButtonHandler{
                     /*case 19:
                         Event[] printNos={new PrintEvent(4),new PrintEvent(3),new PrintEvent(2),new PrintEvent(1),new PrintEvent(0),new PrintEvent("Good Job!"),new PrintEvent(-1)};
                         Robot.eHandler.triggerEvent(new EventSequence(printNos));
-                    break;
-                    case 20:
-                        Event[] printNos1={new PrintEvent(1),new PrintEvent(2,500,false),new PrintEvent(3,1000,false),new PrintEvent(4,1000,false)};
-                        Robot.eHandler.triggerEvent(new EventSequence(printNos1));
                     break;*/
+                    case 20:
+                        Robot.eHandler.clear();
+                    break;
                                     
 
                     //Button 21 set value to input
