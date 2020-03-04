@@ -177,6 +177,7 @@ public class Robot extends TimedRobot {
     tuningValues.put("elevator", .1d);//servo increment per wheel move (between -1 and 1)
     tuningValues.put("elevatorMaxPos",1d); //don't set this higher than 1 or less than min
     tuningValues.put("elevatorMinPos", 0d);//don't set this less than 1 or more than max
+    tuningValues.put("passThrough", .5);
     turret=new Turret(22);
 
     UsbCamera front=CameraServer.getInstance().startAutomaticCapture();

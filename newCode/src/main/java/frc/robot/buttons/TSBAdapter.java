@@ -92,13 +92,13 @@ public class TSBAdapter extends ButtonHandler{
                 //break;
                 //passthrough backward
                 case 11:
-                    robot.outerIntakeFront().set(robot.getTuningValue("intake")*-1);
-                    robot.outerIntakeBack().set(robot.getTuningValue("intake")*-1);
+                    robot.outerIntakeFront().set(robot.getTuningValue("passThrough")*-1);
+                    robot.outerIntakeBack().set(robot.getTuningValue("passThrough")*-1);
                                  
                 break;//passthrough forward
                 case 12:
-                    robot.outerIntakeFront().set(robot.getTuningValue("intake"));
-                    robot.outerIntakeBack().set(robot.getTuningValue("intake"));
+                    robot.outerIntakeFront().set(robot.getTuningValue("passThrough"));
+                    robot.outerIntakeBack().set(robot.getTuningValue("passThrough"));
                 break;
                 case 13://everything in
                     robot.outerIntakeFront().set(robot.getTuningValue("intake"));
