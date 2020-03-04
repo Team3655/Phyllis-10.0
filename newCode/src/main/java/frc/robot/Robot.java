@@ -166,9 +166,9 @@ public class Robot extends TimedRobot {
     tuningValues.put("driveFF", .5);
     tuningValues.put("conveyor", .9);
     tuningValues.put("verticalIntake",.9);
-    tuningValues.put("meteringWheel", 5000d);
+    tuningValues.put("meteringWheel", 7000d);
     tuningValues.put("turret", .1);
-    tuningValues.put("shoot", 6000d);
+    tuningValues.put("shoot", 4000d);
     tuningValues.put("shooterElevation", .1);
     tuningValues.put("turretDefaultMaxSpeed",.2);
     tuningValues.put("turretMaxPos",43.76);
