@@ -31,7 +31,7 @@ public class DriveEvent extends Event{
     @Override
     public void task(){
         switch(state){
-            /*case 0:
+            case 0:
                 fl.getPIDController().setOutputRange(Robot.getInstance().getTuningValue("drive")*-1, Robot.getInstance().getTuningValue("drive"));
                 fr.getPIDController().setOutputRange(Robot.getInstance().getTuningValue("drive")*-1, Robot.getInstance().getTuningValue("drive"));
                 bl.getPIDController().setOutputRange(Robot.getInstance().getTuningValue("drive")*-1, Robot.getInstance().getTuningValue("drive"));
@@ -56,15 +56,15 @@ public class DriveEvent extends Event{
                 bl.getEncoder().setPosition(0);
                 br.getEncoder().setPosition(0);
                 state++; //this only needs to be done once per event;
-            break;*/
+            break;
             
-            case 0:
+            /*case 0:
                 fl.set(-.3);
                 fr.set(.3);
                 bl.set(-.3);
                 br.set(.3);
                 state++;
-            break;
+            break;*/
             /*case 1:
                 state++;
             break;*/

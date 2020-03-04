@@ -125,7 +125,7 @@ public class Robot extends TimedRobot {
     
     //centerIntakeFront.clearFaults();
     eHandler.start();
-    driveControl = new DifferentialDrive(fl, fr);// new DifferentialDrive(fl, fr);
+    // new DifferentialDrive(fl, fr);
     //driveControl.
     br.follow(fr);
     bl.follow(fl);
@@ -177,6 +177,7 @@ public class Robot extends TimedRobot {
     tuningValues.put("elevator", .1d);//servo increment per wheel move (between -1 and 1)
     tuningValues.put("elevatorMaxPos",1d); //don't set this higher than 1 or less than min
     tuningValues.put("elevatorMinPos", 0d);//don't set this less than 1 or more than max
+    tuningValues.put("passThrough", .5);
     turret=new Turret(22);
 
     UsbCamera front=CameraServer.getInstance().startAutomaticCapture();
@@ -192,6 +193,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     //limelight.enable();
+    driveControl=null;
     
     try{
       tractorAdapter.setMode(TSBAdapter.Mode.Tune);
@@ -211,7 +213,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     //limelight.enable();
-    
+    driveControl = new DifferentialDrive(fl, fr);
     try{
       tractorAdapter.setMode(TSBAdapter.Mode.RobotResponse);
     } catch (Exception e){
