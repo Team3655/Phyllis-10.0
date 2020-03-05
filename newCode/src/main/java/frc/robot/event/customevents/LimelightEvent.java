@@ -15,15 +15,21 @@ public class LimelightEvent extends Event {
     @Override
     public void task(){
         if (enabled){
-            double power=P*Robot.getInstance().getLimelight().getX();
+            double power=P*Robot.getInstance().getLimelight().getY();
             if (Math.abs(power)>max){
                 power=max*Math.abs(power)/power;
             }
-            //error will equal the angle of x the limelight returns
+            //error will equal the angle of y the limelight returns
             //set motor speed as P times error
             Robot.getInstance().turret().set(power);
             Robot.eHandler.triggerEvent(new PrintEvent("Doing limelight yams."+Robot.getInstance().turret().getEncoder().getPosition()));
             //Robot.getInstance().turret().set(P*Robot.getInstance().getLimelight().getX());
+
+            double h = 2; //distance between turret and target (height)
+            double d = h/Math.tan(Robot.getInstance().getLimelight().getX()); //distance between turret and target (length)
+            double t = Math.sqrt(19.6*h)/9.8; //time for power cell to travel from turret to target
+            double v = Math.sqrt(Math.pow(d/t, 2)+19.6*h); //velocity of power cell
+            double angle = Math.sinh(Math.sqrt(19.6*h)/v); //elevation angle relative to floor
         }
     }
 
