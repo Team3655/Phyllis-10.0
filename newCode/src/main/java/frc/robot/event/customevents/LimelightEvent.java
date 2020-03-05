@@ -26,12 +26,13 @@ public class LimelightEvent extends Event {
             //Robot.getInstance().turret().set(P*Robot.getInstance().getLimelight().getX());
 
             double h = 2; //distance between turret and target (height)
-            double d = h/Math.tan(Robot.getInstance().getLimelight().getX()); //distance between turret and target (length)
+            double d = h/Math.tan(-Robot.getInstance().getLimelight().getX()); //distance between turret and target (length)
             double t = Math.sqrt(19.6*h)/9.8; //time for power cell to travel from turret to target
             double v = Math.sqrt(Math.pow(d/t, 2)+19.6*h); //velocity of power cell
-            double angle = Math.sinh(Math.sqrt(19.6*h)/v); //elevation angle relative to floor
+            double angle = Math.sinh(Math.sqrt(19.6*h)/v); //elevator angle relative to floor
+            double targetAngle = angle+Robot.getInstance().getLimelight().getX(); //the target angle from Limelight
+            }
         }
-    }
 
     @Override
     public boolean eventCompleteCondition(){
