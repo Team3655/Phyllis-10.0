@@ -20,11 +20,10 @@ public class Limelight {
     }
 
     public double getX(){
-        //Robot.getInstance().eHandler.triggerEvent(new PrintEvent(x.getDouble(0)));
+        Robot.getInstance().eHandler.triggerEvent(new PrintEvent(x.getDouble(0)));
         return x.getDouble(0);
     }
     public double getY(){
-        Robot.getInstance().eHandler.triggerEvent(new PrintEvent(y.getDouble(0)));
         return y.getDouble(0);
     }
     public double getArea(){

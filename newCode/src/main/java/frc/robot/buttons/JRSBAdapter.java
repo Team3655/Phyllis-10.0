@@ -36,8 +36,8 @@ public class JRSBAdapter extends ButtonHandler{
                 robot.verticalLoader().set(Robot.getInstance().getTuningValue("verticalIntake")*-1);
             break;
             case 2:
-                //robot.outerIntakeFront().set(robot.getTuningValue("intake"));
-                //robot.outerIntakeBack().set(robot.getTuningValue("intake")*-1);
+                robot.outerIntakeFront().set(.7);
+                robot.outerIntakeBack().set(-.7);
             break;
             //Color wheel
             case 3:

@@ -162,8 +162,8 @@ public class Robot extends TimedRobot {
     //add tuning values
     tuningValues.put("climb", .5);
     tuningValues.put("drive", 1d);
-    tuningValues.put("driveP", 1d);
-    tuningValues.put("driveFF", 0d);
+    tuningValues.put("driveP", 4d);
+    tuningValues.put("driveFF", .5);
     tuningValues.put("conveyor", .9);
     tuningValues.put("verticalIntake",.9);
     tuningValues.put("meteringWheel", 7000d);
@@ -201,7 +201,7 @@ public class Robot extends TimedRobot {
       
     }
     //need to test
-    eHandler.triggerEvent(new DriveEvent(3.048,100));//distance from back wall to line is 3.048
+    eHandler.triggerEvent(new DriveEvent(3.048,10));//distance from back wall to line is 3.048
   }
 
   @Override
@@ -256,7 +256,7 @@ public class Robot extends TimedRobot {
         driveControl.tankDrive(leftY, rightY);
       break;
     }
-    //System.out.println("E Pos"+elevatorLeft.getPosition());
+    System.out.println("E Pos"+elevatorLeft.getPosition());
     
 }
 

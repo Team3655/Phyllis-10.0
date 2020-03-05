@@ -207,7 +207,6 @@ public class TSBAdapter extends ButtonHandler{
                     } else if (newTarget<min){
                         newTarget=min;
                     }
-                    //System.out.println(newTarget);
                     robot.getElevatorLeft().set(newTarget);
                     robot.getElevatorRight().set(newTarget);
                 } break;
