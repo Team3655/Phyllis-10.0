@@ -19,12 +19,12 @@ public class DriveEvent extends Event{
 
     public DriveEvent(double length){
        super();
-        rotations=length/rotationsPerMeter;
+        rotations=-length*rotationsPerMeter;
     }
 
     public DriveEvent(double length, long delay){
         super(delay,2400);
-        rotations=length*rotationsPerMeter;
+        rotations=-length*rotationsPerMeter;
         System.out.println("Target: "+rotations);
     }
 
@@ -32,10 +32,10 @@ public class DriveEvent extends Event{
     public void task(){
         switch(state){
             case 0:
-                fl.getPIDController().setOutputRange(Robot.getInstance().getTuningValue("drive")*-1, Robot.getInstance().getTuningValue("drive"));
-                fr.getPIDController().setOutputRange(Robot.getInstance().getTuningValue("drive")*-1, Robot.getInstance().getTuningValue("drive"));
-                bl.getPIDController().setOutputRange(Robot.getInstance().getTuningValue("drive")*-1, Robot.getInstance().getTuningValue("drive"));
-                br.getPIDController().setOutputRange(Robot.getInstance().getTuningValue("drive")*-1, Robot.getInstance().getTuningValue("drive"));
+                fl.getPIDController().setOutputRange(Robot.getInstance().getTuningValue("drive")*-.5, Robot.getInstance().getTuningValue("drive")*.5);
+                fr.getPIDController().setOutputRange(Robot.getInstance().getTuningValue("drive")*-.5, Robot.getInstance().getTuningValue("drive")*.5);
+                bl.getPIDController().setOutputRange(Robot.getInstance().getTuningValue("drive")*-.5, Robot.getInstance().getTuningValue("drive")*.5);
+                br.getPIDController().setOutputRange(Robot.getInstance().getTuningValue("drive")*-.5, Robot.getInstance().getTuningValue("drive")*.5);
                 fl.getPIDController().setP(Robot.getInstance().getTuningValue("driveP"));
                 fr.getPIDController().setP(Robot.getInstance().getTuningValue("driveP"));
                 bl.getPIDController().setP(Robot.getInstance().getTuningValue("driveP"));
@@ -45,16 +45,18 @@ public class DriveEvent extends Event{
                 bl.getPIDController().setFF(Robot.getInstance().getTuningValue("driveFF"));
                 br.getPIDController().setFF(Robot.getInstance().getTuningValue("driveFF"));
                 
+                fl.getEncoder().setPosition(0);
+                fr.getEncoder().setPosition(0);
+                bl.getEncoder().setPosition(0);
+                br.getEncoder().setPosition(0);
+
                 //set positions
                 fl.getPIDController().setReference(-rotations, ControlType.kPosition);
                 fr.getPIDController().setReference(rotations, ControlType.kPosition);
                 bl.getPIDController().setReference(-rotations, ControlType.kPosition);
                 br.getPIDController().setReference(rotations, ControlType.kPosition);
                 
-                fl.getEncoder().setPosition(0);
-                fr.getEncoder().setPosition(0);
-                bl.getEncoder().setPosition(0);
-                br.getEncoder().setPosition(0);
+                
                 state++; //this only needs to be done once per event;
             break;
             
@@ -87,7 +89,7 @@ public class DriveEvent extends Event{
     }
 
     private double averagePos(){
-        return (-fl.getEncoder().getPosition()-bl.getEncoder().getPosition()+fr.getEncoder().getPosition()+br.getEncoder().getPosition())/4;
+        return (-fl.getEncoder().getPosition()-bl.getEncoder().getPosition()+fr.getEncoder().getPosition()+br.getEncoder().getPosition())/4d;
     }
 
     /**Sets the rotation per meter based on diameter and gear ratio
