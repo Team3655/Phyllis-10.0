@@ -78,10 +78,9 @@ public class Event{
             c.run();
             taskDone=eventCompleteCondition()||taskDone;//if process was terminated then taskDone should remain true reguardless of eventCompleteCondition
             if (!taskDone){
-                triggerTime=System.currentTimeMillis();
+                resetTriggerTime();
                 delay=loopDelay;
             } else {
-                taskDone();
                 endTask();
             }
         }
@@ -97,7 +96,7 @@ public class Event{
      * 
      */
     public void task(){}
-    /**Override this to make task repeat until condition in function is met
+    /**Override this to make task repeat until condition in function is met (checked after each time triggered after delay)
      * 
      * @return weather the complete condition has been met (defualt of true)
      */

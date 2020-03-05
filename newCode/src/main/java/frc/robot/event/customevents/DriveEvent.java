@@ -23,7 +23,7 @@ public class DriveEvent extends Event{
     }
 
     public DriveEvent(double length, long delay){
-        super(delay,2400);
+        super(delay);
         rotations=length*rotationsPerMeter;
         System.out.println("Target: "+rotations);
     }
