@@ -11,17 +11,6 @@ import frc.robot.Robot;
 public class JRSBAdapter extends ButtonHandler{
     private Robot robot;
 
-    boolean isArcade = true;
-    boolean isTank= false;
-
-    public boolean isArcade(){
-        return isArcade;
-    }
-
-    public boolean isTank(){
-        return isTank;
-    }
-
     public JRSBAdapter(Joystick joystick, Robot robot){
         super(joystick,12);
         this.robot=robot;

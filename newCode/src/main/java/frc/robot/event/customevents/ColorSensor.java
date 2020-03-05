@@ -9,6 +9,7 @@ import com.revrobotics.ColorSensorV3;
 import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.Robot;
 
+//should not extend robot -- if it is an event (it is placed in custom events) then it should extend event.
 public class ColorSensor extends Robot {
     
 

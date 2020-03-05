@@ -256,7 +256,7 @@ public class Robot extends TimedRobot {
         driveControl.tankDrive(leftY, rightY);
       break;
     }
-    //System.out.println("E Pos"+elevatorLeft.getPosition());
+    System.out.println("E Pos"+elevatorLeft.getPosition());
     
 }
 
