@@ -78,7 +78,7 @@ public class Robot extends TimedRobot {
   private CANSparkMax rightShooterWheel =attemptGetMotor(20);//null;//new CANSparkMax(21,MotorType.kBrushless);
   //neo
 
-  private CANSparkMax turret;//new CANSparkMax(/*22*/18,MotorType.kBrushless);//17 for testing
+  private Turret turret;//new CANSparkMax(/*22*/18,MotorType.kBrushless);//17 for testing
   //550
 
   private CANSparkMax colorWheel = new JEPLG(23);//null;//new CANSparkMax(23,MotorType.kBrushless);
@@ -416,7 +416,7 @@ public class Robot extends TimedRobot {
     return rightShooterWheel; 
   }
 
-  public CANSparkMax turret(){
+  public Turret turret(){
     return turret; 
   }
 

@@ -3,6 +3,9 @@ package frc.robot.event.customevents;
 import frc.robot.Robot;
 import frc.robot.event.Event;
 
+/**@author Max
+ * 
+ */
 public class TurretEvent extends Event{
     private double rotations;
 
@@ -14,6 +17,6 @@ public class TurretEvent extends Event{
 
 
     public void task(){
-        //Robot.getInstance().turret.setPos(rotations);
+        Robot.getInstance().turret().setPos(rotations);
     }
 }

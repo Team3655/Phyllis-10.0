@@ -8,12 +8,13 @@ import com.revrobotics.ColorSensorV3;
 
 import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.Robot;
+import frc.robot.event.Event;
 
 //should not extend robot -- if it is an event (it is placed in custom events) then it should extend event.
-public class ColorSensor extends Robot {
+public class ColorSensor extends Event {
     
 
-    /*public final ColorMatch colorMatcher = new ColorMatch();
+    public final ColorMatch colorMatcher = new ColorMatch();
     public final static Color RED = new Color(0.505126953125, 0.360107421875, 0.134765625);
     public final static Color GREEN = new Color(0.20166015625, 0.550537109375, 0.247802734375);
     public final static Color BLUE = new Color(0.148681640625, 0.451171875, 0.400390625);
@@ -49,9 +50,9 @@ public class ColorSensor extends Robot {
       colorWheel.add(colorWheelValues[i]);
     }
   }
-*/
- /* @Override
-  public void periodic() {
+
+  /*@Override
+  public void task() {
       
     final Color detectedColor = this.sensor.getColor();
     final ColorMatchResult match = this.colorMatcher.matchClosestColor(detectedColor);
@@ -76,9 +77,11 @@ public class ColorSensor extends Robot {
       colorString = "Unknown";
     }
 
-  }*/
-/*
+  }
+*/
+//make loop forever
+
   public static int rotationsToDesiredColor(ControlPanelColor current, ControlPanelColor desired) {
     return current.value - desired.value;
-  }*/
+  }
 }
