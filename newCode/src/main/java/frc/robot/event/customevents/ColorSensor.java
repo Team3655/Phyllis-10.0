@@ -32,15 +32,12 @@ public class ColorSensor extends Robot {
     public final ArrayList<ControlPanelColor> colorWheel = new ArrayList<ControlPanelColor>();
 
     public ColorSensor() {
-    // This needs to be changed to the readouts we get in optimal conditions from
-    // our sensor
+
     this.colorMatcher.addColorMatch(RED);
     this.colorMatcher.addColorMatch(GREEN);
     this.colorMatcher.addColorMatch(BLUE);
     this.colorMatcher.addColorMatch(YELLOW);
-    // Avoid reporting on values that are inaccurate (like if we are nowhere near
-    // the control panel)
-    // The default value is 0.95
+
     
 
 
@@ -60,7 +57,7 @@ public class ColorSensor extends Robot {
 
     String colorString;
 
-    // This should be a switch statement but Java is stupid and won't let us
+    
     if (match.color == BLUE) {
       recognizedColor = ControlPanelColor.blue;
       colorString = "Blue";
