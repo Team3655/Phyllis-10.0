@@ -17,12 +17,14 @@ import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.CAN;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 import frc.robot.buttons.ButtonHandler;
 import frc.robot.buttons.JLSBAdapter;
 import frc.robot.buttons.JRSBAdapter;
@@ -31,7 +33,9 @@ import frc.robot.event.EventHandler;
 import frc.robot.event.customevents.DriveEvent;
 import frc.robot.event.customevents.LimelightEvent;
 import frc.robot.event.customevents.PrintEvent;
+import frc.robot.event.sequence.AutonEventSequence;
 import frc.robot.motors.JEPLG;
+import frc.robot.motors.Neo;
 import frc.robot.motors.Neo550;
 import frc.robot.motors.Pro775;
 import frc.robot.motors.Turret;
@@ -54,10 +58,10 @@ public class Robot extends TimedRobot {
   private CANSparkMax fl = attemptGetMotor(11);//new CANSparkMax(11, MotorType.kBrushless);
   private CANSparkMax bl = attemptGetMotor(10);//new CANSparkMax(10, MotorType.kBrushless);
   
-  private CANSparkMax bottomConveyor=new Neo550(17);//attemptGetMotor(17);//null;//8new CANSparkMax(/*17*/50, MotorType.kBrushless);
-  //550
+  private CANSparkMax bottomConveyor=new Neo(17);//attemptGetMotor(17);//null;//8new CANSparkMax(/*17*/50, MotorType.kBrushless);
+  //Snowblower motor (similar current limit to JEPLG)
 
-  private CANSparkMax climbArm=new Neo550(16);//attemptGetMotor(16);//new CANSparkMax(16, MotorType.kBrushless);
+  private CANSparkMax climbArm=new JEPLG(23);//attemptGetMotor(16);//new CANSparkMax(16, MotorType.kBrushless);
   //550
 
   private CANSparkMax verticalLoader=new Neo550(18);//null; //new CANSparkMax(18, MotorType.kBrushless);
@@ -81,12 +85,14 @@ public class Robot extends TimedRobot {
   private Turret turret;//new CANSparkMax(/*22*/18,MotorType.kBrushless);//17 for testing
   //550
 
-  private CANSparkMax colorWheel = new JEPLG(23);//null;//new CANSparkMax(23,MotorType.kBrushless);
+  private CANSparkMax colorWheel = new JEPLG(16);//null;//new CANSparkMax(23,MotorType.kBrushless);
   //JE PLG andymark
 
   //shooter elevator going to be two servos
   private Servo elevatorLeft = new Servo(0);
   private Servo elevatorRight = new Servo(1);
+
+  AnalogGyro gyro=new AnalogGyro(0);
   
   public Servo getElevatorRight(){
     return elevatorRight;
@@ -137,7 +143,7 @@ public class Robot extends TimedRobot {
     fl.setInverted(false);
     br.setInverted(false);
     fr.setInverted(false);
-
+    gyro.calibrate();
     leftShooterWheel.setIdleMode(IdleMode.kCoast);
     rightShooterWheel.setIdleMode(IdleMode.kCoast);
     leftShooterWheel().getPIDController().setD(0);
@@ -161,6 +167,8 @@ public class Robot extends TimedRobot {
 
     //add tuning values
     tuningValues.put("climb", .5);
+    tuningValues.put("climbArmUp",.3);
+    tuningValues.put("climbArmDown",.28);
     tuningValues.put("drive", 1d);
     tuningValues.put("driveP", 4d);
     tuningValues.put("driveFF", .5);
@@ -201,7 +209,7 @@ public class Robot extends TimedRobot {
       
     }
     //need to test
-    eHandler.triggerEvent(new DriveEvent(3.048,10));//distance from back wall to line is 3.048
+    eHandler.triggerEvent(new AutonEventSequence());//distance from back wall to line is 3.048
   }
 
   @Override

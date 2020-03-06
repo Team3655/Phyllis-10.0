@@ -4,7 +4,7 @@ import edu.wpi.first.hal.sim.mockdata.RoboRioDataJNI;
 import edu.wpi.first.wpilibj.Servo;
 import frc.robot.Robot;
 import frc.robot.event.Event;
-
+@Deprecated//don't use
 public class ServoSpeedEvent extends Event {
     
 

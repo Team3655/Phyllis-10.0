@@ -60,7 +60,7 @@ public class TSBAdapter extends ButtonHandler{
                 //climb 1&2 up (winch up)
                 case 4:
                     robot.climb1().set(robot.getTuningValue("climb"));
-                    robot.climb2().set(robot.getTuningValue("climb"));
+                    //robot.climb2().set(robot.getTuningValue("climb"));
                 break;
                 //null
                 //case 5:
@@ -85,7 +85,7 @@ public class TSBAdapter extends ButtonHandler{
                 case 9:
                     //climb 1&2 down
                     robot.climb1().set(robot.getTuningValue("climb")*-1);
-                    robot.climb2().set(robot.getTuningValue("climb")*-1);
+                    //robot.climb2().set(robot.getTuningValue("climb")*-1);
                 break;
                 //null
                 //case 10:
@@ -130,16 +130,16 @@ public class TSBAdapter extends ButtonHandler{
 
                 break;
                 //Color wheel
-                case 18:
-
+                case 18://temp climb arm up
+                    robot.climbArm().set(robot.getTuningValue("climbArmUp"));
                 break; 
                 //Color wheel
                 case 19:
 
                 break;
                 //color wheel
-                case 20:
-
+                case 20://temp climb arm down
+                    robot.climbArm().set(robot.getTuningValue("climbArmDown")*-1);
                 break;
                 //null
                 //case 21:
@@ -163,7 +163,7 @@ public class TSBAdapter extends ButtonHandler{
                 break;
                 //null
                 case 24:
-                    robot.getInstance().printMotorPositions();
+                    //robot.getInstance().printMotorPositions();
                     
                 break;
                 //null
@@ -454,7 +454,7 @@ public class TSBAdapter extends ButtonHandler{
                 //climb 1&2 up (winch up)
                 case 4:
                     robot.climb1().set(0);
-                    robot.climb2().set(0);
+                    //robot.climb2().set(0);
                 break;
                 //null
                 //case 5:
@@ -478,7 +478,7 @@ public class TSBAdapter extends ButtonHandler{
                 case 9:
                     //climb 1&2 down
                     robot.climb1().set(0);
-                    robot.climb2().set(0);
+                    //robot.climb2().set(0);
                 break;
                 //null
                 //case 10:
@@ -521,16 +521,16 @@ public class TSBAdapter extends ButtonHandler{
 
                 break;
                 //Color wheel
-                case 18:
-
+                case 18://temp climb arm up
+                    robot.climbArm().set(0);
                 break; 
                 //Color wheel
                 case 19:
 
                 break;
                 //color wheel
-                case 20:
-
+                case 20://temp climb arm down
+                    robot.climbArm().set(0);
                 break;
                 //null
                 //case 21:
