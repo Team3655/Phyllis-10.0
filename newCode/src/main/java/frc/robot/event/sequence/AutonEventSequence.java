@@ -10,8 +10,11 @@ import frc.robot.event.customevents.VerticalIntakeEvent;
 
 public class AutonEventSequence extends EventSequence{
     public AutonEventSequence(){
-        super(new Event[] {new DriveEvent(1),new CompoundEvent(new Event[] {new ShootEvent(2000, 1000),new VerticalIntakeEvent(1000,500)})});
-        //super(new Event[] {new CompoundEvent(new Event[] {new ShootEvent(3000,5000),new VerticalIntakeEvent(3500,1500), new ConveyorEvent(time)})});
+        //super(new Event[] {new DriveEvent(1),new CompoundEvent(new Event[] {new ShootEvent(2000, 1000),new VerticalIntakeEvent(1000,500)})});
+        
+        //add Elevation to start of sequence
+        //add drive event to end of sequence
+        super(new Event[] {new CompoundEvent(new Event[] {new ShootEvent(3000,5000),new VerticalIntakeEvent(3500,1500), new ConveyorEvent(3500, 1500)})});
     }
 
 }
