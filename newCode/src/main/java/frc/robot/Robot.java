@@ -30,10 +30,12 @@ import frc.robot.buttons.JLSBAdapter;
 import frc.robot.buttons.JRSBAdapter;
 import frc.robot.buttons.TSBAdapter;
 import frc.robot.event.EventHandler;
+import frc.robot.event.EventSequence;
 import frc.robot.event.customevents.DriveEvent;
 import frc.robot.event.customevents.LimelightEvent;
 import frc.robot.event.customevents.PrintEvent;
 import frc.robot.event.sequence.AutonEventSequence;
+import frc.robot.event.sequence.AutonEventSequence2;
 import frc.robot.motors.JEPLG;
 import frc.robot.motors.Neo;
 import frc.robot.motors.Neo550;
@@ -58,6 +60,8 @@ public class Robot extends TimedRobot {
   private CANSparkMax fl = attemptGetMotor(11);//new CANSparkMax(11, MotorType.kBrushless);
   private CANSparkMax bl = attemptGetMotor(10);//new CANSparkMax(10, MotorType.kBrushless);
   
+  EventSequence autonSequence;
+
   private CANSparkMax bottomConveyor=new Neo(17);//attemptGetMotor(17);//null;//8new CANSparkMax(/*17*/50, MotorType.kBrushless);
   //Snowblower motor (similar current limit to JEPLG)
 
@@ -94,13 +98,7 @@ public class Robot extends TimedRobot {
 
   AnalogGyro gyro=new AnalogGyro(0);
   
-  public Servo getElevatorRight(){
-    return elevatorRight;
-  }
-
-  public Servo getElevatorLeft(){
-    return elevatorLeft;
-  }
+  
 
   private CANSparkMax climb1 =attemptGetMotor(24);// null;//new CANSparkMax(24,MotorType.kBrushless);
   //neo
@@ -170,8 +168,9 @@ public class Robot extends TimedRobot {
     tuningValues.put("climbArmUp",.45);
     tuningValues.put("climbArmDown",.28);
     tuningValues.put("drive", 1d);
-    tuningValues.put("driveP", .5d);
-    tuningValues.put("driveFF", .5);
+    tuningValues.put("driveP", 10d);
+    tuningValues.put("driveI", .1d);
+    tuningValues.put("driveFF", 0d);
     tuningValues.put("conveyor", .9);
     tuningValues.put("verticalIntake",.9);
     tuningValues.put("meteringWheel", 7000d);
@@ -216,8 +215,10 @@ public class Robot extends TimedRobot {
     } catch (Exception e){
       
     }
+    limelight.disable();
     //need to test
-    eHandler.triggerEvent(new AutonEventSequence());//distance from back wall to line is 3.048
+    stopAuton();//distance from back wall to line is 3.048
+    startAuton();
   }
 
   @Override
@@ -240,6 +241,8 @@ public class Robot extends TimedRobot {
     } catch (Exception e){
       
     }
+    limelight.disable();
+    stopAuton();
   }
 
   @Override
@@ -342,7 +345,7 @@ public class Robot extends TimedRobot {
   }
 
   public void printMotorPositions(){
-    eHandler.triggerEvent(new PrintEvent(turret.getEncoder().getPosition()));
+    eHandler.triggerEvent(new PrintEvent(turret.getPosition()));
   }
 
   public void checkMotorTemps(){
@@ -451,11 +454,19 @@ public class Robot extends TimedRobot {
   }
 
   public CANSparkMax climb2(){
-    return  climb2; 
+    return  climb2;
   }
 
   public CANSparkMax bottomConveyor(){
     return bottomConveyor;
+  }
+
+  public Servo getElevatorRight(){
+    return elevatorRight;
+  }
+
+  public Servo getElevatorLeft(){
+    return elevatorLeft;
   }
  
 
@@ -497,6 +508,19 @@ public class Robot extends TimedRobot {
     String[] keys=new String[tuningValues.keySet().size()];
     tuningValues.keySet().toArray(keys);
     return keys;
+  }
+
+  private void startAuton(){
+    autonSequence=new AutonEventSequence2();
+    eHandler.triggerEvent(autonSequence);
+  }
+
+  private void stopAuton(){
+    try {
+      autonSequence.terminate();
+    } catch (NullPointerException e){
+
+    }
   }
 
 }

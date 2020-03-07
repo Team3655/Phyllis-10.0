@@ -38,27 +38,39 @@ public class Turret extends Neo550{
 
     public void setPos(double pos,double maxSpeed){
         maxSpeed=Math.abs(maxSpeed);
+        target=pos;
         pos=getRestrictedPos(pos);
         getPIDController().setOutputRange(maxSpeed*-1, maxSpeed);
         getPIDController().setReference(pos, ControlType.kPosition);
-        target=pos;
-        System.out.println(target);
+        
+        //System.out.println(target);
     }
 
     public void setPos(double pos,double minSpeed,double maxSpeed){
         maxSpeed=Math.abs(maxSpeed);
         minSpeed=Math.abs(minSpeed)*-1;
+        target=pos;
         pos=getRestrictedPos(pos);
         getPIDController().setOutputRange(minSpeed, maxSpeed);
         getPIDController().setReference(pos, ControlType.kPosition);
-        target=pos;
     }
 
     public double getTargetPos(){
         return target;
     }
 
-    private double getRestrictedPos(double unrestrictedPos){
+    public double getPosition(){
+        double pos=getEncoder().getPosition();
+        if (pos>0){
+            pos/=Robot.getInstance().getTuningValue("turretMaxPos");
+        } else if (pos<0){
+            pos/=Robot.getInstance().getTuningValue("turretMinPos")*-1;
+        }
+
+        return pos;
+    }
+
+    public double getRestrictedPos(double unrestrictedPos){
         if (unrestrictedPos>1){
             unrestrictedPos-=Math.floor(unrestrictedPos);
             unrestrictedPos*=Robot.getInstance().getTuningValue("turretMaxPos");

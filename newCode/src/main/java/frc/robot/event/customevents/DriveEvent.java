@@ -33,29 +33,35 @@ public class DriveEvent extends Event{
     public void task(){
         switch(state){
             case 0:
-                fl.getPIDController().setOutputRange(Robot.getInstance().getTuningValue("drive")*-1, Robot.getInstance().getTuningValue("drive"));
-                fr.getPIDController().setOutputRange(Robot.getInstance().getTuningValue("drive")*-1, Robot.getInstance().getTuningValue("drive"));
-                bl.getPIDController().setOutputRange(Robot.getInstance().getTuningValue("drive")*-1, Robot.getInstance().getTuningValue("drive"));
-                br.getPIDController().setOutputRange(Robot.getInstance().getTuningValue("drive")*-1, Robot.getInstance().getTuningValue("drive"));
-                fl.getPIDController().setP(Robot.getInstance().getTuningValue("driveP"));
-                fr.getPIDController().setP(Robot.getInstance().getTuningValue("driveP"));
-                bl.getPIDController().setP(Robot.getInstance().getTuningValue("driveP"));
-                br.getPIDController().setP(Robot.getInstance().getTuningValue("driveP"));
+                fl.getPIDController().setOutputRange(Robot.getInstance().getTuningValue("drive")*-1, Robot.getInstance().getTuningValue("drive"),1);
+                fr.getPIDController().setOutputRange(Robot.getInstance().getTuningValue("drive")*-1, Robot.getInstance().getTuningValue("drive"),1);
+                bl.getPIDController().setOutputRange(Robot.getInstance().getTuningValue("drive")*-1, Robot.getInstance().getTuningValue("drive"),1);
+                br.getPIDController().setOutputRange(Robot.getInstance().getTuningValue("drive")*-1, Robot.getInstance().getTuningValue("drive"),1);
+                fl.getPIDController().setP(Robot.getInstance().getTuningValue("driveP"),1);
+                fr.getPIDController().setP(Robot.getInstance().getTuningValue("driveP"),1);
+                bl.getPIDController().setP(Robot.getInstance().getTuningValue("driveP"),1);
+                br.getPIDController().setP(Robot.getInstance().getTuningValue("driveP"),1);
+                fl.getPIDController().setI(Robot.getInstance().getTuningValue("driveI"),1);
+                fr.getPIDController().setI(Robot.getInstance().getTuningValue("driveI"),1);
+                bl.getPIDController().setI(Robot.getInstance().getTuningValue("driveI"),1);
+                br.getPIDController().setI(Robot.getInstance().getTuningValue("driveI"),1);
                 fl.getPIDController().setFF(Robot.getInstance().getTuningValue("driveFF"));
                 fr.getPIDController().setFF(Robot.getInstance().getTuningValue("driveFF"));
                 bl.getPIDController().setFF(Robot.getInstance().getTuningValue("driveFF"));
                 br.getPIDController().setFF(Robot.getInstance().getTuningValue("driveFF"));
                 
-                //set positions
-                fl.getPIDController().setReference(-rotations, ControlType.kPosition);
-                fr.getPIDController().setReference(rotations, ControlType.kPosition);
-                bl.getPIDController().setReference(-rotations, ControlType.kPosition);
-                br.getPIDController().setReference(rotations, ControlType.kPosition);
-                
                 fl.getEncoder().setPosition(0);
                 fr.getEncoder().setPosition(0);
                 bl.getEncoder().setPosition(0);
                 br.getEncoder().setPosition(0);
+
+                //set positions
+                fl.getPIDController().setReference(-rotations, ControlType.kPosition,1);
+                fr.getPIDController().setReference(rotations, ControlType.kPosition,1);
+                bl.getPIDController().setReference(-rotations, ControlType.kPosition,1);
+                br.getPIDController().setReference(rotations, ControlType.kPosition,1);
+                
+                
                 state++; //this only needs to be done once per event;
             break;
             

@@ -34,4 +34,11 @@ public class EventSequence {
     public int getStage(){
         return stage;
     }
+
+    public void terminate(){
+        for (Event e:events){
+            e.terminate();
+        }
+        sequenceComplete=true;
+    }
 }

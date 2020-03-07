@@ -4,19 +4,25 @@ import frc.robot.Robot;
 import frc.robot.event.Event;
 
 /**@author Max
- * 
+ * @author Keegan
  */
 public class TurretEvent extends Event{
-    private double rotations;
-
+    private double target;
+    private int state=0;
     
-    public TurretEvent(int degrees){
+    public TurretEvent(double rotations){
         super();
-        rotations=degrees/360;
+        target=rotations;
     }
 
 
     public void task(){
-        Robot.getInstance().turret().setPos(rotations);
+        Robot.getInstance().turret().setPos(target);
+    }
+
+    @Override
+    public boolean eventCompleteCondition(){
+        double pos=Robot.getInstance().turret().getPosition();
+        return (pos>(target-.1) && pos<(target+.1));
     }
 }

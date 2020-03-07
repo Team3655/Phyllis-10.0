@@ -163,7 +163,7 @@ public class TSBAdapter extends ButtonHandler{
                 break;
                 //null
                 case 24:
-                    //robot.getInstance().printMotorPositions();
+                    robot.getInstance().printMotorPositions();
                     
                 break;
                 //null

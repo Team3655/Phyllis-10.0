@@ -5,7 +5,7 @@ import frc.robot.event.Event;
 
 public class LimelightEvent extends Event {
     private final double P = .02;
-    private final double Ppos=.1;
+    private final double Ppos=.15;
     private boolean enabled;
     private boolean terminated;
     private double max=.2;
