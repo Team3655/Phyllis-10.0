@@ -143,7 +143,7 @@ public class Robot extends TimedRobot {
     fl.setInverted(false);
     br.setInverted(false);
     fr.setInverted(false);
-    gyro.calibrate();
+    //gyro.calibrate();
     leftShooterWheel.setIdleMode(IdleMode.kCoast);
     rightShooterWheel.setIdleMode(IdleMode.kCoast);
     leftShooterWheel().getPIDController().setD(0);
@@ -160,38 +160,41 @@ public class Robot extends TimedRobot {
     meteringWheel.getPIDController().setFF(.0001);
     meteringWheel.getPIDController().setSmartMotionMaxVelocity(11000,0);
     meteringWheel.getPIDController().setSmartMotionMinOutputVelocity(-11000, 0);
-
+    climb1.setIdleMode(IdleMode.kBrake);
     //getElevatorRight().set(getElevatorLeft().getSpeed());
 
     tuningValues=new Hashtable<>();
 
     //add tuning values
-    tuningValues.put("climb", .5);
-    tuningValues.put("climbArmUp",.3);
+    tuningValues.put("climb", .6);
+    tuningValues.put("climbArmUp",.45);
     tuningValues.put("climbArmDown",.28);
     tuningValues.put("drive", 1d);
-    tuningValues.put("driveP", 4d);
+    tuningValues.put("driveP", .5d);
     tuningValues.put("driveFF", .5);
     tuningValues.put("conveyor", .9);
     tuningValues.put("verticalIntake",.9);
     tuningValues.put("meteringWheel", 7000d);
-    tuningValues.put("turret", .1);
+    tuningValues.put("turret", .1);//needs to be adjusted
     tuningValues.put("shoot", 4500d);
     tuningValues.put("shooterElevation", .1);
     tuningValues.put("turretDefaultMaxSpeed",.2);
     tuningValues.put("turretMaxPos",43.76);
-    tuningValues.put("turretMinPos", -47.07);
+    tuningValues.put("turretMinPos", -84.5);//47.07);
     tuningValues.put("intake", .7);
     tuningValues.put("elevator", .1d);//servo increment per wheel move (between -1 and 1)
     tuningValues.put("elevatorMaxPos",1d); //don't set this higher than 1 or less than min
     tuningValues.put("elevatorMinPos", 0d);//don't set this less than 1 or more than max
     tuningValues.put("passThrough", .5);
+    tuningValues.put("velocityCoefficient", 900d);
     turret=new Turret(22);
-
+    turret.setIdleMode(IdleMode.kBrake);
+    
     UsbCamera front=CameraServer.getInstance().startAutomaticCapture();
     UsbCamera other=CameraServer.getInstance().startAutomaticCapture();
     tractorAdapter= new TSBAdapter(tractorJoystick, this);
     DriveEvent.configure(.2032, 10.71);
+    driveControl=     new DifferentialDrive(fl, fr);
   }
 
   public Limelight getLimelight(){
@@ -201,6 +204,11 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     //limelight.enable();
+   try {
+      driveControl.close();
+    } catch (NullPointerException e){
+      //do nothing
+    }
     driveControl=null;
     
     try{
@@ -221,6 +229,11 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     //limelight.enable();
+    try {
+      driveControl.close();
+    } catch (NullPointerException e){
+      //do nothing
+    }
     driveControl = new DifferentialDrive(fl, fr);
     try{
       tractorAdapter.setMode(TSBAdapter.Mode.RobotResponse);
@@ -252,6 +265,7 @@ public class Robot extends TimedRobot {
       if (leftX<.1 && leftX>-.1){
       leftX=0;
     }
+    
     switch (driveMode){
       case twoStickArcade:
         driveControl.arcadeDrive(rightY, leftX);
@@ -264,7 +278,7 @@ public class Robot extends TimedRobot {
         driveControl.tankDrive(leftY, rightY);
       break;
     }
-    System.out.println("E Pos"+elevatorLeft.getPosition());
+    //System.out.println("E Angle"+elevatorLeft.getAngle());
     
 }
 

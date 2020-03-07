@@ -9,8 +9,8 @@ import frc.robot.event.customevents.DriveEvent;
 import frc.robot.event.customevents.ShootEvent;
 import frc.robot.event.customevents.VerticalIntakeEvent;
 
-public class AutonEventSequence extends EventSequence{
-    public AutonEventSequence(){
+public class AutonEventSequence2 extends EventSequence{
+    public AutonEventSequence2(){
         super(new Event[]{new DriveEventPower(.8,100),new DriveEventPower(0,3000)});
         //super(new Event[] {new CompoundEvent(new Event[] {new ShootEvent(6000, 6),new VerticalIntakeEvent(4000,1),new ConveyorEvent(4000, 1)}),new DriveEvent(3.048,6)});
         

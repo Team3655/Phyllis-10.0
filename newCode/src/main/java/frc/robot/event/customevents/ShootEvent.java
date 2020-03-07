@@ -33,7 +33,7 @@ public class ShootEvent extends Event{
         switch (state){
             case 0:
                 Robot.getInstance().leftShooterWheel().getPIDController().setReference(-velocity, ControlType.kVelocity);
-                Robot.getInstance().leftShooterWheel().getPIDController().setReference(velocity, ControlType.kVelocity);
+                Robot.getInstance().rightShooterWheel().getPIDController().setReference(velocity, ControlType.kVelocity);
             break;
         }
         state++;

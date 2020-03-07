@@ -69,6 +69,7 @@ public class CompoundEvent extends Event {
         for (Event e:events){
             if (!e.taskDone()){
                 allEventsComplete=false;
+                break;
             }
         }
         return allEventsComplete;

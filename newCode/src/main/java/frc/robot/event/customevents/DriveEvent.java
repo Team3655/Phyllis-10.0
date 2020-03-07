@@ -19,7 +19,8 @@ public class DriveEvent extends Event{
 
     public DriveEvent(double length){
        super();
-        rotations=length/rotationsPerMeter;
+        rotations=length*rotationsPerMeter;
+        System.out.println("Target: "+rotations);
     }
 
     public DriveEvent(double length, long delay){
@@ -73,9 +74,9 @@ public class DriveEvent extends Event{
 
     @Override
     public boolean eventCompleteCondition(){
-        return false;
+        //return false;
         //System.out.println("averagePos() "+averagePos());
-        //return averagePos()>rotations-.05&&averagePos()<rotations+.05;//if it has made it to the position 
+        return averagePos()>rotations-.05&&averagePos()<rotations+.05;//if it has made it to the position 
     }
     @Override
     public void endTask(){
@@ -87,7 +88,10 @@ public class DriveEvent extends Event{
     }
 
     private double averagePos(){
-        return (-fl.getEncoder().getPosition()-bl.getEncoder().getPosition()+fr.getEncoder().getPosition()+br.getEncoder().getPosition())/4;
+
+        double aPos= (-fl.getEncoder().getPosition()-bl.getEncoder().getPosition()+fr.getEncoder().getPosition()+br.getEncoder().getPosition())/4;
+        System.out.println("Average Pos"+aPos);
+        return aPos;
     }
 
     /**Sets the rotation per meter based on diameter and gear ratio

@@ -72,6 +72,10 @@ public class Turret extends Neo550{
         }
         return unrestrictedPos;
     }
+
+    public void holdPos(){
+        setPos(getEncoder().getPosition());
+    }
     
     /*private class setEvent extends Event {
         double spd;
