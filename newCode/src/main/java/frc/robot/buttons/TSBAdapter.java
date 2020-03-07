@@ -49,7 +49,7 @@ public class TSBAdapter extends ButtonHandler{
                 break;
                 //Conveyor in
                 case 2:
-                    robot.botomConveyor().set(robot.getTuningValue("conveyor")*-1);
+                    robot.bottomConveyor().set(robot.getTuningValue("conveyor")*-1);
                 break;
                 //Load shooter in
                 case 3:
@@ -73,7 +73,7 @@ public class TSBAdapter extends ButtonHandler{
                 break;
                 //Conveyor out
                 case 7:
-                    robot.botomConveyor().set(robot.getTuningValue("conveyor"));
+                    robot.bottomConveyor().set(robot.getTuningValue("conveyor"));
                 break;
                 //Load shooter out
                 case 8:
@@ -103,7 +103,7 @@ public class TSBAdapter extends ButtonHandler{
                 case 13://everything in
                     robot.outerIntakeFront().set(robot.getTuningValue("intake"));
                     robot.outerIntakeBack().set(robot.getTuningValue("intake")*-1);
-                    robot.botomConveyor().set(-.6);
+                    robot.bottomConveyor().set(-.6);
                     robot.verticalLoader().set(-.6);
                     
                 break;
@@ -111,7 +111,7 @@ public class TSBAdapter extends ButtonHandler{
                 case 14:
                     robot.outerIntakeFront().set(robot.getTuningValue("intake"));
                     robot.outerIntakeBack().set(robot.getTuningValue("intake")*-1);
-                    robot.botomConveyor().set(robot.getTuningValue("conveyor"));
+                    robot.bottomConveyor().set(robot.getTuningValue("conveyor"));
                     robot.verticalLoader().set(robot.getTuningValue("verticalIntake"));
                 break;
                 //shoot
@@ -153,7 +153,7 @@ public class TSBAdapter extends ButtonHandler{
                 //everything off
                 case 23:
                     robot.colorWheel().set(0);
-                    robot.botomConveyor().set(0);
+                    robot.bottomConveyor().set(0);
                     robot.verticalLoader().set(0);
                     robot.meteringWheel().set(0);
                     robot.outerIntakeBack().set(0);
@@ -329,7 +329,7 @@ public class TSBAdapter extends ButtonHandler{
                     case 23:
                         //turn everything off
                         robot.colorWheel().set(0);
-                        robot.botomConveyor().set(0);
+                        robot.bottomConveyor().set(0);
                         robot.verticalLoader().set(0);
                         robot.meteringWheel().set(0);
                         robot.outerIntakeBack().set(0);
@@ -398,7 +398,7 @@ public class TSBAdapter extends ButtonHandler{
                     robot.outerIntakeFront().set(robot.getTuningValue("intake")*-1);
                 break;
                 case 3:
-                    robot.botomConveyor().set(robot.getTuningValue("conveyor"));
+                    robot.bottomConveyor().set(robot.getTuningValue("conveyor"));
                 break;
                 case 4:
                     robot.verticalLoader().set(robot.getTuningValue("verticalIntake"));
@@ -413,7 +413,7 @@ public class TSBAdapter extends ButtonHandler{
                     robot.outerIntakeBack().set(robot.getTuningValue("intake"));
                 break;
                 case 8:
-                    robot.botomConveyor().set(robot.getTuningValue("conveyor")*-1);
+                    robot.bottomConveyor().set(robot.getTuningValue("conveyor")*-1);
                 break;
                 case 9:
                     robot.verticalLoader().set(robot.getTuningValue("verticalIntake")*-1);
@@ -444,7 +444,7 @@ public class TSBAdapter extends ButtonHandler{
                 break;
                 //Conveyor in
                 case 2:
-                    robot.botomConveyor().set(0);
+                    robot.bottomConveyor().set(0);
                 break;
                 //Load shooter in
                 case 3:
@@ -467,7 +467,7 @@ public class TSBAdapter extends ButtonHandler{
                 break;
                 //Conveyor out
                 case 7:
-                    robot.botomConveyor().set(0);
+                    robot.bottomConveyor().set(0);
                 break;
                 //Load shooter out
                 case 8:
@@ -496,7 +496,7 @@ public class TSBAdapter extends ButtonHandler{
                 case 13://everything in
                     robot.outerIntakeFront().set(0);
                     robot.outerIntakeBack().set(0);
-                    robot.botomConveyor().set(0);
+                    robot.bottomConveyor().set(0);
                     robot.verticalLoader().set(0);
                     
                 break;
@@ -504,7 +504,7 @@ public class TSBAdapter extends ButtonHandler{
                 case 14:
                     robot.outerIntakeFront().set(0);
                     robot.outerIntakeBack().set(0);
-                    robot.botomConveyor().set(0);
+                    robot.bottomConveyor().set(0);
                     robot.verticalLoader().set(0);
                 break;
                 //shoot
@@ -572,7 +572,7 @@ public class TSBAdapter extends ButtonHandler{
                     robot.outerIntakeFront().set(0);
                 break;
                 case 3:
-                    robot.botomConveyor().set(0);
+                    robot.bottomConveyor().set(0);
                 break;
                 case 4:
                     robot.verticalLoader().set(0);
@@ -587,7 +587,7 @@ public class TSBAdapter extends ButtonHandler{
                     robot.outerIntakeBack().set(0);
                 break;
                 case 8:
-                    robot.botomConveyor().set(0);
+                    robot.bottomConveyor().set(0);
                 break;
                 case 9:
                     robot.verticalLoader().set(0);
@@ -621,7 +621,7 @@ public class TSBAdapter extends ButtonHandler{
         super.update();
         //TODO shooter elevation with wheel
         //turret with joystick twist check //want to be get z but z is wonky on this controller
-        if (!robot.getLimelight().isEnabled()&&mode==Mode.RobotResponse){
+        if ((!robot.getLimelight().isEnabled()||!robot.getLimelight().hasTarget())&&mode==Mode.RobotResponse){
             /*f (Math.abs(getZ())<.9){
                 robot.turret().holdPos();
             } else {*/

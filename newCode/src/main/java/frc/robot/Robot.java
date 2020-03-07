@@ -454,7 +454,7 @@ public class Robot extends TimedRobot {
     return  climb2; 
   }
 
-  public CANSparkMax botomConveyor(){
+  public CANSparkMax bottomConveyor(){
     return bottomConveyor;
   }
  

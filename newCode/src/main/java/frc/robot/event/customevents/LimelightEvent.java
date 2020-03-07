@@ -15,7 +15,7 @@ public class LimelightEvent extends Event {
 
     @Override
     public void task(){
-        if (enabled){
+        if (enabled&&Robot.getInstance().getLimelight().hasTarget()){
             //do limelight yams
             double power=P*Robot.getInstance().getLimelight().getY();
             if (Math.abs(power)>max){

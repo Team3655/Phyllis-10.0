@@ -22,14 +22,14 @@ public class ConveyorEvent extends Event{
     {
         switch(state){
             case 0:
-            Robot.getInstance().botomConveyor().set(Robot.getInstance().getTuningValue("conveyor"));
+            Robot.getInstance().bottomConveyor().set(Robot.getInstance().getTuningValue("conveyor"));
             break;
         }
         state++;
     }
     @Override
     public void endTask(){
-        Robot.getInstance().botomConveyor().set(0);
+        Robot.getInstance().bottomConveyor().set(0);
     }
 
     @Override
