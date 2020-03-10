@@ -1,5 +1,7 @@
 package frc.robot.event.customevents;
 
+import java.lang.annotation.Target;
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
 import com.revrobotics.SparkMax;
@@ -14,24 +16,40 @@ public class DriveEvent extends Event{
     CANSparkMax fl = Robot.getInstance().getDriveLeft();
     CANSparkMax bl = Robot.getInstance().getDriveRearLeft();
     int state=0;
+    double maxOutput=Robot.getInstance().getTuningValue("drive");
+    double P=Robot.getInstance().getTuningValue("driveP");
 
     private double rotations;
 
     public DriveEvent(double length){
        super();
-        rotations=length*rotationsPerMeter;
+        rotations=-length*rotationsPerMeter;
         System.out.println("Target: "+rotations);
     }
 
     public DriveEvent(double length, long delay){
         super(delay);
-        rotations=length*rotationsPerMeter;
+        rotations=-length*rotationsPerMeter;
         System.out.println("Target: "+rotations);
+    }
+
+    public DriveEvent(double length, double power){
+        super();
+        rotations=-length*rotationsPerMeter;
+        System.out.println("Target: "+rotations);
+        maxOutput=power;
+    }
+    public DriveEvent(double length,double power, long delay){
+        super(delay);
+        rotations=-length*rotationsPerMeter;
+        System.out.println("Target: "+rotations);
+        maxOutput=power;
     }
 
     @Override
     public void task(){
-        switch(state){
+        //internal PID loop
+        /*switch(state){
             case 0:
                 fl.getPIDController().setOutputRange(Robot.getInstance().getTuningValue("drive")*-1, Robot.getInstance().getTuningValue("drive"),1);
                 fr.getPIDController().setOutputRange(Robot.getInstance().getTuningValue("drive")*-1, Robot.getInstance().getTuningValue("drive"),1);
@@ -65,24 +83,36 @@ public class DriveEvent extends Event{
                 state++; //this only needs to be done once per event;
             break;
             
-            /*case 0:
-                fl.set(-.3);
-                fr.set(.3);
-                bl.set(-.3);
-                br.set(.3);
+        }*/
+
+        //external P loop
+        switch (state){
+            case 0:
+                fl.getEncoder().setPosition(0);
+                fr.getEncoder().setPosition(0);
+                bl.getEncoder().setPosition(0);
+                br.getEncoder().setPosition(0);
                 state++;
-            break;*/
-            /*case 1:
-                state++;
-            break;*/
+            break;
+            case 1:
+                double power=P*(rotations-averagePos()/* Error */);
+                if (Math.abs(power)>maxOutput){
+                    power=maxOutput*Math.abs(power)/power;
+                }
+                fl.set(-power);
+                fr.set(power);
+                bl.set(-power);
+                br.set(power);
+            break;
         }
+
     }
 
     @Override
     public boolean eventCompleteCondition(){
         //return false;
         //System.out.println("averagePos() "+averagePos());
-        return averagePos()>rotations-.05&&averagePos()<rotations+.05;//if it has made it to the position 
+        return averagePos()>rotations-.1&&averagePos()<rotations+.1;//if it has made it to the position 
     }
     @Override
     public void endTask(){
@@ -96,7 +126,7 @@ public class DriveEvent extends Event{
     private double averagePos(){
 
         double aPos= (-fl.getEncoder().getPosition()-bl.getEncoder().getPosition()+fr.getEncoder().getPosition()+br.getEncoder().getPosition())/4;
-        System.out.println("Average Pos"+aPos);
+        //System.out.println("Average Pos"+aPos);
         return aPos;
     }
 

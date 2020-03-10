@@ -165,26 +165,26 @@ public class Robot extends TimedRobot {
 
     //add tuning values
     tuningValues.put("climb", .6);
-    tuningValues.put("climbArmUp",.45);
+    tuningValues.put("climbArmUp",.5);
     tuningValues.put("climbArmDown",.28);
     tuningValues.put("drive", 1d);
-    tuningValues.put("driveP", 10d);
-    tuningValues.put("driveI", .1d);
+    tuningValues.put("driveP", .06d);
+    tuningValues.put("driveI", 0d);
     tuningValues.put("driveFF", 0d);
     tuningValues.put("conveyor", .9);
-    tuningValues.put("verticalIntake",.9);
+    tuningValues.put("verticalIntake",1d);
     tuningValues.put("meteringWheel", 7000d);
     tuningValues.put("turret", .1);//needs to be adjusted
-    tuningValues.put("shoot", 4500d);
+    tuningValues.put("shoot", 4250d);
     tuningValues.put("shooterElevation", .1);
     tuningValues.put("turretDefaultMaxSpeed",.2);
     tuningValues.put("turretMaxPos",43.76);
     tuningValues.put("turretMinPos", -84.5);//47.07);
-    tuningValues.put("intake", .7);
+    tuningValues.put("intake", 1d);
     tuningValues.put("elevator", .1d);//servo increment per wheel move (between -1 and 1)
     tuningValues.put("elevatorMaxPos",1d); //don't set this higher than 1 or less than min
     tuningValues.put("elevatorMinPos", 0d);//don't set this less than 1 or more than max
-    tuningValues.put("passThrough", .5);
+    tuningValues.put("passThrough", 1d);
     tuningValues.put("velocityCoefficient", 900d);
     turret=new Turret(22);
     turret.setIdleMode(IdleMode.kBrake);
@@ -193,7 +193,7 @@ public class Robot extends TimedRobot {
     UsbCamera other=CameraServer.getInstance().startAutomaticCapture();
     tractorAdapter= new TSBAdapter(tractorJoystick, this);
     DriveEvent.configure(.2032, 10.71);
-    driveControl=     new DifferentialDrive(fl, fr);
+    driveControl=new DifferentialDrive(fl, fr);
   }
 
   public Limelight getLimelight(){

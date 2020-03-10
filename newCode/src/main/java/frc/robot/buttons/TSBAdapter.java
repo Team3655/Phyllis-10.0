@@ -54,7 +54,7 @@ public class TSBAdapter extends ButtonHandler{
                 //Load shooter in
                 case 3:
                     robot.verticalLoader().set(robot.getTuningValue("verticalIntake")*-1);
-                    robot.meteringWheel().getPIDController().setReference(robot.getTuningValue("meteringWheel")*-1,ControlType.kVelocity);
+                    //robot.meteringWheel().getPIDController().setReference(robot.getTuningValue("meteringWheel")*-1,ControlType.kVelocity);
                     //robot.meteringWheel().set(robot.getTuningValue("meteringWheel")*-1);
                 break;
                 //climb 1&2 up (winch up)
@@ -118,6 +118,7 @@ public class TSBAdapter extends ButtonHandler{
                 case 15:
                     //robot.leftShooterWheel().set(robot.getTuningValue("shoot")*-1);
                     //robot.rightShooterWheel().set(robot.getTuningValue("shoot"));
+                    robot.meteringWheel().getPIDController().setReference(robot.getTuningValue("meteringWheel")*-1,ControlType.kVelocity);
                     robot.leftShooterWheel().getPIDController().setReference(robot.getTuningValue("shoot")*-1, ControlType.kVelocity);
                     robot.rightShooterWheel().getPIDController().setReference(robot.getTuningValue("shoot"), ControlType.kVelocity);
                 break;
@@ -449,7 +450,7 @@ public class TSBAdapter extends ButtonHandler{
                 //Load shooter in
                 case 3:
                     robot.verticalLoader().set(0);
-                    robot.meteringWheel().set(0);
+                    //robot.meteringWheel().set(0);
                 break;
                 //climb 1&2 up (winch up)
                 case 4:
@@ -506,11 +507,17 @@ public class TSBAdapter extends ButtonHandler{
                     robot.outerIntakeBack().set(0);
                     robot.bottomConveyor().set(0);
                     robot.verticalLoader().set(0);
+                    robot.leftShooterWheel().set(0);
+                    robot.rightShooterWheel().set(0);
+                    robot.meteringWheel().set(0);
+                    robot.getDriveLeft().set(0);
+                    robot.getDriveRight().set(0);
                 break;
                 //shoot
                 case 15:
                     robot.leftShooterWheel().set(0);
                     robot.rightShooterWheel().set(0);
+                    robot.meteringWheel().set(0);
                 break;
                 //null
                 //case 16:

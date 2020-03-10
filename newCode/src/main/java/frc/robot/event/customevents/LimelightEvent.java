@@ -5,7 +5,7 @@ import frc.robot.event.Event;
 
 public class LimelightEvent extends Event {
     private final double P = .02;
-    private final double Ppos=.15;
+    private final double Ppos=.001;
     private boolean enabled;
     private boolean terminated;
     private double max=.2;
@@ -39,12 +39,13 @@ public class LimelightEvent extends Event {
             //Robot.getInstance().setTuningValue("shoot", v);
             //easier way is recording power and angle requirements for many distances and 
             //other way:
-            double pos=P*Robot.getInstance().getLimelight().getX();
+            double pos=Ppos*Robot.getInstance().getLimelight().getX();
             //error will equal the angle of x the limelight returns
             //set motor pos+= P times error
             System.out.println("PID output: "+pos);
             System.out.println("new elevator pos: "+(Robot.getInstance().getElevatorLeft().getPosition()+pos));
             System.out.println("current elevator pos: "+Robot.getInstance().getElevatorLeft().getPosition());
+            pos=Robot.getInstance().getElevatorLeft().getPosition()+pos;
             //Robot.eHandler.triggerEvent(new ElevationEvent(Robot.getInstance().getElevatorLeft().getPosition()-pos));
             double posmax=Robot.getInstance().getTuningValue("elevatorMaxPos");
             double posmin=Robot.getInstance().getTuningValue("elevatorMinPos");
@@ -53,7 +54,7 @@ public class LimelightEvent extends Event {
             } else if (pos<posmin){
                 pos=posmin;
             }
-            Robot.getInstance().getElevatorLeft().setPosition(Robot.getInstance().getElevatorLeft().getPosition()+pos);
+            Robot.getInstance().getElevatorLeft().setPosition(pos);
         }
     }
 

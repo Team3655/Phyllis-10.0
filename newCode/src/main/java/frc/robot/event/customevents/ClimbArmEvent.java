@@ -30,6 +30,7 @@ public class ClimbArmEvent extends Event {
         }
         state++;
     }
+    
     @Override
     public boolean eventCompleteCondition(){
         return state==2;
