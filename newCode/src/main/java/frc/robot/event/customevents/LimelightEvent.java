@@ -27,24 +27,24 @@ public class LimelightEvent extends Event {
             //Robot.eHandler.triggerEvent(new PrintEvent("Doing limelight yams."+Robot.getInstance().turret().getEncoder().getPosition()));
             //Robot.getInstance().turret().set(P*Robot.getInstance().getLimelight().getX());
 
-            double h = 2; //distance between turret and target (height)
-            double d = h/Math.tan(-Robot.getInstance().getLimelight().getX()); //distance between turret and target (length)
-            double t = Math.sqrt(19.6*h)/9.8; //time for power cell to travel from turret to target
-            double v = Math.sqrt(Math.pow(d/t, 2)+19.6*h)*Robot.getInstance().getTuningValue("velocityCoefficient"); //velocity of power cell
+            //double h = 2; //distance between turret and target (height)
+            //double d = h/Math.tan(-Robot.getInstance().getLimelight().getX()); //distance between turret and target (length)
+            //double t = Math.sqrt(19.6*h)/9.8; //time for power cell to travel from turret to target
+            //double v = Math.sqrt(Math.pow(d/t, 2)+19.6*h)*Robot.getInstance().getTuningValue("velocityCoefficient"); //velocity of power cell
             //double angle = Math.sinh(Math.sqrt(19.6*h)/v); //elevator angle relative to floor
             //double targetAngle = angle+Robot.getInstance().getLimelight().getX(); //the target angle from Limelight*/
-            if (Math.abs(v)>6000){
-                v=6000*Math.abs(v)/v;
-            }
+            //if (Math.abs(v)>6000){
+                //v=6000*Math.abs(v)/v;
+            //}
             //Robot.getInstance().setTuningValue("shoot", v);
             //easier way is recording power and angle requirements for many distances and 
             //other way:
             double pos=Ppos*Robot.getInstance().getLimelight().getX();
             //error will equal the angle of x the limelight returns
             //set motor pos+= P times error
-            System.out.println("PID output: "+pos);
+            /*System.out.println("PID output: "+pos);
             System.out.println("new elevator pos: "+(Robot.getInstance().getElevatorLeft().getPosition()+pos));
-            System.out.println("current elevator pos: "+Robot.getInstance().getElevatorLeft().getPosition());
+            System.out.println("current elevator pos: "+Robot.getInstance().getElevatorLeft().getPosition());*/
             pos=Robot.getInstance().getElevatorLeft().getPosition()+pos;
             //Robot.eHandler.triggerEvent(new ElevationEvent(Robot.getInstance().getElevatorLeft().getPosition()-pos));
             double posmax=Robot.getInstance().getTuningValue("elevatorMaxPos");

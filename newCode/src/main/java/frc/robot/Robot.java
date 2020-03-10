@@ -96,7 +96,7 @@ public class Robot extends TimedRobot {
   private Servo elevatorLeft = new Servo(0);
   private Servo elevatorRight = new Servo(1);
 
-  AnalogGyro gyro=new AnalogGyro(0);
+  private AnalogGyro gyro=new AnalogGyro(0);
   
   
 
@@ -194,6 +194,7 @@ public class Robot extends TimedRobot {
     tractorAdapter= new TSBAdapter(tractorJoystick, this);
     DriveEvent.configure(.2032, 10.71);
     driveControl=new DifferentialDrive(fl, fr);
+    gyro.calibrate();
   }
 
   public Limelight getLimelight(){
@@ -283,7 +284,7 @@ public class Robot extends TimedRobot {
     }
     //System.out.println("E Angle"+elevatorLeft.getAngle());
     
-}
+  }
 
   @Override
   public void testInit() {
@@ -484,6 +485,10 @@ public class Robot extends TimedRobot {
     return rightJoystick;
   }
 
+  public AnalogGyro gyro(){
+    return gyro;
+  }
+
   private CANSparkMax attemptGetMotor(int i){
     try{
       return new CANSparkMax(i, MotorType.kBrushless);
@@ -521,7 +526,22 @@ public class Robot extends TimedRobot {
     } catch (NullPointerException e){
 
     }
+    stopEverything();
   }
 
+  public void stopEverything(){
+    colorWheel().set(0);
+    bottomConveyor().set(0);
+    verticalLoader().set(0);
+    meteringWheel().set(0);
+    outerIntakeBack().set(0);
+    outerIntakeFront().set(0);
+    getLimelight().disable();
+    turret().set(0);
+    fl.set(0);
+    fr.set(0);
+    bl.set(0);
+    br.set(0);
+  }
 }
 

@@ -27,8 +27,8 @@ public class DriveEventPower extends Event{
 
     @Override
     public void task(){
-        fl.set(power);
-        fr.set(-power);
+        fl.set(-power);
+        fr.set(power);
         bl.set(-power);
         br.set(power);
     }

@@ -153,14 +153,7 @@ public class TSBAdapter extends ButtonHandler{
                 break;
                 //everything off
                 case 23:
-                    robot.colorWheel().set(0);
-                    robot.bottomConveyor().set(0);
-                    robot.verticalLoader().set(0);
-                    robot.meteringWheel().set(0);
-                    robot.outerIntakeBack().set(0);
-                    robot.outerIntakeFront().set(0);
-                    robot.getLimelight().disable();
-                    robot.turret().set(0);
+                    robot.stopEverything();
                 break;
                 //null
                 case 24:
