@@ -72,6 +72,7 @@ public class CompoundEvent extends Event {
                 break;
             }
         }
-        return allEventsComplete;
+        return allEventsComplete||noWait;
     }
+    
 }

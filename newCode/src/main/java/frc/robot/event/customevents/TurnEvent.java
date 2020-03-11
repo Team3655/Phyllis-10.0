@@ -9,7 +9,7 @@ public class TurnEvent extends Event {
     
     double maxOutput;
     double target;
-    static double P=1/180;
+    static double P=1;
     CANSparkMax fr = Robot.getInstance().getDriveRight();
     CANSparkMax br = Robot.getInstance().getDriveRearRight();
     CANSparkMax fl = Robot.getInstance().getDriveLeft();
@@ -30,11 +30,12 @@ public class TurnEvent extends Event {
 
     @Override
     public void task(){
-        double power=P*(Robot.getInstance().gyro().getAngle()-target);
+        System.out.println("angle:"+(-Robot.getInstance().gyro().getAngle()));
+        double power=P*(-Robot.getInstance().gyro().getAngle()-target);
         if (Math.abs(power)>maxOutput){
             power=maxOutput*Math.abs(power)/power;
         }
-        System.out.println("power:"+power);
+        //System.out.println("power:"+power);
         fl.set(power);
         fr.set(power);
         bl.set(power);

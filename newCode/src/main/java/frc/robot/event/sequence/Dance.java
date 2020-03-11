@@ -8,6 +8,7 @@ import frc.robot.event.customevents.ConveyorEvent;
 import frc.robot.event.customevents.DriveEvent;
 import frc.robot.event.customevents.IntakeEvent;
 import frc.robot.event.customevents.ShootEvent;
+import frc.robot.event.customevents.TurnEvent;
 
 public class Dance extends EventSequence {
 
@@ -48,9 +49,12 @@ public class Dance extends EventSequence {
             new DriveEventPower(.2),
             new ConveyorEvent(mspb),
             new DriveEventPower(0),
-            new DriveEventPower(-.2,mspb),
-            new ConveyorEvent(mspb),
-            new DriveEventPower(0),
+            new CompoundEvent(new Event[] {
+                new TurnEvent(.5,.25,mspb),
+                new DriveEventPower(.2,mspb),
+                new ConveyorEvent(mspb*2),
+            },0,true),
+            new DriveEventPower(0,mspb*3),
             new ShootEvent(0,mspb),
 
         });

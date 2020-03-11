@@ -36,11 +36,13 @@ import frc.robot.event.customevents.LimelightEvent;
 import frc.robot.event.customevents.PrintEvent;
 import frc.robot.event.sequence.AutonEventSequence;
 import frc.robot.event.sequence.AutonEventSequence2;
+import frc.robot.event.sequence.Dance;
 import frc.robot.motors.JEPLG;
 import frc.robot.motors.Neo;
 import frc.robot.motors.Neo550;
 import frc.robot.motors.Pro775;
 import frc.robot.motors.Turret;
+import frc.robot.sensors.IRDistanceSensor;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -113,6 +115,8 @@ public class Robot extends TimedRobot {
   JLSBAdapter leftJoystickAdapter = new JLSBAdapter(leftJoystick, this);
   JRSBAdapter rightJoystickAdapter = new JRSBAdapter(rightJoystick, this);
   TSBAdapter tractorAdapter;
+
+  private IRDistanceSensor ballDistance=new IRDistanceSensor(3);
 
   private Hashtable
   <String, Double> tuningValues;
@@ -217,6 +221,7 @@ public class Robot extends TimedRobot {
       
     }
     limelight.disable();
+    gyro.calibrate();
     //need to test
     stopAuton();//distance from back wall to line is 3.048
     startAuton();
@@ -283,7 +288,7 @@ public class Robot extends TimedRobot {
       break;
     }
     //System.out.println("E Angle"+elevatorLeft.getAngle());
-    
+    System.out.println(ballDistance.distance());
   }
 
   @Override
@@ -516,7 +521,7 @@ public class Robot extends TimedRobot {
   }
 
   private void startAuton(){
-    autonSequence=new AutonEventSequence2();
+    autonSequence=new Dance(Music.bpmTomspb(65));// AutonEventSequence2();
     eHandler.triggerEvent(autonSequence);
   }
 
