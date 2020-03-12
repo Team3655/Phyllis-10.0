@@ -5,16 +5,16 @@ import com.revrobotics.CANSparkMax;
 import frc.robot.Robot;
 import frc.robot.event.Event;
 
-public class ConveyorEvent extends Event{
+public class ConveyorEventTime extends Event{
     
     int state=0;
     
-    public ConveyorEvent(long time){
+    public ConveyorEventTime(long time){
         super(0, time);
 
     }
 
-    public ConveyorEvent(long time, long delay){
+    public ConveyorEventTime(long time, long delay){
         super(delay, time);
 
     }

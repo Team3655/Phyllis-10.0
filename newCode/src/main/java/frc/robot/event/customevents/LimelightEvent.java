@@ -78,4 +78,12 @@ public class LimelightEvent extends Event {
     public boolean isEnabled(){
         return enabled;
     }
+
+    /**Returns weather or not turret is locked onto target
+     * 
+     * @return
+     */
+    public boolean targetLocked(){
+        return (Robot.getInstance().getLimelight().hasTarget()&&Math.abs(Robot.getInstance().getLimelight().getX())<.1&&Math.abs(Robot.getInstance().getLimelight().getY())<.1);
+    }
 }

@@ -4,7 +4,7 @@ import frc.robot.event.CompoundEvent;
 import frc.robot.event.Event;
 import frc.robot.event.EventSequence;
 import frc.robot.event.core.DriveEventPower;
-import frc.robot.event.customevents.ConveyorEvent;
+import frc.robot.event.customevents.ConveyorEventTime;
 import frc.robot.event.customevents.DriveEvent;
 import frc.robot.event.customevents.ShootEvent;
 import frc.robot.event.customevents.VerticalIntakeEvent;

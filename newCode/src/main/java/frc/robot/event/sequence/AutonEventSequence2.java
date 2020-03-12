@@ -1,12 +1,14 @@
 package frc.robot.event.sequence;
 
 import frc.robot.Robot;
+import frc.robot.Robot.LOAD_STATE;
 import frc.robot.event.CompoundEvent;
 import frc.robot.event.Event;
 import frc.robot.event.EventSequence;
 import frc.robot.event.core.DriveEventPower;
 import frc.robot.event.customevents.ClimbArmEvent;
-import frc.robot.event.customevents.ConveyorEvent;
+import frc.robot.event.customevents.ConveyorEventSensor;
+import frc.robot.event.customevents.ConveyorEventTime;
 import frc.robot.event.customevents.DriveEvent;
 import frc.robot.event.customevents.IntakeEvent;
 import frc.robot.event.customevents.ShootEvent;
@@ -16,24 +18,52 @@ import frc.robot.event.customevents.VerticalIntakeEvent;
 public class AutonEventSequence2 extends EventSequence{
     public AutonEventSequence2(){
     super(new Event[]{
-            new DriveEvent(-1.5),
-            new ClimbArmEvent(-.28, 500),
+            new CompoundEvent(new Event[]{
+                new DriveEvent(-1.5),
+                new ClimbArmEvent(-.24, 500),
+            }),
             new TurretEvent(-.41),
             new Event(Robot.getInstance().getLimelight()::enable),
             new ShootEvent(4250,900),
             new VerticalIntakeEvent(Robot.getInstance().getTuningValue("verticalIntake")*-1,500),
-            new VerticalIntakeEvent(0,1000),
-            new ConveyorEvent(1500,0),
+            new Event(100){
+                @Override
+                public boolean eventCompleteCondition() {
+                    // TODO Auto-generated method stub
+                    
+                    LOAD_STATE state=Robot.getInstance().getBallState();
+                    System.out.println(state);
+                    return Robot.getInstance().getBallState()==Robot.LOAD_STATE.noBall||Robot.getInstance().getBallState()==LOAD_STATE.ballPresent;
+                }
+            },
+            new VerticalIntakeEvent(0,0),
+            new ConveyorEventSensor(),
             new VerticalIntakeEvent(Robot.getInstance().getTuningValue("verticalIntake")*-1,500),
-            new VerticalIntakeEvent(0,3000),
-            new ClimbArmEvent(.6, 600),
-            new CompoundEvent(new Event[]{
-                new ConveyorEvent(2000),
-                new IntakeEvent(2000)
-            }),
-            new ConveyorEvent(1500,0),
-            new VerticalIntakeEvent(Robot.getInstance().getTuningValue("verticalIntake")*-1,500),
-            new VerticalIntakeEvent(0,3000),
+            new Event(100){
+                @Override
+                public boolean eventCompleteCondition() {
+                    // TODO Auto-generated method stub
+                    
+                    LOAD_STATE state=Robot.getInstance().getBallState();
+                    System.out.println(state);
+                    return Robot.getInstance().getBallState()==Robot.LOAD_STATE.noBall||Robot.getInstance().getBallState()==LOAD_STATE.ballPresent;
+                }
+            },
+            new VerticalIntakeEvent(0,0),
+            new ClimbArmEvent(.6, 500),
+            new ConveyorEventSensor(),
+            new VerticalIntakeEvent(Robot.getInstance().getTuningValue("verticalIntake")*-1,50),
+            new Event(300){
+                @Override
+                public boolean eventCompleteCondition() {
+                    // TODO Auto-generated method stub
+                    
+                    LOAD_STATE state=Robot.getInstance().getBallState();
+                    System.out.println(state);
+                    return Robot.getInstance().getBallState()==Robot.LOAD_STATE.noBall||Robot.getInstance().getBallState()==LOAD_STATE.ballPresent;
+                }
+            },
+            new VerticalIntakeEvent(0,0),
             new ShootEvent(0,0),
             //return turret to start (for testing)
             new Event(Robot.getInstance().getLimelight()::disable),

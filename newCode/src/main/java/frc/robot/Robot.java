@@ -52,7 +52,7 @@ import frc.robot.sensors.IRDistanceSensor;
  * project.
  */
 public class Robot extends TimedRobot {
-  
+  public static enum LOAD_STATE {noBall,ballPresent,ballLoaded};
   private static Robot instance;
   private Limelight limelight=new Limelight();
   public static enum DRIVE_MODE {twoStickArcade,oneStickArcade,tank};
@@ -288,7 +288,7 @@ public class Robot extends TimedRobot {
       break;
     }
     //System.out.println("E Angle"+elevatorLeft.getAngle());
-    System.out.println(ballDistance.distance());
+    //System.out.println(ballDistance.distance());
   }
 
   @Override
@@ -475,6 +475,16 @@ public class Robot extends TimedRobot {
     return elevatorLeft;
   }
  
+  public LOAD_STATE getBallState(){
+    double voltage=ballDistance.distance();
+    if (voltage>=3){
+      return LOAD_STATE.ballLoaded;
+    } else if (voltage>=.5){
+      return LOAD_STATE.ballPresent;
+    } else {
+      return LOAD_STATE.noBall;
+    }
+  }
 
   
   //shouldn't need to access this from anywhere else
@@ -521,7 +531,7 @@ public class Robot extends TimedRobot {
   }
 
   private void startAuton(){
-    autonSequence=new Dance(Music.bpmTomspb(65));// AutonEventSequence2();
+    autonSequence=/*new Dance(Music.bpmTomspb(65));*/new AutonEventSequence2();
     eHandler.triggerEvent(autonSequence);
   }
 
