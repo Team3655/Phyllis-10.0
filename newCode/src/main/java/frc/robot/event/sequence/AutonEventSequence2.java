@@ -26,7 +26,7 @@ public class AutonEventSequence2 extends EventSequence{
             new Event(Robot.getInstance().getLimelight()::enable),
             new ShootEvent(4250,900),
             new VerticalIntakeEvent(Robot.getInstance().getTuningValue("verticalIntake")*-1,500),
-            new Event(100){
+            new Event(){
                 @Override
                 public boolean eventCompleteCondition() {
                     // TODO Auto-generated method stub
@@ -36,10 +36,10 @@ public class AutonEventSequence2 extends EventSequence{
                     return Robot.getInstance().getBallState()==Robot.LOAD_STATE.noBall||Robot.getInstance().getBallState()==LOAD_STATE.ballPresent;
                 }
             },
-            new VerticalIntakeEvent(0,0),
+            new VerticalIntakeEvent(0,500),
             new ConveyorEventSensor(),
             new VerticalIntakeEvent(Robot.getInstance().getTuningValue("verticalIntake")*-1,500),
-            new Event(100){
+            new Event(){
                 @Override
                 public boolean eventCompleteCondition() {
                     // TODO Auto-generated method stub
@@ -49,11 +49,11 @@ public class AutonEventSequence2 extends EventSequence{
                     return Robot.getInstance().getBallState()==Robot.LOAD_STATE.noBall||Robot.getInstance().getBallState()==LOAD_STATE.ballPresent;
                 }
             },
-            new VerticalIntakeEvent(0,0),
+            new VerticalIntakeEvent(0,500),
             new ClimbArmEvent(.6, 500),
             new ConveyorEventSensor(),
             new VerticalIntakeEvent(Robot.getInstance().getTuningValue("verticalIntake")*-1,50),
-            new Event(300){
+            new Event(){
                 @Override
                 public boolean eventCompleteCondition() {
                     // TODO Auto-generated method stub
@@ -63,7 +63,7 @@ public class AutonEventSequence2 extends EventSequence{
                     return Robot.getInstance().getBallState()==Robot.LOAD_STATE.noBall||Robot.getInstance().getBallState()==LOAD_STATE.ballPresent;
                 }
             },
-            new VerticalIntakeEvent(0,0),
+            new VerticalIntakeEvent(0,800),
             new ShootEvent(0,0),
             //return turret to start (for testing)
             new Event(Robot.getInstance().getLimelight()::disable),
