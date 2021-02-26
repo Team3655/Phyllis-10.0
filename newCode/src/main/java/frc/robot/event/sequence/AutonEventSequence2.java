@@ -32,7 +32,7 @@ public class AutonEventSequence2 extends EventSequence{
                     // TODO Auto-generated method stub
                     
                     LOAD_STATE state=Robot.getInstance().getBallState();
-                    System.out.println(state);
+                    //System.out.println(state);
                     return Robot.getInstance().getBallState()==Robot.LOAD_STATE.noBall||Robot.getInstance().getBallState()==LOAD_STATE.ballPresent;
                 }
             },
@@ -45,7 +45,7 @@ public class AutonEventSequence2 extends EventSequence{
                     // TODO Auto-generated method stub
                     
                     LOAD_STATE state=Robot.getInstance().getBallState();
-                    System.out.println(state);
+                    //System.out.println(state);
                     return Robot.getInstance().getBallState()==Robot.LOAD_STATE.noBall||Robot.getInstance().getBallState()==LOAD_STATE.ballPresent;
                 }
             },
@@ -59,7 +59,7 @@ public class AutonEventSequence2 extends EventSequence{
                     // TODO Auto-generated method stub
                     
                     LOAD_STATE state=Robot.getInstance().getBallState();
-                    System.out.println(state);
+                    //System.out.println(state);
                     return Robot.getInstance().getBallState()==Robot.LOAD_STATE.noBall||Robot.getInstance().getBallState()==LOAD_STATE.ballPresent;
                 }
             },

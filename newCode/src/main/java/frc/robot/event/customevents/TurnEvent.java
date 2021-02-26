@@ -30,7 +30,7 @@ public class TurnEvent extends Event {
 
     @Override
     public void task(){
-        System.out.println("angle:"+(-Robot.getInstance().gyro().getAngle()));
+        //System.out.println("angle:"+(-Robot.getInstance().gyro().getAngle()));
         double power=P*(Robot.getInstance().gyro().getAngle()-target);
         if (Math.abs(power)>maxOutput){
             power=maxOutput*Math.abs(power)/power;
