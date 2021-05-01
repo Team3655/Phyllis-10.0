@@ -1,7 +1,0 @@
-<resources>
-    <string name="app_name">ST25AndroidDemoApp</string>
-    <string name="tag_name">Tag name</string>
-    <string name="uid">UID</string>
-    <string name="tag_memory_size">Tag memory size\n(in bytes)</string>
-    <string name="write_ndef_message">Write NDEF message</string>
-</resources>
